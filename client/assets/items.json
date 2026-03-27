@@ -1,0 +1,253 @@
+{
+    "default_head" : {
+        "sprite" : {
+            "w": 9,
+            "h": 9,
+            "x": 0,
+            "y": 99
+        },
+        "equipped" : {
+            "type" : "container",
+            "label" : "head",
+            "children" : [
+                {
+                    "label" : "default_head",
+                    "sprite" : {
+                        "w": 9,
+                        "h": 9,
+                        "x": 0,
+                        "y": 99
+                    },
+                    "x" : -4.5,
+                    "y" : -4.5,
+                    "angle" : 0,
+                    "scale" : 1
+                }
+            ]
+        },
+        "hand" : {}
+    },
+    "default_body" : {
+        "sprite" : {
+            "w": 15,
+            "h": 7,
+            "x": 0,
+            "y": 78
+        },
+        "equipped" : {
+            "type" : "container",
+            "label" : "body",
+            "children" : [
+                {
+                    "label" : "default_body",
+                    "sprite" : {
+                        "w": 15,
+                        "h": 7,
+                        "x": 0,
+                        "y": 126
+                    },
+                    "x" : -7.5,
+                    "y" : -3.5,
+                    "angle" : 0,
+                    "scale" : 1
+                }
+            ]
+        },
+        "hand" : {}
+    },
+    "iron_platemail" : {
+        "display" : "Iron Platemail",
+        "description" : "Forged from two iron ingots",
+        "type" : "body",
+        "sprite" : {
+            "w": 15,
+            "h": 7,
+            "x": 15,
+            "y": 126
+        },
+        "equipped" : {
+            "type" : "container",
+            "label" : "body",
+            "children" : [
+                {
+                    "label" : "iron_platemail_body",
+                    "sprite" : {
+                        "w": 15,
+                        "h": 7,
+                        "x": 15,
+                        "y": 126
+                    },
+                    "x" : -7.5,
+                    "y" : -3.5,
+                    "angle" : 0,
+                    "scale" : 1
+                }
+            ]
+        },
+        "hand" : {
+            "type" : "container",
+            "label" : "hand",
+            "angle" : -23,
+            "scale" : 0.8,
+            "children" : [
+                {
+                    "label" : "iron_platemail_hand",
+                    "sprite" : {
+                        "w": 15,
+                        "h": 7,
+                        "x": 15,
+                        "y": 119
+                    },
+                    "x" : 5,
+                    "y" : -3
+                }
+            ]
+        }
+    },
+    "iron_helmet" : {
+        "display" : "Iron Helmet",
+        "description" : "Forged from an iron ingot",
+        "type" : "head",
+        "sprite" : {
+            "w": 9,
+            "h": 9,
+            "x": 9,
+            "y": 90
+        },
+        "equipped" : {
+            "type" : "container",
+            "label" : "head",
+            "children" : [
+                {
+                    "label" : "iron_helmet_head",
+                    "sprite" : {
+                        "w": 9,
+                        "h": 9,
+                        "x": 9,
+                        "y": 99
+                    },
+                    "x" : -4.5,
+                    "y" : -4.5
+                }
+            ]
+        },
+        "hand" : {}
+    },
+    "kendo_stick" : {
+        "display" : "Kendo Stick",
+        "description" : "Whack whack",
+        "type" : "hand",
+        "sprite" : {
+            "w": 10,
+            "h": 10,
+            "x": 0,
+            "y": 150
+        },
+        "hand" : {
+            "type" : "container",
+            "label" : "hand",
+            "angle" : -23,
+            "children" : [
+                {
+                    "label" : "kendo_stick_hand",
+                    "sprite" : {
+                        "w": 10,
+                        "h": 10,
+                        "x": 0,
+                        "y": 150
+                    },
+                    "x" : 5,
+                    "y" : -6
+                }
+            ]
+        }
+    },
+    "shortsword" : {
+        "display" : "Shortsword",
+        "description" : "it hurts just looking at the blade",
+        "type" : "hand",
+        "sprite" : {
+            "w": 10,
+            "h": 10,
+            "x": 10,
+            "y": 150
+        },
+        "hand" : {
+            "type" : "container",
+            "label" : "hand",
+            "angle" : -23,
+            "children" : [
+                {
+                    "label" : "shortsword_hand",
+                    "sprite" : {
+                        "w": 10,
+                        "h": 10,
+                        "x": 10,
+                        "y": 150
+                    },
+                    "x" : 5,
+                    "y" : -6
+                }
+            ]
+        }
+    },
+    "shortbow" : {
+        "display" : "Shortbow",
+        "description" : "A short bow with short range",
+        "type" : "hand",
+        "sprite" : {
+            "w": 10,
+            "h": 10,
+            "x": 30,
+            "y": 150
+        },
+        "hand" : {
+            "type" : "container",
+            "label" : "hand",
+            "angle" : 15,
+            "children" : [
+                {
+                    "label" : "shortbow_hand",
+                    "sprite" : {
+                        "w": 10,
+                        "h": 10,
+                        "x": 30,
+                        "y": 150
+                    },
+                    "x" : 2,
+                    "y" : -9
+                }
+            ]
+        }
+    },
+    "wind_scroll" : {
+        "display" : "Wind Scroll",
+        "description" : "Cast a strong breeze on your enemies",
+        "type" : "hand",
+        "sprite" : {
+            "w": 10,
+            "h": 10,
+            "x": 50,
+            "y": 150
+        },
+        "hand" : {
+            "type" : "container",
+            "label" : "hand",
+            "angle" : 18,
+            "scale" : 0.8,
+            "children" : [
+                {
+                    "label" : "wind_scroll_hand",
+                    "sprite" : {
+                        "w": 10,
+                        "h": 10,
+                        "x": 50,
+                        "y": 150
+                    },
+                    "x" : 1,
+                    "y" : -12
+                }
+            ]
+        }
+    }
+}

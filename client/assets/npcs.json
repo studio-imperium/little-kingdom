@@ -1,0 +1,177 @@
+{
+    "sheep" : {
+        "display" : "Sheep",
+        "body" : [
+            {
+                "type" : "container",
+                "label" : "body",
+                "children" : [
+                    {
+                        "label" : "sheep_body",
+                        "sprite" : {
+                            "w": 9,
+                            "h": 10,
+                            "x": 10,
+                            "y": 260
+                        },
+                        "x" : -4.5,
+                        "y" : -5
+                    }
+                ]
+            },
+            {
+                "type" : "container",
+                "label" : "head",
+                "children" : [
+                    {
+                        "label" : "sheep_head",
+                        "sprite" : {
+                            "w": 9,
+                            "h": 8,
+                            "x": 0,
+                            "y": 260
+                        },
+                        "x" : -4.5,
+                        "y" : -9.5
+                    }
+                ]
+            }
+        ]
+    },
+    "basilisk" : {
+        "display" : "Basilisk",
+        "body" : [
+            {
+                "type" : "container",
+                "label" : "segment_1",
+                "children" : [
+                    {
+                        "type" : "container",
+                        "label" : "segment_2",
+                        "y" : 10,
+                        "children" : [
+                            {
+                                "type" : "container",
+                                "label" : "segment_3",
+                                "y" : 4.5,
+                                "children" : [
+                                    {
+                                        "label" : "basilisk_segment_3",
+                                        "sprite" : {
+                                            "w": 7,
+                                            "h": 7,
+                                            "x": 60,
+                                            "y": 260
+                                        },
+                                        "x" : -3.5,
+                                        "y" : -1
+                                    }
+                                ]
+                            },
+                            {
+                                "label" : "basilisk_segment_2",
+                                "sprite" : {
+                                    "w": 7,
+                                    "h": 7,
+                                    "x": 60,
+                                    "y": 260
+                                },
+                                "x" : -3.5,
+                                "y" : -1
+                            }
+                        ]
+                    },
+                    {
+                        "label" : "basilisk_segment_1",
+                        "sprite" : {
+                            "w": 7,
+                            "h": 7,
+                            "x": 60,
+                            "y": 260
+                        },
+                        "x" : -3.5,
+                        "y" : 4.5
+                    }
+                ]
+            },
+            {
+                "type" : "container",
+                "label" : "head",
+                "children" : [
+                    {
+                        "label" : "basilisk_head",
+                        "sprite" : {
+                            "w": 19,
+                            "h": 18,
+                            "x": 40,
+                            "y": 260
+                        },
+                        "x" : -9.5,
+                        "y" : -8.5
+                    }
+                ]
+            }
+        ]
+    },
+    "ogg_the_treacherous" : {
+        "display" : "Ogg the Treacherous",
+        "body" : [
+            {
+                "type" : "container",
+                "label" : "hand",
+                "scale" : 1.5,
+                "angle" : 6.5,
+                "children" : [
+                    {
+                        "label" : "ogg_hand",
+                        "sprite" : {
+                            "w": 10,
+                            "h": 10,
+                            "x": 50,
+                            "y": 400
+                        },
+                        "x" : 5,
+                        "y" : -10
+                    }
+                ]
+            },
+            {
+                "type" : "container",
+                "label" : "body",
+                "angle" : 10,
+                "scale" : 1.3,
+                "children" : [
+                    {
+                        "label" : "ogg_body",
+                        "sprite" : {
+                            "w": 30,
+                            "h": 10,
+                            "x": 0,
+                            "y": 400
+                        },
+                        "x" : -15,
+                        "y" : -5
+                    }
+                ]
+            },
+            {
+                "type" : "container",
+                "label" : "head",
+                "scale" : 1.3,
+                "children" : [
+                    {
+                        "label" : "ogg_head",
+                        "sprite" : {
+                            "w": 20,
+                            "h": 20,
+                            "x": 30,
+                            "y": 400
+                        },
+                        "x" : -10,
+                        "y" : -10
+                    }
+                ]
+            }
+        ]
+    }
+}
