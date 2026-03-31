@@ -1,0 +1,233 @@
+[
+    {
+        "id" : 0,
+        "display" : "Kendo Swipe 1",
+        "duration" : 500,
+        "frames" : [
+            {
+                "time" : 0,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : 45,
+                "hand_scale" : 1
+            },
+            {
+                "time" : 150,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : -145,
+                "hand_scale" : 1
+            },
+            {
+                "time" : 500,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : -23,
+                "hand_scale" : 1
+            }
+        ]
+    },
+    {
+        "id" : 1,
+        "display" : "Kendo Swipe 2",
+        "duration" : 500,
+        "frames" : [
+            {
+                "time" : 0,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : -145,
+                "hand_scale" : 1
+            },
+            {
+                "time" : 150,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : 0,
+                "hand_scale" : 1
+            },
+            {
+                "time" : 500,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : -23,
+                "hand_scale" : 1
+            }
+        ]
+    },
+    {
+        "id" : 2,
+        "display" : "Kendo Swipe 3",
+        "duration" : 250,
+        "frames" : [
+            {
+                "time" : 0,
+                "head_angle" : 0,
+                "body_angle" : 25,
+                "hand_angle" : 25,
+                "hand_scale" : 0.8
+            },
+            {
+                "time" : 150,
+                "head_angle" : 0,
+                "body_angle" : -45,
+                "hand_angle" : -110,
+                "hand_scale" : 1
+            },
+            {
+                "time" : 500,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : -23,
+                "hand_scale" : 1
+            }
+        ]
+    },
+    {
+        "id" : 3,
+        "display" : "Archer Shot 1",
+        "duration" : 250,
+        "frames" : [
+            {
+                "time" : 0,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : -45,
+                "hand_scale" : 0.8
+            },
+            {
+                "time" : 150,
+                "head_angle" : 0,
+                "body_angle" : -45,
+                "hand_angle" : -45,
+                "hand_scale" : 1.2
+            },
+            {
+                "time" : 500,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : 0,
+                "hand_scale" : 1
+            }
+        ]
+    },
+    {
+        "id" : 4,
+        "display" : "Archer Reload",
+        "duration" : 500,
+        "frames" : [
+            {
+                "time" : 0,
+                "head_angle" : 0,
+                "body_angle" : -45,
+                "hand_angle" : -45,
+                "hand_scale" : 1
+            },
+            {
+                "time" : 100,
+                "head_angle" : 0,
+                "body_angle" : -45,
+                "hand_angle" : -45,
+                "hand_scale" : 0
+            },
+            {
+                "time" : 250,
+                "head_angle" : 0,
+                "body_angle" : -45,
+                "hand_angle" : -45,
+                "hand_scale" : 1.2
+            },
+            {
+                "time" : 500,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : 0,
+                "hand_scale" : 1
+            }
+        ]
+    },
+    {
+        "id" : 5,
+        "display" : "Hellrazor Spin",
+        "duration" : 1000,
+        "frames" : [
+            {
+                "time" : 0,
+                "head_angle" : 210,
+                "body_angle" : 180,
+                "hand_angle" : 220,
+                "hand_scale" : 1.2
+            },
+            {
+                "time" : 150,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : -23,
+                "hand_scale" : 1.3
+            },
+            {
+                "time" : 300,
+                "head_angle" : -110,
+                "body_angle" : -90,
+                "hand_angle" : -260,
+                "hand_scale" : 1.2
+            },
+            {
+                "time" : 400,
+                "head_angle" : -50,
+                "body_angle" : -45,
+                "hand_angle" : -270,
+                "hand_scale" : 0.9
+            },
+            {
+                "time" : 700,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : -100,
+                "hand_scale" : 1.2
+            },
+            {
+                "time" : 1000,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : -23,
+                "hand_scale" : 1.2
+            }
+        ]
+    },
+    {
+        "id" : 6,
+        "display" : "Hellrazor Normal",
+        "duration" : 1000,
+        "frames" : [
+            {
+                "time" : 0,
+                "head_angle" : 0,
+                "body_angle" : 60,
+                "hand_angle" : 35,
+                "hand_scale" : 1.2
+            },
+            {
+                "time" : 150,
+                "head_angle" : 0,
+                "body_angle" : -40,
+                "hand_angle" : -100,
+                "hand_scale" : 1.3
+            },
+            {
+                "time" : 600,
+                "head_angle" : 0,
+                "body_angle" : -50,
+                "hand_angle" : -110,
+                "hand_scale" : 0.9
+            },
+            {
+                "time" : 1000,
+                "head_angle" : 0,
+                "body_angle" : 0,
+                "hand_angle" : -23,
+                "hand_scale" : 1.2
+            }
+        ]
+    }
+]

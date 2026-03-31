@@ -1,0 +1,81 @@
+[
+    {
+        "id" : 0,
+        "speed" : 1,
+        "range" : 4,
+        "damage" : 1,
+        "animations" : {},
+        "object" : [
+            {
+                "type" : "container",
+                "label" : "projectile",
+                "children" : [
+                    {
+                        "label" : "white_slash",
+                        "sprite" : {
+                            "w": 13,
+                            "h": 6,
+                            "x": 0,
+                            "y": 214
+                        },
+                        "x" : -6.5,
+                        "y" : -3
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id" : 1,
+        "speed" : 2,
+        "range" : 4,
+        "damage" : 1,
+        "animations" : {},
+        "object" : [
+            {
+                "type" : "container",
+                "label" : "projectile",
+                "children" : [
+                    {
+                        "label" : "hellrazor_slash",
+                        "sprite" : {
+                            "w": 10,
+                            "h": 10,
+                            "x": 0,
+                            "y": 210
+                        },
+                        "x" : -5,
+                        "y" : -5,
+                        "scale" : 1.3
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id" : 1,
+        "speed" : 1.5,
+        "range" : 4,
+        "damage" : 1,
+        "animations" : {},
+        "object" : [
+            {
+                "type" : "container",
+                "label" : "projectile",
+                "children" : [
+                    {
+                        "label" : "shortbow_arrow",
+                        "sprite" : {
+                            "w": 6,
+                            "h": 11,
+                            "x": 0,
+                            "y": 220
+                        },
+                        "x" : -2.5,
+                        "y" : -5.5
+                    }
+                ]
+            }
+        ]
+    }
+]

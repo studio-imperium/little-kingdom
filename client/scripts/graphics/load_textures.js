@@ -13,6 +13,8 @@ async function load_textures() {
     await load_tiles()
     await load_items()
     await load_npcs()
+    await load_projectiles()
+    await load_animations()
 
     const assets_texture = await PIXI.Assets.load("assets/assets.png")
     const sheet = new PIXI.Spritesheet(assets_texture, spritesheet_data)
@@ -55,9 +57,7 @@ function load_recursive(obj) {
 async function load_items() {
     const items_json = await (await fetch("/assets/items.json")).json()
 
-    for (let id of Object.keys(items_json)) {
-        let {sprite, hand, equipped} = items_json[id]
-        
+    for (let {id, sprite, hand, equipped} of items_json) {
         spritesheet_data.frames[id] = {
             frame: sprite,
             sourceSize: {w: sprite.w, h: sprite.h},
@@ -77,12 +77,27 @@ async function load_items() {
 async function load_npcs() {
     const npc_json = await (await fetch("/assets/npcs.json")).json()
 
-    for (let id of Object.keys(npc_json)) {
-        let {body} = npc_json[id]
-        
+    for (let {body} of npc_json) {
         for (let bodypart of body) {
             load_recursive(bodypart)
         }
     }
     npc_data = npc_json
+}
+
+async function load_projectiles() {
+    const projectile_json = await (await fetch("/assets/projectiles.json")).json()
+
+    for (let {object} of projectile_json) {
+        for (let part of object) {
+            load_recursive(part)
+        }
+    }
+    projectile_data = projectile_json
+}
+
+
+async function load_animations() {
+    const animation_json = await (await fetch("/assets/animations.json")).json()
+    animation_data = animation_json
 }
