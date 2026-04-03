@@ -17,6 +17,7 @@ const (
 	HANDSHAKE PacketType = iota
 	CHARACTER_POSITION
 	CHARACTER_ATTACK
+	ALLY_ATTACK
 	WORLDSTATE
 	TILES
 )
@@ -43,7 +44,7 @@ func handshakePacket(client *Client, data []byte) {
 	// we would get the character from the hub server
 	// if they are a guest it would make them a default char
 	// otherwise fetch their real char
-	tokens[token] = engine.DefaultCharacter()
+	tokens[token] = engine.DefaultCharacter(client.simulation)
 	// okay back to action
 
 	client.id = token
@@ -51,8 +52,9 @@ func handshakePacket(client *Client, data []byte) {
 	clients[token] = client
 	delete(tokens, token)
 
-	engine.Game.AddCharacter(token, client.character)
-	go client.startSimulation()
+	engine.Worlds[0].AddCharacter(token, client.character)
+	client.instance = engine.Worlds[0]
+	go client.simulation.StartSimulation(client.id, client.instance, client.character)
 }
 
 func setCharacter(client *Client) {
@@ -86,6 +88,19 @@ func HandlePacket(client *Client, r io.Reader) {
 		y := math.Float32frombits(binary.LittleEndian.Uint32(y_bytes))
 		angle := binary.LittleEndian.Uint16(angle_bytes)
 
-		engine.Game.MoveCharacter(client.character, x, y, angle)
+		client.instance.MoveCharacter(client.character, x, y, angle)
+	case CHARACTER_ATTACK:
+		var x_bytes = make([]byte, 4)
+		var y_bytes = make([]byte, 4)
+		var angle_bytes = make([]byte, 2)
+		r.Read(x_bytes)
+		r.Read(y_bytes)
+		r.Read(angle_bytes)
+
+		x := math.Float32frombits(binary.LittleEndian.Uint32(x_bytes))
+		y := math.Float32frombits(binary.LittleEndian.Uint32(y_bytes))
+		angle := binary.LittleEndian.Uint16(angle_bytes)
+
+		client.characterAttack(x, y, angle)
 	}
 }

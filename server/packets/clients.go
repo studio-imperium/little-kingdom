@@ -1,9 +1,10 @@
 package packets
 
 import (
+	"bytes"
+	"encoding/binary"
 	"fmt"
 	"server/engine"
-	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -13,14 +14,15 @@ type Client struct {
 	conn       *websocket.Conn
 	send       chan []byte
 	character  *engine.Character
+	instance   *engine.Engine
 	simulation *engine.Engine
 }
 
 func (client *Client) destroy() {
 	fmt.Println("Client destroyed: ", client.id)
 	client.conn.Close()
+	client.instance.RemoveCharacter(client.id, true)
 	delete(clients, client.id)
-	engine.Game.RemoveCharacter(client.id)
 }
 
 func CreateClient(conn *websocket.Conn) {
@@ -57,75 +59,69 @@ func (client *Client) recievePackets() {
 		if err != nil || messageType != websocket.BinaryMessage {
 			return
 		}
-
 		HandlePacket(client, r)
 	}
 }
 
-var render_distance int = 16
-
-func (client *Client) startSimulation() {
-	for {
-		if client.character.Dead {
+func (client *Client) sendToNearby(payload []byte, includeSelf bool) {
+	client.simulation.ForEachCharacter(func(id uint32, _ *engine.Character) {
+		if !includeSelf && id == client.id {
 			return
 		}
-		gameCharacters := make(map[uint32]struct{})
-		gameNpcs := make(map[uint32]struct{})
-
-		engine.Game.ForEachCharacter(func(id uint32, character *engine.Character) {
-			gameCharacters[id] = struct{}{}
-			if id != client.id && character.Dead {
-				client.simulation.RemoveCharacter(id)
-			} else if id != client.id && int(engine.Distance(character, client.character)) > render_distance {
-				client.simulation.RemoveCharacter(id)
-			}
-		})
-		engine.Game.ForEachNpc(func(id uint32, npc *engine.Npc) {
-			gameNpcs[id] = struct{}{}
-			if npc.Dead {
-				client.simulation.RemoveNpc(id)
-			} else if int(engine.Distance(npc, client.character)) > render_distance {
-				npc.ExitView(client.id, client.character)
-				client.simulation.RemoveNpc(id)
-			}
-		})
-
-		engine.Game.ForEachCharacter(func(id uint32, character *engine.Character) {
-			exists := client.simulation.HasCharacter(id)
-
-			if id != client.id && !exists && int(engine.Distance(character, client.character)) <= render_distance {
-				client.simulation.AddCharacter(id, character)
-			}
-		})
-		engine.Game.ForEachNpc(func(id uint32, npc *engine.Npc) {
-			exists := client.simulation.HasNpc(id)
-
-			if !exists && int(engine.Distance(npc, client.character)) <= render_distance {
-				npc.EnterView(client.id, client.character)
-				client.simulation.AddNpc(id, npc)
-			}
-		})
-
-		var removeCharacters []uint32
-		client.simulation.ForEachCharacter(func(id uint32, character *engine.Character) {
-			if _, exists := gameCharacters[id]; !exists {
-				removeCharacters = append(removeCharacters, id)
-			}
-		})
-		for _, id := range removeCharacters {
-			client.simulation.RemoveCharacter(id)
+		if target, ok := clients[id]; ok {
+			target.send <- payload
 		}
+	})
+}
 
-		var removeNpcs []uint32
-		client.simulation.ForEachNpc(func(id uint32, npc *engine.Npc) {
-			if _, exists := gameNpcs[id]; !exists {
-				removeNpcs = append(removeNpcs, id)
+func (client *Client) characterAttack(x float32, y float32, angle uint16) {
+	item := client.character.GetHand()
+	cooldown := client.character.AttackCooldown
+	data := new(bytes.Buffer)
+	data.WriteByte(uint8(ALLY_ATTACK))
+
+	if cooldown < -0.1 {
+		client.character.AttackCounter = 0
+	}
+	if cooldown < 0 {
+		counter := client.character.AttackCounter
+		item := engine.GetItemData()[item]
+
+		if item.Attacks != nil {
+			attack := item.Attacks[counter]
+			animation := attack.Animation
+			projectiles := attack.Projectiles
+
+			client.character.AttackCooldown = attack.Reload
+
+			binary.Write(data, binary.LittleEndian, client.id)
+			data.WriteByte(animation)
+
+			binary.Write(data, binary.LittleEndian, uint16(len(projectiles)))
+
+			for _, projectile := range projectiles {
+				baseDamage := engine.GetProjectileData()[projectile.ID].Damage
+				damage := baseDamage
+				// we can freely scale damage up/down here based on whatever we want
+
+				id := client.instance.CreateProjectile(projectile.ID, projectile.X+x, projectile.Y+y, projectile.Angle+angle, false, damage)
+				proj := client.instance.Projectiles[id]
+				packet := proj.Pack()
+
+				binary.Write(data, binary.LittleEndian, id)
+				data.Write(packet)
+
+				client.simulation.AddProjectile(id, proj)
+				client.simulation.ForEachCharacter(func(id uint32, character *engine.Character) {
+					if id != client.id {
+						character.Simulation.AddProjectile(id, proj)
+					}
+				})
 			}
-		})
-		for _, id := range removeNpcs {
-			client.simulation.RemoveNpc(id)
 		}
+		client.sendToNearby(data.Bytes(), false)
 
-		time.Sleep(time.Second)
+		client.character.AttackCounter += 1
+		client.character.AttackCounter %= uint8(len(item.Attacks))
 	}
 }

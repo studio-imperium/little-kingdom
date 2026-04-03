@@ -6,19 +6,27 @@ import (
 )
 
 type Character struct {
-	x         float32
-	y         float32
-	angle     uint16
-	health    uint16
-	hand      uint8
-	head      uint8
-	body      uint8
-	inventory map[uint8]uint8
-	Dead      bool
+	x              float32
+	y              float32
+	angle          uint16
+	health         uint16
+	hand           uint8
+	head           uint8
+	body           uint8
+	inventory      map[uint8]uint8
+	AttackCounter  uint8
+	AttackCooldown float32
+	Simulation     *Engine
+	Dead           bool
 }
 
 func (c Character) GetX() float32 { return c.x }
 func (c Character) GetY() float32 { return c.y }
+func (c Character) Damage(amount uint16) {
+	c.health -= amount
+}
+
+func (c Character) GetHand() uint8 { return c.hand }
 
 func (character *Character) PackFull(packet_type uint8) []byte {
 	data := new(bytes.Buffer)
@@ -54,23 +62,40 @@ func (character *Character) Pack() []byte {
 	return data.Bytes()
 }
 
-func DefaultCharacter() *Character {
+func DefaultCharacter(simulation *Engine) *Character {
 	return &Character{
 		x:     0,
 		y:     0,
 		angle: 0,
-		hand:  6,
+		hand:  4,
 		head:  0,
 		body:  2,
 		inventory: map[uint8]uint8{
 			0: 6,
 			1: 5,
 		},
-		Dead: false,
+		AttackCounter:  0,
+		AttackCooldown: 0,
+		Simulation:     simulation,
+		Dead:           false,
+	}
+}
+
+func (character *Character) Tick(delta_sec float32) {
+	character.AttackCooldown -= delta_sec
+
+	if character.AttackCooldown < -1 {
+		character.AttackCooldown = -1
 	}
 }
 
 func (character *Character) Move(x float32, y float32, angle uint16) {
+	character.x = x
+	character.y = y
+	character.angle = angle
+}
+
+func (character *Character) Attack(x float32, y float32, angle uint16) {
 	character.x = x
 	character.y = y
 	character.angle = angle

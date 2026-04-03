@@ -60,13 +60,15 @@ function attack() {
     if (item_data[character.hand]) {
         const data = item_data[character.hand]
 
+        send_attack(character.object.x, character.object.y, character.object.angle)
+
         if (attack_cooldown < -0.1) {
             attack_counter = 0
         }
 
         const attacks = data.attacks
         const attack = attacks[attack_counter]
-        attack_cooldown = data.reload
+        attack_cooldown = attack.reload
 
         for (let proj of attack.projectiles) {
             const id = (Math.random() * 0xFFFFFFFF) >>> 0

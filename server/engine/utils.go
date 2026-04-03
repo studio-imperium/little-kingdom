@@ -5,6 +5,12 @@ import (
 	"math/rand/v2"
 )
 
+type Entity interface {
+	GetX() float32
+	GetY() float32
+	Damage(uint16)
+}
+
 type Object interface {
 	GetX() float32
 	GetY() float32

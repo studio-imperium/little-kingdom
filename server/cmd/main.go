@@ -26,9 +26,9 @@ func connector(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	go packets.PropogateWorldState()
 	engine.InitAssets()
-	go engine.Game.Run()
+	go engine.Worlds[0].Run()
+	go packets.PropogateWorldState()
 
 	fmt.Println("Listening on 8082")
 	http.HandleFunc("/connect", connector)

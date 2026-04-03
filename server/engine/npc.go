@@ -19,6 +19,9 @@ type Npc struct {
 
 func (npc Npc) GetX() float32 { return npc.x }
 func (npc Npc) GetY() float32 { return npc.y }
+func (npc *Npc) Damage(amount uint16) {
+	npc.health -= amount
+}
 
 func (npc *Npc) Pack() []byte {
 	data := new(bytes.Buffer)
@@ -61,6 +64,12 @@ func (npc *Npc) ExitView(id uint32, character *Character) {
 	}
 }
 
+func (npc *Npc) Tick() {
+	if npc.health <= 0 {
+		npc.Dead = true
+	}
+}
+
 func (npc *Npc) Move(delta time.Duration) {
 	if _, ok := npc.target.(*Character); ok {
 		switch npcData[npc.id].Movement.Combat {
@@ -86,10 +95,13 @@ func (npc *Npc) Move(delta time.Duration) {
 }
 
 func DefaultNpc(id uint8, x float32, y float32) *Npc {
+	health := npcData[id].Health
+
 	return &Npc{
 		id:     id,
 		x:      x,
 		y:      y,
+		health: health,
 		target: nil,
 		origin: Point{x, y},
 		nearby: make(map[uint32]*Character),

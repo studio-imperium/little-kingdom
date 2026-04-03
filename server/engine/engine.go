@@ -8,11 +8,15 @@ import (
 	"time"
 )
 
+var Worlds []*Engine = []*Engine{
+	CreateEngine(),
+}
+
 type Engine struct {
-	Characters map[uint32]*Character
-	Npcs       map[uint32]*Npc
-	Projectile map[uint32]*Projectile
-	mu         sync.Mutex
+	Characters  map[uint32]*Character
+	Npcs        map[uint32]*Npc
+	Projectiles map[uint32]*Projectile
+	mu          sync.Mutex
 }
 
 func (engine *Engine) Pack(packet_type uint8) []byte {
@@ -36,8 +40,9 @@ func (engine *Engine) Pack(packet_type uint8) []byte {
 
 func CreateEngine() *Engine {
 	return &Engine{
-		Characters: make(map[uint32]*Character),
-		Npcs:       make(map[uint32]*Npc),
+		Characters:  make(map[uint32]*Character),
+		Npcs:        make(map[uint32]*Npc),
+		Projectiles: make(map[uint32]*Projectile),
 	}
 }
 
@@ -47,9 +52,12 @@ func (engine *Engine) AddCharacter(id uint32, character *Character) {
 	engine.Characters[id] = character
 }
 
-func (engine *Engine) RemoveCharacter(id uint32) {
-	engine.mu.Lock()
-	defer engine.mu.Unlock()
+func (engine *Engine) RemoveCharacter(id uint32, lock bool) {
+	if lock {
+		engine.mu.Lock()
+		defer engine.mu.Unlock()
+	}
+
 	character, exists := engine.Characters[id]
 	if !exists {
 		return
@@ -61,6 +69,24 @@ func (engine *Engine) RemoveCharacter(id uint32) {
 	}
 
 	delete(engine.Characters, id)
+}
+
+func (engine *Engine) CreateProjectile(which uint8, x float32, y float32, angle uint16, evil bool, damage uint16) uint32 {
+	engine.mu.Lock()
+	defer engine.mu.Unlock()
+
+	id := rand.Uint32()
+	projectile := DefaultProjectile(which, x, y, angle, evil, damage)
+	engine.Projectiles[id] = projectile
+
+	return id
+}
+
+func (engine *Engine) AddProjectile(id uint32, projectile *Projectile) {
+	engine.mu.Lock()
+	defer engine.mu.Unlock()
+
+	engine.Projectiles[id] = projectile
 }
 
 func (engine *Engine) RemoveNpc(id uint32) {
@@ -119,24 +145,33 @@ func (engine *Engine) SpawnNpc(which uint8, x float32, y float32) {
 	engine.Npcs[id] = DefaultNpc(which, x, y)
 }
 
-var Game *Engine = CreateEngine()
-
 func (engine *Engine) Run() {
-	// engine.SpawnNpc(1, 0, 0)
 	for i := 0; i < 0; i++ {
 		engine.SpawnNpc(1, 0, 0)
 	}
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 1; i++ {
 		engine.SpawnNpc(0, 0, 0)
 	}
+
 	delta := time.Millisecond * 50
 	ticker := time.NewTicker(delta)
 	for {
 		engine.mu.Lock()
-		for _, npc := range engine.Npcs {
+		for id, npc := range engine.Npcs {
 			if len(npc.nearby) > 0 {
 				npc.UpdateTarget()
 				npc.Move(delta)
+				npc.Tick()
+
+				if npc.Dead {
+					delete(engine.Npcs, id)
+				}
+			}
+		}
+		for id, projectile := range engine.Projectiles {
+			projectile.Tick(delta)
+			if projectile.Dead {
+				delete(engine.Projectiles, id)
 			}
 		}
 		engine.mu.Unlock()

@@ -122,7 +122,7 @@ function build_projectile(projectile_id) {
     for (let part of projectile_data[projectile_id].object) {
         let obj = build_object(part)
 
-        hand_layer.attach(obj)
+        body_layer.attach(obj)
 
         projectile.addChild(obj)
     }

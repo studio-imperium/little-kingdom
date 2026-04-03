@@ -150,10 +150,10 @@
             "x": 0,
             "y": 150
         },
-        "reload" : 0.5,
         "attacks" : [
             {
                 "animation" : 0,
+                "reload" : 0.5,
                 "projectiles" : [
                     {
                         "id" : 0,
@@ -165,32 +165,10 @@
             },
             {
                 "animation" : 1,
-                "projectiles" : [
-                    {
-                        "id" : 1,
-                        "angle" : 0,
-                        "x" : 0,
-                        "y" : 0
-                    }
-                ]
-            },
-            {
-                "animation" : 2,
+                "reload" : 0.75,
                 "projectiles" : [
                     {
                         "id" : 0,
-                        "angle" : 0,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : 0,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 2,
                         "angle" : 0,
                         "x" : 0,
                         "y" : 0
@@ -218,130 +196,8 @@
         }
     },
     {
-        "display" : "Hellrazor",
-        "id" : 5,
-        "description" : "For a tree to reach heaven its roots must reach to down to hell.",
-        "type" : "hand",
-        "sprite" : {
-            "w": 10,
-            "h": 10,
-            "x": 50,
-            "y": 150
-        },
-        "reload" : 1,
-        "attacks" : [
-            {
-                "animation" : 6,
-                "projectiles" : [
-                    {
-                        "id" : 1,
-                        "angle" : 0,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : 22.5,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : -22.5,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : 45,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : -45,
-                        "x" : 0,
-                        "y" : 0
-                    }
-                ]
-            },
-            {
-                "animation" : 5,
-                "projectiles" : [
-                    {
-                        "id" : 1,
-                        "angle" : 0,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : 45,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : 90,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : 135,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : 180,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : 225,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : 270,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : 315,
-                        "x" : 0,
-                        "y" : 0
-                    }
-                ]
-            }
-        ],
-        "hand" : {
-            "type" : "container",
-            "label" : "hand",
-            "angle" : -23,
-            "children" : [
-                {
-                    "label" : "hellrazor_hand",
-                    "sprite" : {
-                        "w": 10,
-                        "h": 10,
-                        "x": 50,
-                        "y": 150
-                    },
-                    "x" : 5,
-                    "y" : -6,
-                    "scale" : 1.2
-                }
-            ]
-        }
-    },
-    {
         "display" : "Yew Bow",
-        "id" : 6,
+        "id" : 5,
         "description" : "Sharpshot!",
         "type" : "hand",
         "sprite" : {
@@ -350,105 +206,20 @@
             "x": 30,
             "y": 150
         },
-        "reload" : 0.1,
         "attacks" : [
             {
                 "animation" : 3,
+                "reload" : 0.1,
                 "projectiles" : [
                     {
-                        "id" : 2,
+                        "id" : 0,
                         "angle" : 0,
-                        "x" : 0,
-                        "y" : 0
-                    }
-                ]
-            },
-            {
-                "animation" : 3,
-                "projectiles" : [
-                    {
-                        "id" : 2,
-                        "angle" : 5,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 2,
-                        "angle" : -5,
-                        "x" : 0,
-                        "y" : 0
-                    }
-                ]
-            },
-            {
-                "animation" : 3,
-                "projectiles" : [
-                    {
-                        "id" : 2,
-                        "angle" : 0,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 2,
-                        "angle" : 10,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 2,
-                        "angle" : -10,
-                        "x" : 0,
-                        "y" : 0
-                    }
-                ]
-            },
-            {
-                "animation" : 3,
-                "projectiles" : [
-                    {
-                        "id" : 2,
-                        "angle" : 0,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 2,
-                        "angle" : 10,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 2,
-                        "angle" : -10,
-                        "x" : 0,
-                        "y" : 0
-                    }
-                ]
-            },
-            {
-                "animation" : 3,
-                "projectiles" : [
-                    {
-                        "id" : 2,
-                        "angle" : 0,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 2,
-                        "angle" : 10,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 2,
-                        "angle" : -10,
                         "x" : 0,
                         "y" : 0
                     }
                 ]
             }
+                       
         ],
         "hand" : {
             "type" : "container",

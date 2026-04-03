@@ -5,6 +5,7 @@
         "health" : 20,
         "speed" : 1,
         "range" : 4,
+        "hitbox" : 1,
         "movement" : {
             "combat" : "run",
             "idle" : "wander"
@@ -53,6 +54,7 @@
         "health" : 20,
         "speed" : 1.5,
         "range" : 6,
+        "hitbox" : 5,
         "movement" : {
             "combat" : "overshoot",
             "idle" : "travel"
@@ -101,6 +103,7 @@
         "health" : 20,
         "speed" : 0.8,
         "range" : 64,
+        "hitbox" : 8,
         "movement" : {
             "combat" : "chase",
             "idle" : "wander"

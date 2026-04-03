@@ -209,8 +209,7 @@ class Projectile {
         this.object.y = y
         this.object.angle = angle
         this.object.scale.set(0)
-
-        console.log(this.object.scale.x)
+        
         add_object(this.object)
     }
 }

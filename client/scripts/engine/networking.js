@@ -5,10 +5,11 @@ const [
     HANDSHAKE,
     CHARACTER_POSITION,
     CHARACTER_ATTACK,
+    RECIEVE_ATTACK,
     WORLD_STATE,
     TILES,
 ] = [
-    0,1,2,3,4
+    0,1,2,3,4,5
 ]
 
 function handshake() {
@@ -90,6 +91,40 @@ function set_world(data) {
 	}
 }
 
+function set_attack(data) {
+    let offset = 1
+    const id = data.getUint32(offset, true)
+    offset += 4
+    const animation = data.getUint8(offset)
+    offset += 1
+    const projectile_count = data.getUint16(offset, true)
+    offset += 2
+
+    if (characters[id]) {
+        characters[id].animator.animate(animation)
+    }
+    if (npcs[id]) {
+        npcs[id].animator.animate(animation)
+    }
+
+    for (let i = 0; i < projectile_count; i++) {
+        const projectile_id = data.getUint32(offset, true)
+        offset += 4
+        const which = data.getUint8(offset)
+        offset += 1
+        const x = data.getFloat32(offset, true)
+        offset += 4
+        const y = data.getFloat32(offset, true)
+        offset += 4
+        const angle = data.getUint16(offset, true)
+        offset += 2
+
+        const projectile = new Projectile(which, x, y, angle)
+        console.log(x, y, angle)
+        projectiles[projectile_id] = projectile
+    }
+}
+
 function send_position(x, y, angle) {
     const buffer = new ArrayBuffer(11)
     const data = new DataView(buffer)
@@ -138,6 +173,9 @@ function connect() {
                 break
             case WORLD_STATE:
                 set_world(data)
+                break
+            case RECIEVE_ATTACK:
+                set_attack(data)
                 break
             default:
                 console.log("Bad packet recieved")
