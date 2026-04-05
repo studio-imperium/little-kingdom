@@ -4,8 +4,8 @@
         "speed" : 1,
         "range" : 4,
         "damage" : 1,
-        "piercing" : false,
         "hitbox" : 0.25,
+        "piercing" : false,
         "animations" : {},
         "object" : [
             {
@@ -22,6 +22,62 @@
                         },
                         "x" : -3.5,
                         "y" : -2.5
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id" : 1,
+        "speed" : 3,
+        "range" : 6,
+        "damage" : 1,
+        "hitbox" : 0.4,
+        "piercing" : true,
+        "animations" : {},
+        "object" : [
+            {
+                "type" : "container",
+                "label" : "projectile",
+                "children" : [
+                    {
+                        "label" : "small_arrow",
+                        "sprite" : {
+                            "w": 5,
+                            "h": 10,
+                            "x": 0,
+                            "y": 221
+                        },
+                        "x" : -2.5,
+                        "y" : -5
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id" : 2,
+        "speed" : 3,
+        "range" : 6,
+        "damage" : 1,
+        "hitbox" : 0.5,
+        "piercing" : true,
+        "animations" : {},
+        "object" : [
+            {
+                "type" : "container",
+                "label" : "projectile",
+                "children" : [
+                    {
+                        "label" : "medium_arrow",
+                        "sprite" : {
+                            "w": 5,
+                            "h": 13,
+                            "x": 15,
+                            "y": 218
+                        },
+                        "x" : -2.5,
+                        "y" : -6.5
                     }
                 ]
             }

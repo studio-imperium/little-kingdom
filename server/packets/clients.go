@@ -22,7 +22,7 @@ func (client *Client) destroy() {
 	fmt.Println("Client destroyed: ", client.id)
 	client.conn.Close()
 	client.instance.RemoveCharacter(client.id, true)
-	delete(clients, client.id)
+	delete(Clients, client.id)
 }
 
 func CreateClient(conn *websocket.Conn) {
@@ -68,7 +68,7 @@ func (client *Client) sendToNearby(payload []byte, includeSelf bool) {
 		if !includeSelf && id == client.id {
 			return
 		}
-		if target, ok := clients[id]; ok {
+		if target, ok := Clients[id]; ok {
 			target.send <- payload
 		}
 	})
@@ -83,7 +83,7 @@ func (client *Client) characterAttack(x float32, y float32, angle uint16) {
 	if cooldown < -0.1 {
 		client.character.AttackCounter = 0
 	}
-	if cooldown < 0 {
+	if cooldown <= 0.01 {
 		counter := client.character.AttackCounter
 		item := engine.GetItemData()[item]
 
@@ -104,7 +104,7 @@ func (client *Client) characterAttack(x float32, y float32, angle uint16) {
 				damage := baseDamage
 				// we can freely scale damage up/down here based on whatever we want
 
-				id := client.instance.CreateProjectile(projectile.ID, projectile.X+x, projectile.Y+y, projectile.Angle+angle, false, damage)
+				id := client.instance.CreateProjectile(projectile.ID, projectile.X+x, projectile.Y+y, (projectile.Angle+angle)%360, false, damage)
 				proj := client.instance.Projectiles[id]
 				packet := proj.Pack()
 
@@ -112,11 +112,6 @@ func (client *Client) characterAttack(x float32, y float32, angle uint16) {
 				data.Write(packet)
 
 				client.simulation.AddProjectile(id, proj)
-				client.simulation.ForEachCharacter(func(id uint32, character *engine.Character) {
-					if id != client.id {
-						character.Simulation.AddProjectile(id, proj)
-					}
-				})
 			}
 		}
 		client.sendToNearby(data.Bytes(), false)

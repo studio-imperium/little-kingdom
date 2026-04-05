@@ -1,5 +1,6 @@
 let CONNECTED = false
 let socket
+let token
 
 const [
     HANDSHAKE,
@@ -7,13 +8,13 @@ const [
     CHARACTER_ATTACK,
     RECIEVE_ATTACK,
     WORLD_STATE,
-    TILES,
+    DAMAGED,
 ] = [
     0,1,2,3,4,5
 ]
 
 function handshake() {
-    const token = (Math.random() * 0x100000000) >>> 0
+    token = (Math.random() * 0x100000000) >>> 0
     const buffer = new ArrayBuffer(5)
     const data = new DataView(buffer)
 
@@ -61,7 +62,9 @@ function set_world(data) {
         let head = data.getUint8(17+offset)
         let body = data.getUint8(18+offset)
 
-        if (characters[id]) {
+        if (id == token) {
+        }
+        else if (characters[id]) {
             characters[id].update(x, y, angle, health, hand, head, body)
         }
         else {
@@ -125,6 +128,18 @@ function set_attack(data) {
     }
 }
 
+function damaged(data) {
+    let offset = 1
+    const id = data.getUint32(offset, true)
+
+    if (characters[id]) {
+        characters[id].damage()
+    }
+    if (npcs[id]) {
+        npcs[id].damage()
+    }
+}
+
 function send_position(x, y, angle) {
     const buffer = new ArrayBuffer(11)
     const data = new DataView(buffer)
@@ -176,6 +191,9 @@ function connect() {
                 break
             case RECIEVE_ATTACK:
                 set_attack(data)
+                break
+            case DAMAGED:
+                damaged(data)
                 break
             default:
                 console.log("Bad packet recieved")

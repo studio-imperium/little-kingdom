@@ -59,7 +59,8 @@ function init_character(x, y, angle, health, hand, head, body, _inventory) {
 function attack() {
     if (item_data[character.hand]) {
         const data = item_data[character.hand]
-
+        
+        character.object.angle = ((character.object.angle % 360) + 360) % 360
         send_attack(character.object.x, character.object.y, character.object.angle)
 
         if (attack_cooldown < -0.1) {

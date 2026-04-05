@@ -7,20 +7,39 @@ import (
 )
 
 type Npc struct {
-	id     uint8
-	x      float32
-	y      float32
-	health uint16
-	target Object
-	origin Object
-	nearby map[uint32]*Character
-	Dead   bool
+	id       uint8
+	entityID uint32
+	x        float32
+	y        float32
+	health   uint16
+	target   Object
+	origin   Object
+	nearby   map[uint32]*Character
+	Dead     bool
 }
 
-func (npc Npc) GetX() float32 { return npc.x }
-func (npc Npc) GetY() float32 { return npc.y }
+func (npc Npc) GetX() float32      { return npc.x }
+func (npc Npc) GetY() float32      { return npc.y }
+func (npc Npc) GetHitbox() float32 { return float32(npcData[npc.id].Hitbox) }
 func (npc *Npc) Damage(amount uint16) {
+	if amount >= npc.health {
+		npc.health = 0
+		return
+	}
 	npc.health -= amount
+
+	if len(npc.nearby) == 0 {
+		return
+	}
+
+	data := new(bytes.Buffer)
+	data.WriteByte(byte(5))
+	binary.Write(data, binary.LittleEndian, npc.entityID)
+	packet := data.Bytes()
+
+	for _, character := range npc.nearby {
+		*character.send <- packet
+	}
 }
 
 func (npc *Npc) Pack() []byte {

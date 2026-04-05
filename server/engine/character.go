@@ -6,6 +6,7 @@ import (
 )
 
 type Character struct {
+	id             uint32
 	x              float32
 	y              float32
 	angle          uint16
@@ -14,14 +15,16 @@ type Character struct {
 	head           uint8
 	body           uint8
 	inventory      map[uint8]uint8
+	send           *chan []byte
 	AttackCounter  uint8
 	AttackCooldown float32
 	Simulation     *Engine
 	Dead           bool
 }
 
-func (c Character) GetX() float32 { return c.x }
-func (c Character) GetY() float32 { return c.y }
+func (c Character) GetX() float32      { return c.x }
+func (c Character) GetY() float32      { return c.y }
+func (c Character) GetHitbox() float32 { return 1 }
 func (c Character) Damage(amount uint16) {
 	c.health -= amount
 }
@@ -62,18 +65,20 @@ func (character *Character) Pack() []byte {
 	return data.Bytes()
 }
 
-func DefaultCharacter(simulation *Engine) *Character {
+func DefaultCharacter(simulation *Engine, send *chan []byte, id uint32) *Character {
 	return &Character{
+		id:    id,
 		x:     0,
 		y:     0,
 		angle: 0,
-		hand:  4,
+		hand:  5,
 		head:  0,
 		body:  2,
 		inventory: map[uint8]uint8{
 			0: 6,
 			1: 5,
 		},
+		send:           send,
 		AttackCounter:  0,
 		AttackCooldown: 0,
 		Simulation:     simulation,

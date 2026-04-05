@@ -19,17 +19,17 @@ const (
 	CHARACTER_ATTACK
 	ALLY_ATTACK
 	WORLDSTATE
-	TILES
+	DAMAGED
 )
 
 var tokens map[uint32]*engine.Character = make(map[uint32]*engine.Character)
-var clients map[uint32]*Client = make(map[uint32]*Client)
+var Clients map[uint32]*Client = make(map[uint32]*Client)
 
 func PropogateWorldState() {
 	delta := time.Second / 5
 	ticker := time.NewTicker(delta)
 	for {
-		for _, client := range clients {
+		for _, client := range Clients {
 			data := client.simulation.Pack(byte(WORLDSTATE))
 			client.send <- data
 		}
@@ -44,12 +44,12 @@ func handshakePacket(client *Client, data []byte) {
 	// we would get the character from the hub server
 	// if they are a guest it would make them a default char
 	// otherwise fetch their real char
-	tokens[token] = engine.DefaultCharacter(client.simulation)
+	tokens[token] = engine.DefaultCharacter(client.simulation, &client.send, token)
 	// okay back to action
 
 	client.id = token
 	client.character = tokens[token]
-	clients[token] = client
+	Clients[token] = client
 	delete(tokens, token)
 
 	engine.Worlds[0].AddCharacter(token, client.character)

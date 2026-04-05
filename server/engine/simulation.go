@@ -65,16 +65,29 @@ func (simulation *Engine) StartSimulation(clientID uint32, instance *Engine, cli
 			if projectile.Dead {
 				delete(simulation.Projectiles, id)
 			}
-			for npcID, npc := range simulation.Npcs {
-				if _, hit := projectile.hitlist[npcID]; hit {
+			if projectile.evil {
+				if _, hit := projectile.hitlist[clientID]; hit || projectile.Dead {
 					continue
 				}
-				if hitboxesIntersect(projectile, npc) {
-					projectile.hitlist[npcID] = npc
+				if hitboxesIntersect(projectile, clientCharacter, false) {
+					projectile.hitlist[clientID] = clientCharacter
 					hits = append(hits, struct {
 						projectile *Projectile
 						target     Entity
-					}{projectile: projectile, target: npc})
+					}{projectile: projectile, target: clientCharacter})
+				}
+			} else {
+				for npcID, npc := range simulation.Npcs {
+					if _, hit := projectile.hitlist[npcID]; hit || projectile.Dead {
+						continue
+					}
+					if hitboxesIntersect(projectile, npc, true) {
+						projectile.hitlist[npcID] = npc
+						hits = append(hits, struct {
+							projectile *Projectile
+							target     Entity
+						}{projectile: projectile, target: npc})
+					}
 				}
 			}
 		}

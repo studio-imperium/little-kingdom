@@ -5,23 +5,27 @@ const projectiles = {}
 function start_engine() {
     app.ticker.add(({deltaMS, deltaTime}) => {
         for (let id of Object.keys(characters)) {
-            let {interpolator, animator, object} = characters[id]
+            let {interpolator, animator, colorAnimator, object} = characters[id]
             interpolator.tick(deltaMS)
             animator.tick(deltaMS)
+            if (colorAnimator) {
+                colorAnimator.tick(deltaMS)
+            }
 
             if (Date.now() > interpolator.last_frame + 400) {
-                object.destroy()
-                delete(characters[id])
+                characters[id].kill(id)
             }
         }
         for (let id of Object.keys(npcs)) {
-            let {interpolator, animator, object} = npcs[id]
+            let {interpolator, animator, colorAnimator, object} = npcs[id]
             interpolator.tick(deltaMS)
             animator.tick(deltaMS)
+            if (colorAnimator) {
+                colorAnimator.tick(deltaMS)
+            }
 
             if (Date.now() > interpolator.last_frame + 400) {
-                object.destroy()
-                delete(npcs[id])
+                npcs[id].kill(id)
             }
         }
         for (let id of Object.keys(projectiles)) {
@@ -116,6 +120,7 @@ class Interpolator {
 
 class Animator {
     constructor(object) {
+        this.object = object
         this.head = object.getChildByName("head")
         this.body = object.getChildByName("body")
         this.hand = object.getChildByName("hand")
@@ -149,6 +154,7 @@ class Animator {
             }
 
             const applyFrame = (frame) => {
+                console.log(frame.object_scale)
                 if (this.head && frame.head_angle !== undefined) {
                     this.head.angle = frame.head_angle
                 }
@@ -165,6 +171,13 @@ class Animator {
                         this.hand.scale = frame.hand_scale
                     }
                 }
+                if (this.object && frame.object_scale !== undefined) {
+                    if (this.object.scale && typeof this.object.scale.set === "function") {
+                        this.object.scale.set(frame.object_scale/64)
+                    } else {
+                        this.object.scale = frame.object_scale/64
+                    }
+                }
             }
 
             if (!frame2) {
@@ -179,6 +192,9 @@ class Animator {
             const lerp = (a, b) => a + (b - a) * t
 
             applyFrame({
+                object_scale: frame1.object_scale !== undefined && frame2.object_scale !== undefined
+                    ? lerp(frame1.object_scale, frame2.object_scale)
+                    : frame1.object_scale,
                 head_angle: frame1.head_angle !== undefined && frame2.head_angle !== undefined
                     ? lerp(frame1.head_angle, frame2.head_angle)
                     : frame1.head_angle,
@@ -198,6 +214,60 @@ class Animator {
     animate(which) {
         this.animation = animation_data[which]
         this.timestamp = 0
+    }
+}
+
+class ColorAnimator {
+    constructor(object) {
+        this.object = object
+        this.active = false
+        this.duration = 0
+        this.elapsed = 0
+        this.startR = 255
+        this.startG = 255
+        this.startB = 255
+    }
+
+    tick(delta_ms) {
+        if (!this.active || !this.object) {
+            return
+        }
+
+        this.elapsed += delta_ms
+        const duration = this.duration
+        const t = duration > 0 ? Math.min(this.elapsed / duration, 1) : 1
+
+        const r = Math.round(this.startR + (255 - this.startR) * t)
+        const g = Math.round(this.startG + (255 - this.startG) * t)
+        const b = Math.round(this.startB + (255 - this.startB) * t)
+
+        this.object.tint = (r << 16) | (g << 8) | b
+
+        if (t >= 1) {
+            this.object.tint = 0xFFFFFF
+            this.active = false
+        }
+    }
+
+    animate(color, duration_ms) {
+        const value = color >>> 0
+        this.startR = (value >> 16) & 0xFF
+        this.startG = (value >> 8) & 0xFF
+        this.startB = value & 0xFF
+        this.duration = Math.max(0, duration_ms || 0)
+        this.elapsed = 0
+        this.active = true
+
+        if (this.object) {
+            this.object.tint = value
+        }
+
+        if (this.duration === 0) {
+            if (this.object) {
+                this.object.tint = 0xFFFFFF
+            }
+            this.active = false
+        }
     }
 }
 
@@ -227,6 +297,7 @@ class Character {
         this.body = body
         this.interpolator = new Interpolator(this.object)
         this.animator = new Animator(this.object)
+        this.colorAnimator = new ColorAnimator(this.object)
         
         add_object(this.object)
     }
@@ -240,6 +311,7 @@ class Character {
             this.object.y = y
             this.object.angle = angle
             this.interpolator.object = this.object
+            this.colorAnimator.object = this.object
             add_object(this.object)
         }
         this.object.health = health
@@ -247,6 +319,22 @@ class Character {
         this.head = head
         this.body = body
         this.interpolator.add_char_frame(x, y, angle)
+    }
+
+    damage() {
+        this.colorAnimator.animate(0xFFB3B3, 300)
+    }
+
+    kill(id) {
+        this.colorAnimator.animate(0xff0000, 300)
+        this.animator.animate(0)
+        this.interpolator.frames = []
+        this.interpolator.last_frame = Date.now()
+
+        setTimeout(() => {
+            this.object.destroy()
+            delete characters[id]
+        }, 300)
     }
 }
 
@@ -258,6 +346,7 @@ class Npc {
         this.object.y = y
         this.interpolator = new Interpolator(this.object)
         this.animator = new Animator(this.object)
+        this.colorAnimator = new ColorAnimator(this.object)
         
         add_object(this.object)
     }
@@ -265,5 +354,21 @@ class Npc {
     update(x, y, health) {
         this.object.health = health
         this.interpolator.add_npc_frame(x, y)
+    }
+
+    damage() {
+        this.colorAnimator.animate(0xFFB3B3, 300)
+    }
+
+    kill(id) {
+        this.colorAnimator.animate(0xFFB3B3, 30000)
+        this.animator.animate(0)
+        this.interpolator.frames = []
+        this.interpolator.last_frame = Date.now()
+
+        setTimeout(() => {
+            this.object.destroy()
+            delete npcs[id]
+        }, 300)
     }
 }

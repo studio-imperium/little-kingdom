@@ -152,7 +152,7 @@
         },
         "attacks" : [
             {
-                "animation" : 0,
+                "animation" : 1,
                 "reload" : 0.5,
                 "projectiles" : [
                     {
@@ -164,7 +164,7 @@
                 ]
             },
             {
-                "animation" : 1,
+                "animation" : 2,
                 "reload" : 0.75,
                 "projectiles" : [
                     {
@@ -212,14 +212,43 @@
                 "reload" : 0.1,
                 "projectiles" : [
                     {
-                        "id" : 0,
-                        "angle" : 0,
+                        "id" : 1,
+                        "angle" : 355,
+                        "x" : 0,
+                        "y" : 0
+                    },
+                    {
+                        "id" : 1,
+                        "angle" : 5,
                         "x" : 0,
                         "y" : 0
                     }
                 ]
-            }
-                       
+            }, 
+            {
+                "animation" : 3,
+                "reload" : 0.05,
+                "projectiles" : [
+                    {
+                        "id" : 2,
+                        "angle" : 350,
+                        "x" : 0,
+                        "y" : 0
+                    },
+                    {
+                        "id" : 2,
+                        "angle" : 0,
+                        "x" : 0,
+                        "y" : 0
+                    },
+                    {
+                        "id" : 2,
+                        "angle" : 10,
+                        "x" : 0,
+                        "y" : 0
+                    }
+                ]
+            }    
         ],
         "hand" : {
             "type" : "container",

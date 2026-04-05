@@ -7,12 +7,12 @@ func Hit(projectile *Projectile, target Entity) {
 	}
 }
 
-func hitboxesIntersect(projectile *Projectile, npc *Npc) bool {
+func hitboxesIntersect(projectile *Projectile, entity Entity, npc bool) bool {
 	projHitbox := float32(projectileData[projectile.id].Hitbox)
-	npcHitbox := float32(npcData[npc.id].Hitbox)
+	entityHitbox := entity.GetHitbox()
 
-	dx := projectile.x - npc.x
-	dy := projectile.y - npc.y
-	radius := projHitbox + npcHitbox
+	dx := projectile.x - entity.GetX()
+	dy := projectile.y - entity.GetY()
+	radius := projHitbox + entityHitbox
 	return (dx*dx + dy*dy) <= radius*radius
 }

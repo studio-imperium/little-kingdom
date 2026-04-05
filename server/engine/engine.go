@@ -135,6 +135,7 @@ func (engine *Engine) MoveCharacter(character *Character, x float32, y float32, 
 func (engine *Engine) AddNpc(id uint32, npc *Npc) {
 	engine.mu.Lock()
 	defer engine.mu.Unlock()
+	npc.entityID = id
 	engine.Npcs[id] = npc
 }
 
@@ -142,14 +143,16 @@ func (engine *Engine) SpawnNpc(which uint8, x float32, y float32) {
 	engine.mu.Lock()
 	defer engine.mu.Unlock()
 	id := rand.Uint32()
-	engine.Npcs[id] = DefaultNpc(which, x, y)
+	npc := DefaultNpc(which, x, y)
+	npc.entityID = id
+	engine.Npcs[id] = npc
 }
 
 func (engine *Engine) Run() {
-	for i := 0; i < 0; i++ {
+	for i := 0; i < 100; i++ {
 		engine.SpawnNpc(1, 0, 0)
 	}
-	for i := 0; i < 1; i++ {
+	for i := 0; i < 1000; i++ {
 		engine.SpawnNpc(0, 0, 0)
 	}
 

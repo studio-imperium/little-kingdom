@@ -1,6 +1,21 @@
 [
     {
         "id" : 0,
+        "display" : "Death",
+        "duration" : 300,
+        "frames" : [
+            {
+                "time" : 0,
+                "object_scale" : 1
+            },
+            {
+                "time" : 100,
+                "object_scale" : 0
+            }
+        ]
+    },
+    {
+        "id" : 1,
         "display" : "Kendo Swipe 1",
         "duration" : 500,
         "frames" : [
@@ -28,7 +43,7 @@
         ]
     },
     {
-        "id" : 1,
+        "id" : 2,
         "display" : "Kendo Swipe 2",
         "duration" : 500,
         "frames" : [
@@ -44,34 +59,6 @@
                 "head_angle" : 0,
                 "body_angle" : 0,
                 "hand_angle" : 0,
-                "hand_scale" : 1
-            },
-            {
-                "time" : 500,
-                "head_angle" : 0,
-                "body_angle" : 0,
-                "hand_angle" : -23,
-                "hand_scale" : 1
-            }
-        ]
-    },
-    {
-        "id" : 2,
-        "display" : "Kendo Swipe 3",
-        "duration" : 250,
-        "frames" : [
-            {
-                "time" : 0,
-                "head_angle" : 0,
-                "body_angle" : 25,
-                "hand_angle" : 25,
-                "hand_scale" : 0.8
-            },
-            {
-                "time" : 150,
-                "head_angle" : 0,
-                "body_angle" : -45,
-                "hand_angle" : -110,
                 "hand_scale" : 1
             },
             {
