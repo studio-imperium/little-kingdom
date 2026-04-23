@@ -20,6 +20,7 @@ const (
 	ALLY_ATTACK
 	WORLDSTATE
 	DAMAGED
+	TILES
 )
 
 var tokens map[uint32]*engine.Character = make(map[uint32]*engine.Character)
@@ -55,9 +56,11 @@ func handshakePacket(client *Client, data []byte) {
 	engine.Worlds[0].AddCharacter(token, client.character)
 	client.instance = engine.Worlds[0]
 	go client.simulation.StartSimulation(client.id, client.instance, client.character)
+	go client.UpdateCells()
 }
 
 func setCharacter(client *Client) {
+	client.character.Move(400, 400, 0)
 	data := client.character.PackFull(byte(HANDSHAKE))
 	client.conn.WriteMessage(websocket.BinaryMessage, data)
 }

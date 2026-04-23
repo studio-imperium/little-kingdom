@@ -1,22 +1,22 @@
 <html>
     <head>
         <title>Pixel Kingdoms</title>
-        <link rel="stylesheet" href="https://use.typekit.net/jbe5uxg.css">
+        <link rel="stylesheet" href="https://use.typekit.net/jbe5uxg.css" />
         <style>
             .slots {
                 position: absolute;
                 background-color: #636363;
 
-				bottom: 1rem;
-				left: 50%;
-				transform: translate(-50%, 0);
-				
-				display: flex;
-				box-sizing: content-box;
-				justify-content: center;
-				border-image: url('/assets/ui/border.png') 9 / 9px / 0 round;
-				border-width: 12px;
-				border-style: solid;
+                bottom: 1rem;
+                left: 50%;
+                transform: translate(-50%, 0);
+
+                display: flex;
+                box-sizing: content-box;
+                justify-content: center;
+                border-image: url("/assets/ui/border.png") 9 / 9px / 0 round;
+                border-width: 12px;
+                border-style: solid;
 
                 border-collapse: separate;
                 border-spacing: 4px 0;
@@ -27,11 +27,11 @@
                 padding: 20px;
                 width: 10px;
                 height: 10px;
-                
+
                 border: transparent;
-				border-width: 4px;
-				border-style: solid;
-                
+                border-width: 4px;
+                border-style: solid;
+
                 image-rendering: pixelated;
             }
             .slot:hover {
@@ -43,7 +43,7 @@
             .slot button {
                 background-color: transparent;
 
-                background-image: url('/assets/assets.png');
+                background-image: url("/assets/assets.png");
                 background-repeat: no-repeat;
                 background-size: 512px 512px;
                 padding: 0;
@@ -52,15 +52,14 @@
                 scale: 4;
                 image-rendering: pixelated;
                 border: 0;
-                filter:
-					drop-shadow(0.5px 0 0.5px #333333c4)
-					drop-shadow(-0.5px 0 0.5px #333333c4)
-					drop-shadow(0 0.5px 0.5px #333333c4)
-					drop-shadow(0 -0.5px 0.5px #333333c4);
+                filter: drop-shadow(0.5px 0 0.5px #333333c4)
+                    drop-shadow(-0.5px 0 0.5px #333333c4)
+                    drop-shadow(0 0.5px 0.5px #333333c4)
+                    drop-shadow(0 -0.5px 0.5px #333333c4);
             }
         </style>
     </head>
-    <body style="margin: 0;">
+    <body style="margin: 0">
         <!-- <div class="slots">
             <div class="slot selected">
                 <button style="background-position: 999px -10px;"></button>
@@ -89,15 +88,15 @@
 
         <script src="/scripts/graphics/app.js"></script>
         <script src="/scripts/graphics/load_textures.js"></script>
-        <script src="/scripts/graphics/objects.js"></script>
         <script src="/scripts/graphics/tiles.js"></script>
+        <script src="/scripts/graphics/objects.js"></script>
 
         <script src="/scripts/engine/engine.js"></script>
         <script src="/scripts/engine/player_character.js"></script>
         <script src="/scripts/engine/networking.js"></script>
-        
+
         <script>
-            init()
+            init();
         </script>
     </body>
 </html>

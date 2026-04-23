@@ -4,18 +4,20 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	"server/atlas"
 	"server/engine"
 
 	"github.com/gorilla/websocket"
 )
 
 type Client struct {
-	id         uint32
-	conn       *websocket.Conn
-	send       chan []byte
-	character  *engine.Character
-	instance   *engine.Engine
-	simulation *engine.Engine
+	id              uint32
+	conn            *websocket.Conn
+	send            chan []byte
+	character       *engine.Character
+	instance        *engine.Engine
+	simulation      *engine.Engine
+	discoveredCells map[atlas.Point]*atlas.Cell
 }
 
 func (client *Client) destroy() {
@@ -27,11 +29,12 @@ func (client *Client) destroy() {
 
 func CreateClient(conn *websocket.Conn) {
 	client := Client{
-		id:         0,
-		conn:       conn,
-		send:       make(chan []byte),
-		character:  nil,
-		simulation: engine.CreateEngine(),
+		id:              0,
+		conn:            conn,
+		send:            make(chan []byte),
+		character:       nil,
+		simulation:      engine.CreateEngine(nil),
+		discoveredCells: make(map[atlas.Point]*atlas.Cell),
 	}
 	go client.recievePackets()
 	go client.writePackets()

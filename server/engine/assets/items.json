@@ -1,272 +1,329 @@
 [
-    {
-        "display" : "Default Head",
-        "id" : 0,
-        "sprite" : {
+  {
+    "display": "Default Head",
+    "id": 0,
+    "sprite": {
+      "w": 9,
+      "h": 9,
+      "x": 0,
+      "y": 99
+    },
+    "equipped": {
+      "type": "container",
+      "label": "head",
+      "children": [
+        {
+          "label": "default_head",
+          "sprite": {
             "w": 9,
             "h": 9,
             "x": 0,
             "y": 99
-        },
-        "equipped" : {
-            "type" : "container",
-            "label" : "head",
-            "children" : [
-                {
-                    "label" : "default_head",
-                    "sprite" : {
-                        "w": 9,
-                        "h": 9,
-                        "x": 0,
-                        "y": 99
-                    },
-                    "x" : -4.5,
-                    "y" : -4.5,
-                    "angle" : 0,
-                    "scale" : 1
-                }
-            ]
-        },
-        "hand" : {}
+          },
+          "x": -4.5,
+          "y": -4.5,
+          "angle": 0,
+          "scale": 1
+        }
+      ]
     },
-    {
-        "display" : "Default Body",
-        "id" : 1,
-        "sprite" : {
+    "hand": {}
+  },
+  {
+    "display": "Default Body",
+    "id": 1,
+    "sprite": {
+      "w": 15,
+      "h": 7,
+      "x": 0,
+      "y": 78
+    },
+    "equipped": {
+      "type": "container",
+      "label": "body",
+      "children": [
+        {
+          "label": "default_body",
+          "sprite": {
             "w": 15,
             "h": 7,
             "x": 0,
-            "y": 78
-        },
-        "equipped" : {
-            "type" : "container",
-            "label" : "body",
-            "children" : [
-                {
-                    "label" : "default_body",
-                    "sprite" : {
-                        "w": 15,
-                        "h": 7,
-                        "x": 0,
-                        "y": 126
-                    },
-                    "x" : -7.5,
-                    "y" : -3.5,
-                    "angle" : 0,
-                    "scale" : 1
-                }
-            ]
-        },
-        "hand" : {}
+            "y": 126
+          },
+          "x": -7.5,
+          "y": -3.5,
+          "angle": 0,
+          "scale": 1
+        }
+      ]
     },
-    {
-        "display" : "Iron Platemail",
-        "id" : 2,
-        "description" : "Forged from two iron ingots",
-        "type" : "body",
-        "sprite" : {
+    "hand": {}
+  },
+  {
+    "display": "Iron Platemail",
+    "id": 2,
+    "description": "Forged from two iron ingots",
+    "type": "body",
+    "sprite": {
+      "w": 15,
+      "h": 7,
+      "x": 15,
+      "y": 126
+    },
+    "equipped": {
+      "type": "container",
+      "label": "body",
+      "children": [
+        {
+          "label": "iron_platemail_body",
+          "sprite": {
             "w": 15,
             "h": 7,
             "x": 15,
             "y": 126
-        },
-        "equipped" : {
-            "type" : "container",
-            "label" : "body",
-            "children" : [
-                {
-                    "label" : "iron_platemail_body",
-                    "sprite" : {
-                        "w": 15,
-                        "h": 7,
-                        "x": 15,
-                        "y": 126
-                    },
-                    "x" : -7.5,
-                    "y" : -3.5,
-                    "angle" : 0,
-                    "scale" : 1
-                }
-            ]
-        },
-        "hand" : {
-            "type" : "container",
-            "label" : "hand",
-            "angle" : -23,
-            "scale" : 0.8,
-            "children" : [
-                {
-                    "label" : "iron_platemail_hand",
-                    "sprite" : {
-                        "w": 15,
-                        "h": 7,
-                        "x": 15,
-                        "y": 119
-                    },
-                    "x" : 5,
-                    "y" : -3
-                }
-            ]
+          },
+          "x": -7.5,
+          "y": -3.5,
+          "angle": 0,
+          "scale": 1
         }
+      ]
     },
-    {
-        "display" : "Iron Helmet",
-        "id" : 3,
-        "description" : "Forged from an iron ingot",
-        "type" : "head",
-        "sprite" : {
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": -23,
+      "scale": 0.8,
+      "children": [
+        {
+          "label": "iron_platemail_hand",
+          "sprite": {
+            "w": 15,
+            "h": 7,
+            "x": 15,
+            "y": 119
+          },
+          "x": 5,
+          "y": -3
+        }
+      ]
+    }
+  },
+  {
+    "display": "Iron Helmet",
+    "id": 3,
+    "description": "Forged from an iron ingot",
+    "type": "head",
+    "sprite": {
+      "w": 9,
+      "h": 9,
+      "x": 9,
+      "y": 90
+    },
+    "equipped": {
+      "type": "container",
+      "label": "head",
+      "children": [
+        {
+          "label": "iron_helmet_head",
+          "sprite": {
             "w": 9,
             "h": 9,
             "x": 9,
-            "y": 90
-        },
-        "equipped" : {
-            "type" : "container",
-            "label" : "head",
-            "children" : [
-                {
-                    "label" : "iron_helmet_head",
-                    "sprite" : {
-                        "w": 9,
-                        "h": 9,
-                        "x": 9,
-                        "y": 99
-                    },
-                    "x" : -4.5,
-                    "y" : -4.5
-                }
-            ]
-        },
-        "hand" : {}
+            "y": 99
+          },
+          "x": -4.5,
+          "y": -4.5
+        }
+      ]
     },
-    {
-        "display" : "Kendo Stick",
-        "id" : 4,
-        "description" : "Whack whack",
-        "type" : "hand",
-        "sprite" : {
+    "hand": {}
+  },
+  {
+    "display": "Kendo Stick",
+    "id": 4,
+    "description": "Whack whack",
+    "type": "hand",
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 0,
+      "y": 150
+    },
+    "attacks": [
+      {
+        "animation": 1,
+        "reload": 0.5,
+        "projectiles": [
+          {
+            "id": 0,
+            "angle": 0,
+            "x": 0,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "animation": 2,
+        "reload": 0.75,
+        "projectiles": [
+          {
+            "id": 0,
+            "angle": 0,
+            "x": 0,
+            "y": 0
+          }
+        ]
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": -23,
+      "children": [
+        {
+          "label": "kendo_stick_hand",
+          "sprite": {
             "w": 10,
             "h": 10,
             "x": 0,
             "y": 150
-        },
-        "attacks" : [
-            {
-                "animation" : 1,
-                "reload" : 0.5,
-                "projectiles" : [
-                    {
-                        "id" : 0,
-                        "angle" : 0,
-                        "x" : 0,
-                        "y" : 0
-                    }
-                ]
-            },
-            {
-                "animation" : 2,
-                "reload" : 0.75,
-                "projectiles" : [
-                    {
-                        "id" : 0,
-                        "angle" : 0,
-                        "x" : 0,
-                        "y" : 0
-                    }
-                ]
-            }
-        ],
-        "hand" : {
-            "type" : "container",
-            "label" : "hand",
-            "angle" : -23,
-            "children" : [
-                {
-                    "label" : "kendo_stick_hand",
-                    "sprite" : {
-                        "w": 10,
-                        "h": 10,
-                        "x": 0,
-                        "y": 150
-                    },
-                    "x" : 5,
-                    "y" : -6
-                }
-            ]
+          },
+          "x": 5,
+          "y": -6
         }
+      ]
+    }
+  },
+  {
+    "display": "Yew Bow",
+    "id": 5,
+    "description": "Sharpshot!",
+    "type": "hand",
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 30,
+      "y": 150
     },
-    {
-        "display" : "Yew Bow",
-        "id" : 5,
-        "description" : "Sharpshot!",
-        "type" : "hand",
-        "sprite" : {
+    "attacks": [
+      {
+        "animation": 3,
+        "reload": 0.2,
+        "projectiles": [
+          {
+            "id": 1,
+            "angle": 355,
+            "x": 0,
+            "y": 0
+          },
+          {
+            "id": 1,
+            "angle": 5,
+            "x": 0,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "animation": 3,
+        "reload": 0.2,
+        "projectiles": [
+          {
+            "id": 2,
+            "angle": 350,
+            "x": 0,
+            "y": 0
+          },
+          {
+            "id": 2,
+            "angle": 0,
+            "x": 0,
+            "y": 0
+          },
+          {
+            "id": 2,
+            "angle": 10,
+            "x": 0,
+            "y": 0
+          }
+        ]
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 0,
+      "children": [
+        {
+          "label": "shortbow_hand",
+          "sprite": {
             "w": 10,
             "h": 10,
             "x": 30,
             "y": 150
-        },
-        "attacks" : [
-            {
-                "animation" : 3,
-                "reload" : 0.1,
-                "projectiles" : [
-                    {
-                        "id" : 1,
-                        "angle" : 355,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 1,
-                        "angle" : 5,
-                        "x" : 0,
-                        "y" : 0
-                    }
-                ]
-            }, 
-            {
-                "animation" : 3,
-                "reload" : 0.05,
-                "projectiles" : [
-                    {
-                        "id" : 2,
-                        "angle" : 350,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 2,
-                        "angle" : 0,
-                        "x" : 0,
-                        "y" : 0
-                    },
-                    {
-                        "id" : 2,
-                        "angle" : 10,
-                        "x" : 0,
-                        "y" : 0
-                    }
-                ]
-            }    
-        ],
-        "hand" : {
-            "type" : "container",
-            "label" : "hand",
-            "angle" : 0,
-            "children" : [
-                {
-                    "label" : "shortbow_hand",
-                    "sprite" : {
-                        "w": 10,
-                        "h": 10,
-                        "x": 30,
-                        "y": 150
-                    },
-                    "x" : 0,
-                    "y" : -9
-                }
-            ]
+          },
+          "x": 0,
+          "y": -9
         }
+      ]
     }
+  },
+  {
+    "display": "Spell",
+    "id": 6,
+    "description": "Whack whack",
+    "type": "hand",
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 80,
+      "y": 150
+    },
+    "attacks": [
+      {
+        "animation": 1,
+        "reload": 0.5,
+        "projectiles": [
+          {
+            "id": 0,
+            "angle": 0,
+            "x": 0,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "animation": 2,
+        "reload": 0.75,
+        "projectiles": [
+          {
+            "id": 0,
+            "angle": 0,
+            "x": 0,
+            "y": 0
+          }
+        ]
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": -23,
+      "children": [
+        {
+          "label": "spell_hand",
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 0,
+            "y": 150
+          },
+          "x": 5,
+          "y": -6,
+          "scale": 0.8
+        }
+      ]
+    }
+  }
 ]

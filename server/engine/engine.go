@@ -4,18 +4,20 @@ import (
 	"bytes"
 	"encoding/binary"
 	"math/rand/v2"
+	"server/atlas"
 	"sync"
 	"time"
 )
 
 var Worlds []*Engine = []*Engine{
-	CreateEngine(),
+	CreateEngine(CreateIsland(800)),
 }
 
 type Engine struct {
 	Characters  map[uint32]*Character
 	Npcs        map[uint32]*Npc
 	Projectiles map[uint32]*Projectile
+	World       *atlas.World
 	mu          sync.Mutex
 }
 
@@ -38,11 +40,12 @@ func (engine *Engine) Pack(packet_type uint8) []byte {
 	return data.Bytes()
 }
 
-func CreateEngine() *Engine {
+func CreateEngine(world *atlas.World) *Engine {
 	return &Engine{
 		Characters:  make(map[uint32]*Character),
 		Npcs:        make(map[uint32]*Npc),
 		Projectiles: make(map[uint32]*Projectile),
+		World:       world,
 	}
 }
 
@@ -150,10 +153,10 @@ func (engine *Engine) SpawnNpc(which uint8, x float32, y float32) {
 
 func (engine *Engine) Run() {
 	for i := 0; i < 100; i++ {
-		engine.SpawnNpc(1, 0, 0)
+		engine.SpawnNpc(1, 400, 400)
 	}
 	for i := 0; i < 1000; i++ {
-		engine.SpawnNpc(0, 0, 0)
+		engine.SpawnNpc(0, 400, 400)
 	}
 
 	delta := time.Millisecond * 50
