@@ -1,9 +1,9 @@
 package atlas
 
 type Tile struct {
-	X     int  `json:"x"`
-	Y     int  `json:"y"`
-	Value int8 `json:"value"`
+	X     int   `json:"x"`
+	Y     int   `json:"y"`
+	Value uint8 `json:"value"`
 }
 
 func (tile Tile) point() Point {

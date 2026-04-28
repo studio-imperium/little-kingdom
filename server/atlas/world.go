@@ -5,6 +5,11 @@ import (
 	"sync"
 )
 
+type TileData struct {
+	Type    uint8
+	CellIdx uint16
+}
+
 type World struct {
 	rnd          *rand.Rand
 	points       []Point
@@ -13,6 +18,7 @@ type World struct {
 
 	Cells []*Cell `json:"cells"`
 	Size  int     `json:"size"`
+	Tiles []TileData
 }
 
 func newWorld(size int, density int, seed int64) *World {
@@ -23,6 +29,7 @@ func newWorld(size int, density int, seed int64) *World {
 		cellByOrigin: make(map[Point]*Cell),
 		Cells:        []*Cell{},
 		Size:         size,
+		Tiles:        make([]TileData, size*size),
 	}
 	world.triangulate()
 	world.assignVertices()
@@ -54,7 +61,7 @@ func (world *World) triangulate() {
 			Y: float64(world.Size) * world.rnd.Float64(),
 		}
 
-		world.Cells = append(world.Cells, NewCell(world.points[idx]))
+		world.Cells = append(world.Cells, NewCell(world.points[idx], idx))
 		cell := world.Cells[idx]
 		world.cellByOrigin[cell.Origin] = cell
 	}

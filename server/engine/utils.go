@@ -33,6 +33,19 @@ func Distance(obj1 Object, obj2 Object) float64 {
 	return math.Sqrt(math.Pow(float64(dx), 2) + math.Pow(float64(dy), 2))
 }
 
+func Angle(obj1 Object, obj2 Object) float64 {
+	y1 := float64(obj1.GetY())
+	y2 := float64(obj2.GetY())
+	x1 := float64(obj1.GetX())
+	x2 := float64(obj2.GetX())
+
+	angle := math.Atan2(y2-y1, x2-x1) * 180 / math.Pi
+	if angle < 0 {
+		angle += 360
+	}
+	return angle
+}
+
 type Point struct {
 	x float32
 	y float32

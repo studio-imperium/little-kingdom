@@ -6,22 +6,28 @@ import (
 
 type Cell struct {
 	vertices []Vertex
-	biome    int8
+	biome    uint8
 
 	Origin Point
 	Tiles  []Tile `json:"tiles"`
 
 	grid map[Point]*Tile
+	Idx  int
 	mu   sync.Mutex
 }
 
-func NewCell(origin Point) *Cell {
+func (cell *Cell) GetBiome() uint8 {
+	return cell.biome
+}
+
+func NewCell(origin Point, idx int) *Cell {
 	return &Cell{
 		biome:    0,
 		vertices: []Vertex{},
 		Origin:   origin,
 		Tiles:    []Tile{},
 		grid:     make(map[Point]*Tile),
+		Idx:      idx,
 	}
 }
 

@@ -45,8 +45,23 @@ function set_character(data) {
     inventory[slot] = item
   }
 
-  init_character(x, y, angle, health, hand, head, body, inventory)
-  start_engine()
+  if (!initialized_character) {
+    init_character(x, y, angle, health, inventory[hand], head, body, inventory)
+    start_engine()
+    initialized_character = true
+  } else {
+    character.update(
+      character.object.x,
+      character.object.y,
+      angle,
+      health,
+      inventory[hand],
+      head,
+      body,
+      inventory,
+    )
+  }
+  refresh_inventory(inventory, hand)
 }
 
 function set_world(data) {
@@ -99,14 +114,16 @@ function set_attack(data) {
   offset += 4
   const animation = data.getUint8(offset)
   offset += 1
+  const duration = data.getUint16(offset, true)
+  offset += 2
   const projectile_count = data.getUint16(offset, true)
   offset += 2
 
   if (characters[id]) {
-    characters[id].animator.animate(animation)
+    characters[id].animator.animate(animation, duration / 1000)
   }
   if (npcs[id]) {
-    npcs[id].animator.animate(animation)
+    npcs[id].animator.animate(animation, duration / 1000)
   }
 
   for (let i = 0; i < projectile_count; i++) {
@@ -122,8 +139,28 @@ function set_attack(data) {
     offset += 2
 
     const projectile = new Projectile(which, x, y, angle)
-    console.log(x, y, angle)
     projectiles[projectile_id] = projectile
+  }
+
+  const bomb_count = data.getUint16(offset, true)
+  offset += 2
+
+  for (let i = 0; i < bomb_count; i++) {
+    const bomb_id = data.getUint32(offset, true)
+    offset += 4
+    const which = data.getUint8(offset)
+    offset += 1
+    const x = data.getFloat32(offset, true)
+    offset += 4
+    const y = data.getFloat32(offset, true)
+    offset += 4
+    const origin_x = data.getFloat32(offset, true)
+    offset += 4
+    const origin_y = data.getFloat32(offset, true)
+    offset += 4
+
+    const bomb = new Bomb(which, origin_x, origin_y, x, y)
+    bombs[bomb_id] = bomb
   }
 }
 
@@ -169,8 +206,10 @@ function send_position(x, y, angle) {
 }
 
 function send_attack(x, y, angle) {
-  const buffer = new ArrayBuffer(11)
+  const buffer = new ArrayBuffer(19)
   const data = new DataView(buffer)
+
+  let [target_x, target_y] = get_mouse_target()
 
   data.setUint8(0, CHARACTER_ATTACK)
   data.setFloat32(1, x, true)
@@ -183,11 +222,11 @@ function send_attack(x, y, angle) {
 }
 
 function select_slot(idx) {
-  const buffer = new ArrayBuffer(3)
+  const buffer = new ArrayBuffer(2)
   const data = new DataView(buffer)
 
   data.setUint8(0, SELECT_SLOT)
-  data.setUint(1, idx, true)
+  data.setUint8(1, idx)
 
   socket.send(data)
 }

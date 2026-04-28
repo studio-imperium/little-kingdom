@@ -7,8 +7,6 @@ import (
 	"math"
 	"server/engine"
 	"time"
-
-	"github.com/gorilla/websocket"
 )
 
 type PacketType uint8
@@ -21,6 +19,7 @@ const (
 	WORLDSTATE
 	DAMAGED
 	TILES
+	SELECT_SLOT
 )
 
 var tokens map[uint32]*engine.Character = make(map[uint32]*engine.Character)
@@ -61,8 +60,7 @@ func handshakePacket(client *Client, data []byte) {
 
 func setCharacter(client *Client) {
 	client.character.Move(400, 400, 0)
-	data := client.character.PackFull(byte(HANDSHAKE))
-	client.conn.WriteMessage(websocket.BinaryMessage, data)
+	client.sendCharacter()
 }
 
 func HandlePacket(client *Client, r io.Reader) {
@@ -95,15 +93,25 @@ func HandlePacket(client *Client, r io.Reader) {
 	case CHARACTER_ATTACK:
 		var x_bytes = make([]byte, 4)
 		var y_bytes = make([]byte, 4)
+		var target_x_bytes = make([]byte, 4)
+		var target_y_bytes = make([]byte, 4)
 		var angle_bytes = make([]byte, 2)
 		r.Read(x_bytes)
 		r.Read(y_bytes)
+		r.Read(target_x_bytes)
+		r.Read(target_y_bytes)
 		r.Read(angle_bytes)
 
 		x := math.Float32frombits(binary.LittleEndian.Uint32(x_bytes))
 		y := math.Float32frombits(binary.LittleEndian.Uint32(y_bytes))
+		targetX := math.Float32frombits(binary.LittleEndian.Uint32(target_x_bytes))
+		targetY := math.Float32frombits(binary.LittleEndian.Uint32(target_y_bytes))
 		angle := binary.LittleEndian.Uint16(angle_bytes)
 
-		client.characterAttack(x, y, angle)
+		client.characterAttack(x, y, targetX, targetY, angle)
+	case SELECT_SLOT:
+		var idx_bytes = make([]byte, 1)
+		r.Read(idx_bytes)
+		client.selectSlot(idx_bytes[0])
 	}
 }

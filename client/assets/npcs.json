@@ -4,13 +4,98 @@
     "display": "Sheep",
     "health": 5,
     "speed": 1,
-    "range": 4,
+    "range": 16,
     "hitbox": 1,
-    "movement": {
-      "combat": "run",
-      "idle": "wander"
-    },
-    "animations": {},
+    "modes": [
+      {
+        "duration": 1,
+        "max_health": 5,
+        "min_health": 0,
+        "single_use": true,
+        "on_spawn": true,
+        "movement": "run",
+        "attacks": [
+          {
+            "animation": 6,
+            "reload": 0.3,
+            "wait": 2,
+            "summons": [
+              {
+                "id": 1,
+                "x": 0,
+                "y": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "duration": 4,
+        "max_health": 5,
+        "min_health": 0,
+        "movement": "chase",
+        "attacks": [
+          {
+            "animation": 6,
+            "reload": 0.3,
+            "wait": 1,
+            "projectiles": [
+              {
+                "id": 4,
+                "angle": 355
+              },
+              {
+                "id": 4,
+                "angle": 5
+              }
+            ]
+          },
+          {
+            "animation": 7,
+            "reload": 0.5,
+            "wait": 1,
+            "bombs": [
+              {
+                "id": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "duration": 4,
+        "max_health": 5,
+        "min_health": 0,
+        "movement": "run",
+        "attacks": [
+          {
+            "animation": 6,
+            "reload": 0.3,
+            "wait": 1,
+            "projectiles": [
+              {
+                "id": 4,
+                "angle": 355
+              },
+              {
+                "id": 4,
+                "angle": 5
+              }
+            ]
+          },
+          {
+            "animation": 7,
+            "reload": 0.5,
+            "wait": 1,
+            "bombs": [
+              {
+                "id": 0
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "body": [
       {
         "type": "container",
@@ -55,11 +140,20 @@
     "speed": 1.5,
     "range": 6,
     "hitbox": 1,
-    "movement": {
-      "combat": "overshoot",
-      "idle": "travel"
-    },
-    "animations": {},
+    "modes": [
+      {
+        "duration": 10,
+        "health": [0, 1],
+        "movement": "chase",
+        "attacks": [
+          {
+            "animation": 0,
+            "reload": 0.3,
+            "wait": 1
+          }
+        ]
+      }
+    ],
     "body": [
       {
         "type": "container",
@@ -104,11 +198,20 @@
     "speed": 0.8,
     "range": 64,
     "hitbox": 8,
-    "movement": {
-      "combat": "chase",
-      "idle": "wander"
-    },
-    "animations": {},
+    "modes": [
+      {
+        "duration": 10,
+        "health": [0, 1],
+        "movement": "chase",
+        "attacks": [
+          {
+            "animation": 0,
+            "reload": 0.3,
+            "wait": 1
+          }
+        ]
+      }
+    ],
     "body": [
       {
         "type": "container",

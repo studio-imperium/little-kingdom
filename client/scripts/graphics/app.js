@@ -2,9 +2,14 @@ const OBJECT_SIZE = 8
 const TILE_SIZE = 8
 const app = new PIXI.Application()
 
+window.__PIXI_DEVTOOLS__ = {
+  app: app,
+}
+
 async function init() {
   await app.init({
     background: "#1f1f1f",
+    resizeTo: window,
     width: window.innerWidth,
     height: window.innerHeight,
     useContextAlpha: false,

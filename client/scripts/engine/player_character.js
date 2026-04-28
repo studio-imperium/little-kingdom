@@ -15,7 +15,6 @@ let attack_counter = 0
 function init_character(x, y, angle, health, hand, head, body, _inventory) {
   character = new Character(x, y, angle, health, hand, head, body)
   character.object.zIndex = 2
-  inventory = _inventory
   init_combat()
 
   const send_rate = 50
@@ -76,20 +75,39 @@ function attack() {
     }
 
     const attacks = data.attacks
-    const attack = attacks[attack_counter]
+    const attack = attacks[attack_counter % data.attacks.length]
+
     attack_cooldown = attack.reload
 
-    for (let proj of attack.projectiles) {
+    const attack_projectiles = attack.projectiles ? attack.projectiles : []
+    const attack_bombs = attack.bombs ? attack.bombs : []
+
+    for (let proj of attack_projectiles) {
       const id = (Math.random() * 0xffffffff) >>> 0
       const projectile = new Projectile(
         proj.id,
         character.object.x,
         character.object.y,
         character.object.angle + proj.angle,
+        true,
       )
       projectiles[id] = projectile
     }
-    character.animator.animate(attack.animation)
+    for (let bom of attack_bombs) {
+      const id = (Math.random() * 0xffffffff) >>> 0
+      const [target_x, target_y] = get_mouse_target()
+      const bomb = new Bomb(
+        bom.id,
+        character.object.x,
+        character.object.y,
+        target_x,
+        target_y,
+        true,
+      )
+      bombs[id] = bomb
+    }
+
+    character.animator.animate(attack.animation, attack.reload)
 
     attack_counter += 1
     attack_counter %= attacks.length
@@ -138,3 +156,9 @@ document.addEventListener("keyup", (e) => {
     velocity.y -= 1
   }
 })
+
+function get_mouse_target() {
+  const mouse = app.renderer.events.pointer.global
+  const point = app.stage.toLocal(mouse)
+  return [point.x, point.y]
+}

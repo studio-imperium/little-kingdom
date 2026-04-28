@@ -13,6 +13,7 @@ type Projectile struct {
 	damage  uint16
 	x       float32
 	y       float32
+	origin  *Point
 	angle   uint16
 	hitlist map[uint32]Object
 	Dead    bool
@@ -51,6 +52,7 @@ func DefaultProjectile(id uint8, x float32, y float32, angle uint16, evil bool, 
 		damage:  damage,
 		x:       x,
 		y:       y,
+		origin:  &Point{x, y},
 		angle:   angle,
 		hitlist: make(map[uint32]Object),
 		Dead:    false,

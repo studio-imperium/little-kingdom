@@ -56,14 +56,21 @@ func (simulation *Engine) StartSimulation(clientID uint32, instance *Engine, cli
 			target     Entity
 		}, 0)
 
+		splodes := make([]struct {
+			bomb   *Bomb
+			target Entity
+		}, 0)
+
 		simulation.mu.Lock()
-		for npcID, npc := range simulation.Npcs {
-			_ = npcID
-			_ = npc
-		}
+
 		for id, projectile := range simulation.Projectiles {
-			if projectile.Dead {
+			out_of_range := Distance(projectile, projectile.origin) > float64(projectileData[projectile.id].Range)
+			if projectile.Dead || out_of_range {
+				projectile.Dead = true
 				delete(simulation.Projectiles, id)
+			}
+			if Distance(projectile, projectile.origin) > float64(projectileData[projectile.id].Range) {
+				projectile.Dead = true
 			}
 			if projectile.evil {
 				if _, hit := projectile.hitlist[clientID]; hit || projectile.Dead {
@@ -91,12 +98,41 @@ func (simulation *Engine) StartSimulation(clientID uint32, instance *Engine, cli
 				}
 			}
 		}
-		simulation.mu.Unlock()
+
+		for id, bomb := range simulation.Bombs {
+			if bomb.Dead {
+				delete(simulation.Bombs, id)
+			}
+			if bomb.timer <= 0 {
+				bomb.Dead = true
+				if bomb.evil {
+					if withinRange(bomb, clientCharacter, false) {
+						splodes = append(splodes, struct {
+							bomb   *Bomb
+							target Entity
+						}{bomb: bomb, target: clientCharacter})
+					}
+				} else {
+					for _, npc := range simulation.Npcs {
+						if withinRange(bomb, npc, true) {
+							splodes = append(splodes, struct {
+								bomb   *Bomb
+								target Entity
+							}{bomb: bomb, target: npc})
+						}
+					}
+				}
+			}
+		}
 
 		for _, hit := range hits {
 			Hit(hit.projectile, hit.target)
 		}
+		for _, splode := range splodes {
+			Splode(splode.bomb, splode.target)
+		}
 
+		simulation.mu.Unlock()
 		<-ticker.C
 	}
 }

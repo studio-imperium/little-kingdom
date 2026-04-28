@@ -1,7 +1,6 @@
 package atlas
 
 import (
-	"fmt"
 	"math"
 	"math/rand"
 	"sync"
@@ -22,8 +21,6 @@ func (world *World) Infect(biomes []Biome, decay float64) {
 		}
 	}
 
-	fmt.Println(starting_cell.Origin)
-
 	// Keep track of whom to infect
 	var changedCells []*Cell
 	seen := make(map[*Cell]bool)
@@ -35,11 +32,11 @@ func (world *World) Infect(biomes []Biome, decay float64) {
 	// Keep track of biome
 	maxBiome := len(biomes) - 1
 	currentBiome := 0.0
-	convertBiome := func() int8 {
+	convertBiome := func() uint8 {
 		if int(currentBiome) > maxBiome {
-			return int8(maxBiome)
+			return uint8(maxBiome)
 		}
-		return int8(math.Floor(currentBiome))
+		return uint8(math.Floor(currentBiome))
 	}
 
 	// Infect
@@ -77,6 +74,12 @@ func (world *World) Infect(biomes []Biome, decay float64) {
 			for _, mod := range biome.modifiers {
 				cell.mu.Lock()
 				mod(cell)
+				for _, tile := range cell.Tiles {
+					world.Tiles[tile.X+(tile.Y*world.Size)] = TileData{
+						tile.Value,
+						uint16(cell.Idx),
+					}
+				}
 				cell.mu.Unlock()
 			}
 		}()
@@ -86,7 +89,7 @@ func (world *World) Infect(biomes []Biome, decay float64) {
 
 // Modifiers
 
-func NewFill(value int8) Modifier {
+func NewFill(value uint8) Modifier {
 	return func(cell *Cell) {
 		for idx := range cell.Tiles {
 			tile := &(cell.Tiles[idx])
@@ -95,7 +98,7 @@ func NewFill(value int8) Modifier {
 	}
 }
 
-func NewCropCircle(angles float64, values ...int8) Modifier {
+func NewCropCircle(angles float64, values ...uint8) Modifier {
 	valuesLength := float64(len(values))
 
 	getValue := func(pt Point, angle float64) float64 {
@@ -104,7 +107,7 @@ func NewCropCircle(angles float64, values ...int8) Modifier {
 		return math.Cos(angledX + angledY)
 	}
 
-	quasiCrystal := func(pt Point) int8 {
+	quasiCrystal := func(pt Point) uint8 {
 		var value float64
 		angle := 2.0 * 3.14156
 		delta := angle / angles
@@ -133,7 +136,7 @@ func NewCropCircle(angles float64, values ...int8) Modifier {
 	}
 }
 
-func NewPattern(angles float64, values ...int8) Modifier {
+func NewPattern(angles float64, values ...uint8) Modifier {
 	valuesLength := float64(len(values))
 
 	getValue := func(pt Point, angle float64) float64 {
@@ -142,7 +145,7 @@ func NewPattern(angles float64, values ...int8) Modifier {
 		return math.Cos(angledX + angledY)
 	}
 
-	quasiCrystal := func(pt Point) int8 {
+	quasiCrystal := func(pt Point) uint8 {
 		var value float64
 		angle := 2.0 * 3.14156
 		delta := angle / angles
@@ -169,17 +172,17 @@ func NewPattern(angles float64, values ...int8) Modifier {
 	}
 }
 
-func NewVoronoi(density int, values ...int8) Modifier {
+func NewVoronoi(density int, values ...uint8) Modifier {
 	return func(cell *Cell) {
 		rnd := rand.New(rand.NewSource(int64(density)))
 		var origins []Point
 		getPoint := func() Point {
 			return cell.Tiles[rnd.Int()%len(cell.Tiles)].point()
 		}
-		getValue := func(seed int) int8 {
+		getValue := func(seed int) uint8 {
 			return values[seed%len(values)]
 		}
-		findNearest := func(pt Point) int8 {
+		findNearest := func(pt Point) uint8 {
 			nearest := origins[0]
 			nearestDist := distance(nearest, pt)
 
@@ -207,7 +210,7 @@ func NewVoronoi(density int, values ...int8) Modifier {
 	}
 }
 
-func NewBorder(border int8) Modifier {
+func NewBorder(border uint8) Modifier {
 	return func(cell *Cell) {
 		isBorder := func(cell *Cell, tile *Tile) bool {
 			x := tile.X
@@ -237,7 +240,7 @@ func NewBorder(border int8) Modifier {
 	}
 }
 
-func NewSelectiveBorder(border int8, around int8) Modifier {
+func NewSelectiveBorder(border uint8, around uint8) Modifier {
 	return func(cell *Cell) {
 		isBorder := func(cell *Cell, tile *Tile) bool {
 			x := tile.X
@@ -272,7 +275,7 @@ func NewSelectiveBorder(border int8, around int8) Modifier {
 	}
 }
 
-func NewSelectiveExternalBorder(border int8, around int8) Modifier {
+func NewSelectiveExternalBorder(border uint8, around uint8) Modifier {
 	return func(cell *Cell) {
 		isBorder := func(cell *Cell, tile *Tile) bool {
 			x := tile.X

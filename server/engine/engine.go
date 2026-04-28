@@ -4,20 +4,20 @@ import (
 	"bytes"
 	"encoding/binary"
 	"math/rand/v2"
-	"server/atlas"
 	"sync"
 	"time"
 )
 
 var Worlds []*Engine = []*Engine{
-	CreateEngine(CreateIsland(800)),
+	CreateEngine(LoadMap("world")),
 }
 
 type Engine struct {
 	Characters  map[uint32]*Character
 	Npcs        map[uint32]*Npc
 	Projectiles map[uint32]*Projectile
-	World       *atlas.World
+	Bombs       map[uint32]*Bomb
+	Map         *Map
 	mu          sync.Mutex
 }
 
@@ -40,12 +40,13 @@ func (engine *Engine) Pack(packet_type uint8) []byte {
 	return data.Bytes()
 }
 
-func CreateEngine(world *atlas.World) *Engine {
+func CreateEngine(world *Map) *Engine {
 	return &Engine{
 		Characters:  make(map[uint32]*Character),
 		Npcs:        make(map[uint32]*Npc),
 		Projectiles: make(map[uint32]*Projectile),
-		World:       world,
+		Bombs:       make(map[uint32]*Bomb),
+		Map:         world,
 	}
 }
 
@@ -90,6 +91,24 @@ func (engine *Engine) AddProjectile(id uint32, projectile *Projectile) {
 	defer engine.mu.Unlock()
 
 	engine.Projectiles[id] = projectile
+}
+
+func (engine *Engine) CreateBomb(which uint8, x float32, y float32, origin Object, evil bool, damage uint16, timer float32) uint32 {
+	engine.mu.Lock()
+	defer engine.mu.Unlock()
+
+	id := rand.Uint32()
+	bomb := DefaultBomb(which, x, y, origin, evil, damage, timer)
+	engine.Bombs[id] = bomb
+
+	return id
+}
+
+func (engine *Engine) AddBomb(id uint32, bomb *Bomb) {
+	engine.mu.Lock()
+	defer engine.mu.Unlock()
+
+	engine.Bombs[id] = bomb
 }
 
 func (engine *Engine) RemoveNpc(id uint32) {
@@ -148,14 +167,15 @@ func (engine *Engine) SpawnNpc(which uint8, x float32, y float32) {
 	id := rand.Uint32()
 	npc := DefaultNpc(which, x, y)
 	npc.entityID = id
+	npc.instance = engine
 	engine.Npcs[id] = npc
 }
 
 func (engine *Engine) Run() {
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 0; i++ {
 		engine.SpawnNpc(1, 400, 400)
 	}
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < 100; i++ {
 		engine.SpawnNpc(0, 400, 400)
 	}
 
@@ -167,7 +187,7 @@ func (engine *Engine) Run() {
 			if len(npc.nearby) > 0 {
 				npc.UpdateTarget()
 				npc.Move(delta)
-				npc.Tick()
+				npc.Tick(delta)
 
 				if npc.Dead {
 					delete(engine.Npcs, id)
@@ -178,6 +198,12 @@ func (engine *Engine) Run() {
 			projectile.Tick(delta)
 			if projectile.Dead {
 				delete(engine.Projectiles, id)
+			}
+		}
+		for id, bomb := range engine.Bombs {
+			bomb.Tick(delta)
+			if bomb.Dead {
+				delete(engine.Bombs, id)
 			}
 		}
 		engine.mu.Unlock()

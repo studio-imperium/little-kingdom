@@ -1,8 +1,9 @@
+const bomb_layer = new PIXI.RenderLayer()
 const head_layer = new PIXI.RenderLayer()
 const body_layer = new PIXI.RenderLayer()
 const hand_layer = new PIXI.RenderLayer()
 const misc_layer = new PIXI.RenderLayer()
-app.stage.addChild(hand_layer, body_layer, head_layer, misc_layer)
+app.stage.addChild(misc_layer, hand_layer, body_layer, head_layer, bomb_layer)
 
 const outline = new PIXI.filters.OutlineFilter({
   thickness: 3,
@@ -18,14 +19,17 @@ const shadow = new PIXI.filters.OutlineFilter({
 })
 const cache = {}
 
-function create_texture(texture) {
+function create_texture(texture, do_outline = true) {
   const container = new PIXI.Container()
   const sprite = new PIXI.Sprite(texture)
   const scaleFactor = OBJECT_SIZE
 
   sprite.scale.set(scaleFactor)
   container.addChild(sprite)
-  container.filters = [outline, shadow]
+
+  if (do_outline) {
+    container.filters = [outline, shadow]
+  }
 
   const generated_texture = app.renderer.textureGenerator.generateTexture({
     target: container,
@@ -57,13 +61,17 @@ function build_object(obj) {
     object.label = label
 
     for (let child of obj.children) {
-      object.addChild(build_object(child))
+      var thing = build_object(child)
+      object.addChild(thing)
     }
 
     return object
   } else {
     if (!cache[obj.label]) {
-      cache[obj.label] = create_texture(textures[obj.label])
+      cache[obj.label] = create_texture(
+        textures[obj.label],
+        obj.outline === undefined ? true : obj.outline,
+      )
     }
     const texture = cache[obj.label]
     const { x, y, angle, scale } = obj
@@ -75,66 +83,6 @@ function build_object(obj) {
     sprite.scale = scale ? scale : 1
     return sprite
   }
-}
-
-function build_character(hand, head, body) {
-  let character = new PIXI.Container()
-  character.sortableChildren = true
-
-  if (hand && item_data[hand].hand) {
-    const hand_obj = build_object(item_data[hand].hand)
-    character.addChild(hand_obj)
-    hand_layer.attach(hand_obj)
-  }
-
-  const body_obj = body
-    ? build_object(item_data[body].equipped)
-    : build_object(item_data[1].equipped)
-  character.addChild(body_obj)
-  body_layer.attach(body_obj)
-
-  const head_obj = head
-    ? build_object(item_data[head].equipped)
-    : build_object(item_data[0].equipped)
-  character.addChild(head_obj)
-  head_layer.attach(head_obj)
-
-  return character
-}
-
-function build_npc(npc_id) {
-  let npc = new PIXI.Container()
-
-  for (let bodypart of npc_data[npc_id].body) {
-    let obj = build_object(bodypart)
-
-    if (bodypart.label == "hand") {
-      hand_layer.attach(obj)
-    } else if (bodypart.label == "body") {
-      body_layer.attach(obj)
-    } else if (bodypart.label == "head") {
-      head_layer.attach(obj)
-    } else {
-      misc_layer.attach(obj)
-    }
-    npc.addChild(obj)
-  }
-
-  return npc
-}
-
-function build_projectile(projectile_id) {
-  let projectile = new PIXI.Container()
-
-  for (let part of projectile_data[projectile_id].object) {
-    let obj = build_object(part)
-
-    body_layer.attach(obj)
-
-    projectile.addChild(obj)
-  }
-  projectile.alpha = 0
-  return projectile
 }
 
 function add_object(object) {

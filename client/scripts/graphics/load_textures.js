@@ -14,6 +14,7 @@ async function load_textures() {
   await load_items()
   await load_npcs()
   await load_projectiles()
+  await load_bombs()
   await load_animations()
 
   const assets_texture = await PIXI.Assets.load("assets/assets.png")
@@ -94,6 +95,19 @@ async function load_projectiles() {
     }
   }
   projectile_data = projectile_json
+}
+
+async function load_bombs() {
+  const bomb_json = await (await fetch("/assets/bombs.json")).json()
+
+  for (let { object, trail } of bomb_json) {
+    for (let part of object) {
+      load_recursive(part)
+    }
+    console.log(trail)
+    load_recursive(trail)
+  }
+  bomb_data = bomb_json
 }
 
 async function load_animations() {

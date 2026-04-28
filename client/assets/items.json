@@ -157,9 +157,7 @@
         "projectiles": [
           {
             "id": 0,
-            "angle": 0,
-            "x": 0,
-            "y": 0
+            "angle": 0
           }
         ]
       },
@@ -169,9 +167,7 @@
         "projectiles": [
           {
             "id": 0,
-            "angle": 0,
-            "x": 0,
-            "y": 0
+            "angle": 0
           }
         ]
       }
@@ -196,56 +192,94 @@
     }
   },
   {
-    "display": "Yew Bow",
+    "display": "Iron Sword",
     "id": 5,
-    "description": "Sharpshot!",
+    "description": "Slash slash",
     "type": "hand",
     "sprite": {
       "w": 10,
       "h": 10,
-      "x": 30,
+      "x": 10,
       "y": 150
     },
     "attacks": [
       {
         "animation": 3,
-        "reload": 0.2,
+        "reload": 0.5,
         "projectiles": [
           {
             "id": 1,
-            "angle": 355,
-            "x": 0,
-            "y": 0
-          },
-          {
-            "id": 1,
-            "angle": 5,
-            "x": 0,
-            "y": 0
+            "angle": 0
           }
         ]
       },
       {
-        "animation": 3,
-        "reload": 0.2,
+        "animation": 4,
+        "reload": 0.5,
+        "projectiles": [
+          {
+            "id": 1,
+            "angle": 0
+          }
+        ]
+      },
+      {
+        "animation": 5,
+        "reload": 0.75,
         "projectiles": [
           {
             "id": 2,
-            "angle": 350,
-            "x": 0,
-            "y": 0
+            "angle": 0
           },
           {
-            "id": 2,
-            "angle": 0,
-            "x": 0,
-            "y": 0
+            "id": 3,
+            "angle": 0
+          }
+        ]
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": -23,
+      "children": [
+        {
+          "label": "iron_sword_hand",
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 10,
+            "y": 150
+          },
+          "x": 5,
+          "y": -6
+        }
+      ]
+    }
+  },
+  {
+    "display": "Shortbow",
+    "id": 6,
+    "description": "Bang bang",
+    "type": "hand",
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 20,
+      "y": 150
+    },
+    "attacks": [
+      {
+        "animation": 6,
+        "reload": 0.3,
+        "projectiles": [
+          {
+            "id": 4,
+            "angle": 355
           },
           {
-            "id": 2,
-            "angle": 10,
-            "x": 0,
-            "y": 0
+            "id": 4,
+            "angle": 5
           }
         ]
       }
@@ -260,7 +294,7 @@
           "sprite": {
             "w": 10,
             "h": 10,
-            "x": 30,
+            "x": 20,
             "y": 150
           },
           "x": 0,
@@ -270,38 +304,23 @@
     }
   },
   {
-    "display": "Spell",
-    "id": 6,
-    "description": "Whack whack",
+    "display": "Wind Spell",
+    "id": 7,
+    "description": "Splash splash",
     "type": "hand",
     "sprite": {
       "w": 10,
       "h": 10,
-      "x": 80,
+      "x": 30,
       "y": 150
     },
     "attacks": [
       {
-        "animation": 1,
+        "animation": 7,
         "reload": 0.5,
-        "projectiles": [
+        "bombs": [
           {
-            "id": 0,
-            "angle": 0,
-            "x": 0,
-            "y": 0
-          }
-        ]
-      },
-      {
-        "animation": 2,
-        "reload": 0.75,
-        "projectiles": [
-          {
-            "id": 0,
-            "angle": 0,
-            "x": 0,
-            "y": 0
+            "id": 0
           }
         ]
       }
@@ -309,18 +328,18 @@
     "hand": {
       "type": "container",
       "label": "hand",
-      "angle": -23,
+      "angle": 20,
       "children": [
         {
-          "label": "spell_hand",
+          "label": "wind_spell_hand",
           "sprite": {
             "w": 10,
             "h": 10,
-            "x": 0,
+            "x": 30,
             "y": 150
           },
-          "x": 5,
-          "y": -6,
+          "x": 1,
+          "y": -9,
           "scale": 0.8
         }
       ]

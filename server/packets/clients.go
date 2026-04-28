@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"server/atlas"
 	"server/engine"
 
 	"github.com/gorilla/websocket"
@@ -17,7 +16,7 @@ type Client struct {
 	character       *engine.Character
 	instance        *engine.Engine
 	simulation      *engine.Engine
-	discoveredCells map[atlas.Point]*atlas.Cell
+	discoveredCells map[uint16]*engine.Cell
 }
 
 func (client *Client) destroy() {
@@ -34,7 +33,7 @@ func CreateClient(conn *websocket.Conn) {
 		send:            make(chan []byte),
 		character:       nil,
 		simulation:      engine.CreateEngine(nil),
-		discoveredCells: make(map[atlas.Point]*atlas.Cell),
+		discoveredCells: make(map[uint16]*engine.Cell),
 	}
 	go client.recievePackets()
 	go client.writePackets()
@@ -77,8 +76,9 @@ func (client *Client) sendToNearby(payload []byte, includeSelf bool) {
 	})
 }
 
-func (client *Client) characterAttack(x float32, y float32, angle uint16) {
-	item := client.character.GetHand()
+func (client *Client) characterAttack(x float32, y float32, targetX float32, targetY float32, angle uint16) {
+	idx := client.instance.GetHand(client.id)
+	item := client.instance.GetSlot(client.id, idx)
 	cooldown := client.character.AttackCooldown
 	data := new(bytes.Buffer)
 	data.WriteByte(uint8(ALLY_ATTACK))
@@ -91,19 +91,25 @@ func (client *Client) characterAttack(x float32, y float32, angle uint16) {
 		item := engine.GetItemData()[item]
 
 		if item.Attacks != nil {
-			attack := item.Attacks[counter]
+			attack := item.Attacks[int(counter)%len(item.Attacks)]
 			animation := attack.Animation
 			projectiles := attack.Projectiles
+			bombs := attack.Bombs
 
-			client.character.AttackCooldown = attack.Reload
+			// can make this longer/shorter here
+			reload := attack.Reload
+
+			client.character.AttackCooldown = reload
 
 			binary.Write(data, binary.LittleEndian, client.id)
 			data.WriteByte(animation)
+			binary.Write(data, binary.LittleEndian, uint16(reload*1000))
 
 			binary.Write(data, binary.LittleEndian, uint16(len(projectiles)))
 
 			for _, projectile := range projectiles {
 				baseDamage := engine.GetProjectileData()[projectile.ID].Damage
+
 				damage := baseDamage
 				// we can freely scale damage up/down here based on whatever we want
 
@@ -116,10 +122,39 @@ func (client *Client) characterAttack(x float32, y float32, angle uint16) {
 
 				client.simulation.AddProjectile(id, proj)
 			}
+
+			binary.Write(data, binary.LittleEndian, uint16(len(bombs)))
+
+			for _, bomb := range bombs {
+				baseDamage := engine.GetBombData()[bomb.ID].Damage
+				damage := baseDamage
+				timer := engine.GetBombData()[bomb.ID].Airtime
+				// we can freely scale damage up/down here based on whatever we want
+				// and scale timer
+
+				id := client.instance.CreateBomb(bomb.ID, targetX, targetY, client.character, false, damage, timer)
+				bomb := client.instance.Bombs[id]
+				packet := bomb.Pack()
+
+				binary.Write(data, binary.LittleEndian, id)
+				data.Write(packet)
+
+				client.simulation.AddBomb(id, bomb)
+			}
+
+			client.character.AttackCounter += 1
+			client.character.AttackCounter %= uint8(len(item.Attacks))
 		}
 		client.sendToNearby(data.Bytes(), false)
-
-		client.character.AttackCounter += 1
-		client.character.AttackCounter %= uint8(len(item.Attacks))
 	}
+}
+
+func (client *Client) sendCharacter() {
+	data := client.instance.PackCharacter(client.id, byte(HANDSHAKE))
+	client.send <- data
+}
+
+func (client *Client) selectSlot(idx uint8) {
+	client.instance.SelectSlot(client.id, idx)
+	client.sendCharacter()
 }

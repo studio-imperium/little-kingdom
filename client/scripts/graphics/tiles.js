@@ -5,6 +5,57 @@ app.stage.cullableChildren = true
 let default_vertices = get_vertices()
 let tile_map = {}
 
+function tile_tick() {
+  let player_x = Math.floor(character.object.x)
+  let player_y = Math.floor(character.object.y)
+  let halfdist = render_dist / 2
+
+  if (diff(player_x, player_y) < 2) {
+    return
+  }
+
+  for (let tile_id of Object.keys(tile_map)) {
+    let tile = tile_map[tile_id]
+    let x = tile.x
+    let y = tile.y
+
+    if (outside_range(x, y) || tiles[y * size + x] != tile.idx) {
+      added[y * size + x] = false
+      tile.mesh.destroy()
+      delete tile_map[tile_id]
+    }
+  }
+
+  for (let y = player_y - halfdist; y < player_y + halfdist; y++) {
+    for (let x = player_x - halfdist; x < player_x + halfdist; x++) {
+      let tile_id = tiles[y * size + x]
+      let is_added = added[y * size + x]
+      if (!is_added && tile_id >= 0) {
+        add_tile(x, y, tile_id)
+        added[y * size + x] = true
+      }
+    }
+  }
+  render_tiles()
+}
+
+function tile_animations() {
+  const offsetX = Math.sin(elapsed * 0.8) * 0.5
+  const offsetY = Math.cos(elapsed * 0.6) * 0.5
+
+  for (const { tile, mesh, uvs } of Object.values(tile_map)) {
+    if (tile == "lava" || tile == "water") {
+      const uv_buffer = mesh.geometry.getBuffer("aUV")
+
+      for (let i = 0; i < uv_buffer.data.length; i += 2) {
+        uv_buffer.data[i] = uvs.modified[i] + offsetX
+        uv_buffer.data[i + 1] = uvs.modified[i + 1] + offsetY
+      }
+      uv_buffer.update()
+    }
+  }
+}
+
 function get_vertices() {
   return new Float32Array([
     0,

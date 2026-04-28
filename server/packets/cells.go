@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"server/atlas"
+	"server/engine"
 	"time"
 )
 
-func (client *Client) sendTiles(cell *atlas.Cell) {
+func (client *Client) sendTiles(cell *engine.Cell) {
 	tiles := cell.Tiles
 	data := new(bytes.Buffer)
 
@@ -20,7 +20,7 @@ func (client *Client) sendTiles(cell *atlas.Cell) {
 	for _, tile := range tiles {
 		binary.Write(data, binary.LittleEndian, int32(tile.X))
 		binary.Write(data, binary.LittleEndian, int32(tile.Y))
-		data.WriteByte(byte(uint8(tile.Value)))
+		data.WriteByte(byte(uint8(tile.Val)))
 	}
 
 	client.send <- data.Bytes()
@@ -36,16 +36,12 @@ func (client *Client) UpdateCells() {
 			return
 		}
 
-		pt := atlas.Point{
-			X: float64(client.character.GetX()),
-			Y: float64(client.character.GetY()),
-		}
-		nearest := client.instance.World.GetNearestCell(pt)
+		nearest := client.instance.Map.GetNearestCell(client.character)
 
 		for _, cell := range append(nearest.GetAdjacentCells(), nearest) {
 			for _, adj_cell := range cell.GetAdjacentCells() {
-				if _, okay := client.discoveredCells[adj_cell.Origin]; !okay {
-					client.discoveredCells[adj_cell.Origin] = adj_cell
+				if _, okay := client.discoveredCells[adj_cell.Idx]; !okay {
+					client.discoveredCells[adj_cell.Idx] = adj_cell
 					client.sendTiles(adj_cell)
 				}
 			}

@@ -1,7 +1,3 @@
-const characters = {}
-const npcs = {}
-const projectiles = {}
-
 const render_dist = 32
 const size = 1000
 const tiles = new Uint8Array(size * size)
@@ -35,7 +31,7 @@ function diff(x, y) {
 let timer = 0
 let elapsed = 0
 function start_engine() {
-  app.ticker.add(({ deltaMS, deltaTime }) => {
+  app.ticker.add(({ deltaMS }) => {
     timer += deltaMS
     for (let id of Object.keys(characters)) {
       let { interpolator, animator, colorAnimator, object } = characters[id]
@@ -61,73 +57,16 @@ function start_engine() {
         npcs[id].kill(id)
       }
     }
-    for (let id of Object.keys(projectiles)) {
-      const { object, which } = projectiles[id]
-      const speed = projectile_data[which].speed
-      const rad = (object.angle - 90) * (Math.PI / 180)
-      const dx = Math.cos(rad)
-      const dy = Math.sin(rad)
-      object.x += (dx * speed * deltaTime) / 16
-      object.y += (dy * speed * deltaTime) / 16
-
-      object.alpha += speed / 32
-      if (object.scale.x * 64 < 1) {
-        object.scale.set(object.scale.x + 1 / 1500)
-      } else {
-        object.scale.set(1 / 64)
-      }
-    }
+    projectile_tick(deltaMS)
+    bomb_tick(deltaMS)
 
     if (timer >= 500) {
       timer = 0
-      let player_x = Math.floor(character.object.x)
-      let player_y = Math.floor(character.object.y)
-      let halfdist = render_dist / 2
-
-      if (diff(player_x, player_y) < 2) {
-        return
-      }
-
-      for (let tile_id of Object.keys(tile_map)) {
-        let tile = tile_map[tile_id]
-        let x = tile.x
-        let y = tile.y
-
-        if (outside_range(x, y) || tiles[y * size + x] != tile.idx) {
-          added[y * size + x] = false
-          tile.mesh.destroy()
-          delete tile_map[tile_id]
-        }
-      }
-
-      for (let y = player_y - halfdist; y < player_y + halfdist; y++) {
-        for (let x = player_x - halfdist; x < player_x + halfdist; x++) {
-          let tile_id = tiles[y * size + x]
-          let is_added = added[y * size + x]
-          if (!is_added && tile_id >= 0) {
-            add_tile(x, y, tile_id)
-            added[y * size + x] = true
-          }
-        }
-      }
-      render_tiles()
+      tile_tick()
     }
 
     elapsed += deltaMS / 1000
-    const offsetX = Math.sin(elapsed * 0.8) * 0.5
-    const offsetY = Math.cos(elapsed * 0.6) * 0.5
-
-    for (const { tile, mesh, uvs } of Object.values(tile_map)) {
-      if (tile == "lava" || tile == "water") {
-        const uv_buffer = mesh.geometry.getBuffer("aUV")
-
-        for (let i = 0; i < uv_buffer.data.length; i += 2) {
-          uv_buffer.data[i] = uvs.modified[i] + offsetX
-          uv_buffer.data[i + 1] = uvs.modified[i + 1] + offsetY
-        }
-        uv_buffer.update()
-      }
-    }
+    tile_animations()
   })
 }
 
@@ -179,6 +118,10 @@ class Cell {
 
 class Interpolator {
   constructor(object) {
+    this.set_object(object)
+  }
+
+  set_object(object) {
     this.object = object
     this.frames = []
     this.last_frame = Date.now()
@@ -250,6 +193,10 @@ class Interpolator {
 
 class Animator {
   constructor(object) {
+    this.set_object(object)
+  }
+
+  set_object(object) {
     this.object = object
     this.head = object.getChildByName("head")
     this.body = object.getChildByName("body")
@@ -269,13 +216,13 @@ class Animator {
         return
       }
 
-      const now = this.timestamp
+      const progress = this.timestamp / (this.duration * 1000)
       let frame1 = frames[0]
       let frame2 = null
 
       for (let i = 0; i < frames.length; i++) {
         const frame = frames[i]
-        if (frame.time <= now) {
+        if (frame.time <= progress) {
           frame1 = frame
         } else {
           frame2 = frame
@@ -292,6 +239,12 @@ class Animator {
         }
         if (this.hand && frame.hand_angle !== undefined) {
           this.hand.angle = frame.hand_angle
+        }
+        if (this.hand && frame.hand_y !== undefined) {
+          this.hand.y = frame.hand_y
+        }
+        if (this.hand && frame.hand_x !== undefined) {
+          this.hand.x = frame.hand_x
         }
         if (this.hand && frame.hand_scale !== undefined) {
           if (this.hand.scale && typeof this.hand.scale.set === "function") {
@@ -320,7 +273,7 @@ class Animator {
       }
 
       const diff = frame2.time - frame1.time
-      const t = diff > 0 ? (now - frame1.time) / diff : 1
+      const t = diff > 0 ? (progress - frame1.time) / diff : 1
       const lerp = (a, b) => a + (b - a) * t
 
       applyFrame({
@@ -344,13 +297,22 @@ class Animator {
           frame1.hand_scale !== undefined && frame2.hand_scale !== undefined
             ? lerp(frame1.hand_scale, frame2.hand_scale)
             : frame1.hand_scale,
+        hand_y:
+          frame1.hand_y !== undefined && frame2.hand_y !== undefined
+            ? lerp(frame1.hand_y, frame2.hand_y)
+            : frame1.hand_y,
+        hand_x:
+          frame1.hand_x !== undefined && frame2.hand_x !== undefined
+            ? lerp(frame1.hand_x, frame2.hand_x)
+            : frame1.hand_x,
       })
     }
   }
 
-  animate(which) {
+  animate(which, duration = 0) {
     this.animation = animation_data[which]
     this.timestamp = 0
+    this.duration = duration
   }
 }
 
@@ -405,107 +367,5 @@ class ColorAnimator {
       }
       this.active = false
     }
-  }
-}
-
-class Projectile {
-  constructor(id, x, y, angle) {
-    this.object = build_projectile(id)
-    this.which = id
-    this.object.x = x
-    this.object.y = y
-    this.object.angle = angle
-    this.object.scale.set(0)
-
-    add_object(this.object)
-  }
-}
-
-class Character {
-  constructor(x, y, angle, health, hand, head, body) {
-    this.object = build_character(hand, head, body)
-    this.kit = hand + head + body
-    this.object.x = x
-    this.object.y = y
-    this.object.angle = angle
-    this.object.health = health
-    this.hand = hand
-    this.head = head
-    this.body = body
-    this.interpolator = new Interpolator(this.object)
-    this.animator = new Animator(this.object)
-    this.colorAnimator = new ColorAnimator(this.object)
-
-    add_object(this.object)
-  }
-
-  update(x, y, angle, health, hand, head, body) {
-    if (hand + head + body != this.kit) {
-      this.object.destroy()
-      this.object = build_character(hand, head, body)
-      this.kit = hand + head + body
-      this.object.x = x
-      this.object.y = y
-      this.object.angle = angle
-      this.interpolator.object = this.object
-      this.colorAnimator.object = this.object
-      add_object(this.object)
-    }
-    this.object.health = health
-    this.hand = hand
-    this.head = head
-    this.body = body
-    this.interpolator.add_char_frame(x, y, angle)
-  }
-
-  damage() {
-    this.colorAnimator.animate(0xffb3b3, 300)
-  }
-
-  kill(id) {
-    this.colorAnimator.animate(0xff0000, 300)
-    this.animator.animate(0)
-    this.interpolator.frames = []
-    this.interpolator.last_frame = Date.now()
-
-    setTimeout(() => {
-      this.object.destroy()
-      delete characters[id]
-    }, 300)
-  }
-}
-
-class Npc {
-  constructor(id, x, y, health) {
-    this.object = build_npc(id)
-    this.object.angle = 0
-    this.object.x = x
-    this.object.y = y
-    this.interpolator = new Interpolator(this.object)
-    this.animator = new Animator(this.object)
-    this.colorAnimator = new ColorAnimator(this.object)
-
-    add_object(this.object)
-  }
-
-  update(x, y, health) {
-    this.object.health = health
-    this.interpolator.add_npc_frame(x, y)
-  }
-
-  damage() {
-    this.colorAnimator.animate(0xffb3b3, 300)
-  }
-
-  kill(id) {
-    this.colorAnimator.animate(0xffb3b3, 30000)
-    this.animator.animate(0)
-    this.interpolator.frames = []
-    this.interpolator.last_frame = Date.now()
-
-    setTimeout(() => {
-      this.object.destroy()
-      delete npcs[id]
-    }, 300)
   }
 }
