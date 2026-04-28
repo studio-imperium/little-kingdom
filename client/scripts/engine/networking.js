@@ -11,7 +11,8 @@ const [
   WORLD_STATE,
   DAMAGED,
   TILES,
-] = [0, 1, 2, 3, 4, 5, 6]
+  SELECT_SLOT,
+] = [0, 1, 2, 3, 4, 5, 6, 7]
 
 function handshake() {
   token = (Math.random() * 0x100000000) >>> 0
@@ -24,6 +25,7 @@ function handshake() {
   socket.send(data)
 }
 
+let initialized_character = false
 function set_character(data) {
   const [x, y, angle, health, hand, head, body] = [
     data.getFloat32(1, true),
@@ -173,7 +175,19 @@ function send_attack(x, y, angle) {
   data.setUint8(0, CHARACTER_ATTACK)
   data.setFloat32(1, x, true)
   data.setFloat32(5, y, true)
-  data.setUint16(9, angle, true)
+  data.setFloat32(9, target_x, true)
+  data.setFloat32(13, target_y, true)
+  data.setUint16(17, angle, true)
+
+  socket.send(data)
+}
+
+function select_slot(idx) {
+  const buffer = new ArrayBuffer(3)
+  const data = new DataView(buffer)
+
+  data.setUint8(0, SELECT_SLOT)
+  data.setUint(1, idx, true)
 
   socket.send(data)
 }
@@ -213,7 +227,7 @@ function connect() {
         set_tiles(data)
         break
       default:
-        console.log("Bad packet recieved")
+        console.log("Bad packet recieved: ", packet_type)
     }
   }
 
