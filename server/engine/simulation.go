@@ -1,8 +1,14 @@
 package engine
 
-import "time"
+import (
+	"time"
+)
 
 var render_distance int = 16
+
+func (simulation *Engine) AddLoot(loot *Loot) {
+	simulation.Loot[loot.id] = loot
+}
 
 func (simulation *Engine) StartSimulation(clientID uint32, instance *Engine, clientCharacter *Character) {
 	delta := time.Millisecond * 50
@@ -68,11 +74,9 @@ func (simulation *Engine) StartSimulation(clientID uint32, instance *Engine, cli
 			if projectile.Dead || out_of_range {
 				projectile.Dead = true
 				delete(simulation.Projectiles, id)
-			}
-			if Distance(projectile, projectile.origin) > float64(projectileData[projectile.id].Range) {
+			} else if Distance(projectile, projectile.origin) > float64(projectileData[projectile.id].Range) {
 				projectile.Dead = true
-			}
-			if projectile.evil {
+			} else if projectile.evil {
 				if _, hit := projectile.hitlist[clientID]; hit || projectile.Dead {
 					continue
 				}
@@ -102,8 +106,7 @@ func (simulation *Engine) StartSimulation(clientID uint32, instance *Engine, cli
 		for id, bomb := range simulation.Bombs {
 			if bomb.Dead {
 				delete(simulation.Bombs, id)
-			}
-			if bomb.timer <= 0 {
+			} else if bomb.timer <= 0 {
 				bomb.Dead = true
 				if bomb.evil {
 					if withinRange(bomb, clientCharacter, false) {
@@ -122,6 +125,16 @@ func (simulation *Engine) StartSimulation(clientID uint32, instance *Engine, cli
 						}
 					}
 				}
+			}
+		}
+
+		for id, loot := range simulation.Loot {
+			if loot.Dead {
+				delete(simulation.Loot, id)
+			} else if Distance(clientCharacter, loot) < 1 && clientCharacter.AddItemOrBust(loot.loot) {
+				loot.Dead = true
+				clientCharacter.Apply()
+				*clientCharacter.send <- loot.Looted()
 			}
 		}
 

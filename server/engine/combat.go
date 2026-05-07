@@ -76,11 +76,8 @@ func (npc *Npc) Bomb(b BombSpawnData) (uint32, []byte) {
 }
 
 func (npc *Npc) NewAttack() {
-	d := npcData[npc.id]
-	mode := d.Modes[npc.mode]
-
-	if attackLen := len(mode.Attacks); attackLen > 0 && npc.InCombat() {
-		attack := mode.Attacks[int(npc.attack)%attackLen]
+	if npc.CanAttack() {
+		attack := npc.GetAttack()
 
 		data := new(bytes.Buffer)
 		data.WriteByte(3)

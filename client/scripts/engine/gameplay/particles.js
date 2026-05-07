@@ -23,7 +23,6 @@ class ParticleEmitter {
     if (radius <= max_radius) {
       let angle = 2 * Math.PI
       let delta = angle / angles
-
       for (let i = 0; i < angles; i++) {
         angle -= delta
         let angledX = this.object.x + Math.cos(angle) * radius
@@ -33,7 +32,17 @@ class ParticleEmitter {
       }
       setTimeout(() => {
         this.radiate(max_radius, angles, radius + 0.7)
-      }, 10)
+      }, 30)
+    } else {
+      let angle = 2 * Math.PI
+      let delta = angle / angles
+      for (let i = 0; i < angles; i++) {
+        angle -= delta
+        let angledX = this.object.x + Math.cos(angle) * max_radius
+        let angledY = this.object.y + Math.sin(angle) * max_radius
+
+        this.add_particle(angledX, angledY, 0.8)
+      }
     }
   }
 

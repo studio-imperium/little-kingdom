@@ -1,7 +1,16 @@
 const render_dist = 32
-const size = 1000
+const size = 2500
 const tiles = new Uint8Array(size * size)
 const added = new Uint8Array(size * size)
+tiles.fill(0)
+
+function in_map_bounds(x, y) {
+  return x >= 0 && x < size && y >= 0 && y < size
+}
+
+function tile_offset(x, y) {
+  return y * size + x
+}
 
 function outside_range(x, y) {
   let player_x = character.object.x
@@ -57,6 +66,15 @@ function start_engine() {
         npcs[id].kill(id)
       }
     }
+    for (let id of Object.keys(loots)) {
+      let { last_update } = loots[id]
+
+      if (Date.now() > last_update + 400) {
+        loots[id].kill(id)
+      }
+    }
+
+    character_tick(deltaMS)
     projectile_tick(deltaMS)
     bomb_tick(deltaMS)
 
@@ -181,13 +199,28 @@ class Interpolator {
     }
   }
 
+  look_at(object) {
+    this.target = object
+  }
+  look_away() {
+    this.target = null
+  }
+
   add_char_frame(x, y, angle) {
     this.last_frame = Date.now()
     this.frames.push([this.last_frame + 200, x, y, angle % 360])
   }
   add_npc_frame(x, y) {
     this.last_frame = Date.now()
-    this.frames.push([this.last_frame + 200, x, y])
+    if (!this.target) {
+      this.frames.push([this.last_frame + 200, x, y])
+    } else {
+      const dx = this.target.object.x - this.object.x
+      const dy = this.target.object.y - this.object.y
+      const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90
+
+      this.frames.push([this.last_frame + 200, x, y, angle])
+    }
   }
 }
 

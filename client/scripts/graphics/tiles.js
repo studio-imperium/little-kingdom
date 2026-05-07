@@ -18,9 +18,16 @@ function tile_tick() {
     let tile = tile_map[tile_id]
     let x = tile.x
     let y = tile.y
+    let offset = tile_offset(x, y)
 
-    if (outside_range(x, y) || tiles[y * size + x] != tile.idx) {
-      added[y * size + x] = false
+    if (
+      !in_map_bounds(x, y) ||
+      outside_range(x, y) ||
+      tiles[offset] != tile.idx
+    ) {
+      if (in_map_bounds(x, y)) {
+        added[offset] = false
+      }
       tile.mesh.destroy()
       delete tile_map[tile_id]
     }
@@ -28,11 +35,16 @@ function tile_tick() {
 
   for (let y = player_y - halfdist; y < player_y + halfdist; y++) {
     for (let x = player_x - halfdist; x < player_x + halfdist; x++) {
-      let tile_id = tiles[y * size + x]
-      let is_added = added[y * size + x]
-      if (!is_added && tile_id >= 0) {
+      if (!in_map_bounds(x, y)) {
+        continue
+      }
+
+      let offset = tile_offset(x, y)
+      let tile_id = tiles[offset]
+      let is_added = added[offset]
+      if (!is_added) {
         add_tile(x, y, tile_id)
-        added[y * size + x] = true
+        added[offset] = true
       }
     }
   }

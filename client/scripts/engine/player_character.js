@@ -16,6 +16,7 @@ function init_character(x, y, angle, health, hand, head, body, _inventory) {
   character = new Character(x, y, angle, health, hand, head, body)
   character.object.zIndex = 2
   init_combat()
+  update_preview()
 
   const send_rate = 50
   let last_send = 0
@@ -34,12 +35,14 @@ function init_character(x, y, angle, health, hand, head, body, _inventory) {
     character.animator.tick(deltaMS)
     attack_cooldown -= deltaMS / 1000
 
-    const len = Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y)
-    const nx = len > 0 ? velocity.x / len : 0
-    const ny = len > 0 ? velocity.y / len : 0
+    if (!chat_focused) {
+      const len = Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y)
+      const nx = len > 0 ? velocity.x / len : 0
+      const ny = len > 0 ? velocity.y / len : 0
 
-    character.object.x += (speed * nx * deltaTime) / 32
-    character.object.y += (speed * ny * deltaTime) / 32
+      character.object.x += (speed * nx * deltaTime) / 32
+      character.object.y += (speed * ny * deltaTime) / 32
+    }
 
     const mouse = app.renderer.events.pointer.global
     const centerX = app.screen.width / 2
@@ -61,6 +64,13 @@ function init_character(x, y, angle, health, hand, head, body, _inventory) {
       last_send = now
     }
   })
+}
+
+const healthbar = document.getElementById("health")
+const health_label = document.getElementById("health_label")
+function update_healthbar(health, max_health) {
+  healthbar.style.width = (100 * health) / max_health + "%"
+  health_label.innerHTML = health
 }
 
 function attack() {

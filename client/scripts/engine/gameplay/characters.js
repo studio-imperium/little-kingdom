@@ -19,6 +19,7 @@ class Character {
   }
 
   update(x, y, angle, health, hand, head, body) {
+    console.log(hand)
     if (hand + head + body != this.kit) {
       this.object.destroy()
       this.object = build_character(hand, head, body)
@@ -38,6 +39,8 @@ class Character {
     this.body = body
     this.interpolator.add_char_frame(x, y, angle)
   }
+
+  tick(deltaMS) {}
 
   damage() {
     this.colorAnimator.animate(0xffb3b3, 300)
@@ -79,4 +82,12 @@ function build_character(hand, head, body) {
   head_layer.attach(head_obj)
 
   return character
+}
+
+function character_tick(deltaMS) {
+  for (let id of Object.keys(characters)) {
+    const char = characters[id]
+    char.tick(deltaMS)
+  }
+  character.tick(deltaMS)
 }

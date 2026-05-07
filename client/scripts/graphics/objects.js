@@ -2,8 +2,16 @@ const bomb_layer = new PIXI.RenderLayer()
 const head_layer = new PIXI.RenderLayer()
 const body_layer = new PIXI.RenderLayer()
 const hand_layer = new PIXI.RenderLayer()
+const loot_layer = new PIXI.RenderLayer()
 const misc_layer = new PIXI.RenderLayer()
-app.stage.addChild(misc_layer, hand_layer, body_layer, head_layer, bomb_layer)
+app.stage.addChild(
+  misc_layer,
+  loot_layer,
+  hand_layer,
+  body_layer,
+  head_layer,
+  bomb_layer,
+)
 
 const outline = new PIXI.filters.OutlineFilter({
   thickness: 3,
@@ -19,7 +27,7 @@ const shadow = new PIXI.filters.OutlineFilter({
 })
 const cache = {}
 
-function create_texture(texture, do_outline = true) {
+function create_texture(texture, do_outline = true, renderer = app.renderer) {
   const container = new PIXI.Container()
   const sprite = new PIXI.Sprite(texture)
   const scaleFactor = OBJECT_SIZE
@@ -31,7 +39,7 @@ function create_texture(texture, do_outline = true) {
     container.filters = [outline, shadow]
   }
 
-  const generated_texture = app.renderer.textureGenerator.generateTexture({
+  const generated_texture = renderer.textureGenerator.generateTexture({
     target: container,
     resolution: 1,
     antialias: false,
@@ -49,7 +57,7 @@ function create_sprite(texture) {
   return sprite
 }
 
-function build_object(obj) {
+function build_object(obj, renderer = app.renderer, texture_cache = cache) {
   if (obj.type == "container") {
     const object = new PIXI.Container()
     const { x, y, angle, scale, label } = obj
@@ -61,19 +69,20 @@ function build_object(obj) {
     object.label = label
 
     for (let child of obj.children) {
-      var thing = build_object(child)
+      var thing = build_object(child, renderer, texture_cache)
       object.addChild(thing)
     }
 
     return object
   } else {
-    if (!cache[obj.label]) {
-      cache[obj.label] = create_texture(
+    if (!texture_cache[obj.label]) {
+      texture_cache[obj.label] = create_texture(
         textures[obj.label],
         obj.outline === undefined ? true : obj.outline,
+        renderer,
       )
     }
-    const texture = cache[obj.label]
+    const texture = texture_cache[obj.label]
     const { x, y, angle, scale } = obj
     const sprite = create_sprite(texture)
 

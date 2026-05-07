@@ -2,11 +2,13 @@
   {
     "display": "Default Head",
     "id": 0,
+    "type": "head",
+    "stats": {},
     "sprite": {
-      "w": 9,
-      "h": 9,
+      "w": 0,
+      "h": 0,
       "x": 0,
-      "y": 99
+      "y": 0
     },
     "equipped": {
       "type": "container",
@@ -18,7 +20,7 @@
             "w": 9,
             "h": 9,
             "x": 0,
-            "y": 99
+            "y": 126
           },
           "x": -4.5,
           "y": -4.5,
@@ -32,6 +34,8 @@
   {
     "display": "Default Body",
     "id": 1,
+    "type": "body",
+    "stats": {},
     "sprite": {
       "w": 15,
       "h": 7,
@@ -48,7 +52,7 @@
             "w": 15,
             "h": 7,
             "x": 0,
-            "y": 126
+            "y": 135
           },
           "x": -7.5,
           "y": -3.5,
@@ -60,15 +64,53 @@
     "hand": {}
   },
   {
-    "display": "Iron Platemail",
+    "display": "Iron Helmet",
     "id": 2,
-    "description": "Forged from two iron ingots",
-    "type": "body",
+    "description": "Forged from an iron ingot",
+    "type": "head",
+    "stats": {
+      "health": 1.1,
+      "speed": 0.9
+    },
     "sprite": {
-      "w": 15,
-      "h": 7,
+      "w": 10,
+      "h": 10,
+      "x": 14.5,
+      "y": 143.5
+    },
+    "equipped": {
+      "type": "container",
+      "label": "head",
+      "children": [
+        {
+          "label": "iron_helmet_head",
+          "sprite": {
+            "w": 9,
+            "h": 9,
+            "x": 15,
+            "y": 126
+          },
+          "x": -4.5,
+          "y": -4.5
+        }
+      ]
+    },
+    "hand": {}
+  },
+  {
+    "display": "Iron Platemail",
+    "id": 3,
+    "description": "Forged from a handful of iron ingots",
+    "type": "body",
+    "stats": {
+      "health": 1.2,
+      "speed": 0.8
+    },
+    "sprite": {
+      "w": 10,
+      "h": 10,
       "x": 15,
-      "y": 126
+      "y": 154
     },
     "equipped": {
       "type": "container",
@@ -80,7 +122,7 @@
             "w": 15,
             "h": 7,
             "x": 15,
-            "y": 126
+            "y": 136
           },
           "x": -7.5,
           "y": -3.5,
@@ -110,27 +152,30 @@
     }
   },
   {
-    "display": "Iron Helmet",
-    "id": 3,
-    "description": "Forged from an iron ingot",
+    "display": "Leather Cap",
+    "id": 4,
+    "description": "A fine cap for a fine archer, said to make the wearer more dexterous.",
     "type": "head",
+    "stats": {
+      "reload": 1.1
+    },
     "sprite": {
-      "w": 9,
-      "h": 9,
-      "x": 9,
-      "y": 90
+      "w": 10,
+      "h": 10,
+      "x": 29.5,
+      "y": 143.5
     },
     "equipped": {
       "type": "container",
       "label": "head",
       "children": [
         {
-          "label": "iron_helmet_head",
+          "label": "leather_cap_head",
           "sprite": {
             "w": 9,
             "h": 9,
-            "x": 9,
-            "y": 99
+            "x": 30,
+            "y": 126
           },
           "x": -4.5,
           "y": -4.5
@@ -140,10 +185,152 @@
     "hand": {}
   },
   {
+    "display": "Leather Hide",
+    "id": 5,
+    "description": "An armor crafted from a cow hide, said to make the wearer more agile.",
+    "type": "body",
+    "stats": {
+      "speed": 1.1,
+      "reload": 1.1
+    },
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 30,
+      "y": 154
+    },
+    "equipped": {
+      "type": "container",
+      "label": "body",
+      "children": [
+        {
+          "label": "leather_hide_body",
+          "sprite": {
+            "w": 15,
+            "h": 7,
+            "x": 30,
+            "y": 136
+          },
+          "x": -7.5,
+          "y": -3.5,
+          "angle": 0,
+          "scale": 1
+        }
+      ]
+    },
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": -23,
+      "scale": 0.8,
+      "children": [
+        {
+          "label": "iron_platemail_hand",
+          "sprite": {
+            "w": 15,
+            "h": 7,
+            "x": 15,
+            "y": 119
+          },
+          "x": 5,
+          "y": -3
+        }
+      ]
+    }
+  },
+  {
+    "display": "Leather Hat",
+    "id": 6,
+    "description": "A wizard hat adorned with a plastic jewel said to increase power.",
+    "type": "head",
+    "stats": {
+      "damage": 1.1
+    },
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 45.5,
+      "y": 143.5
+    },
+    "equipped": {
+      "type": "container",
+      "label": "head",
+      "children": [
+        {
+          "label": "leather_hat_head",
+          "sprite": {
+            "w": 9,
+            "h": 9,
+            "x": 45,
+            "y": 126
+          },
+          "x": -4.5,
+          "y": -4.5
+        }
+      ]
+    },
+    "hand": {}
+  },
+  {
+    "display": "Leather Robes",
+    "id": 7,
+    "description": "Robes said to have been imbued with healing properties.",
+    "type": "body",
+    "stats": {
+      "regen": 1.2,
+      "damage": 1.1
+    },
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 15,
+      "y": 154
+    },
+    "equipped": {
+      "type": "container",
+      "label": "body",
+      "children": [
+        {
+          "label": "iron_platemail_body",
+          "sprite": {
+            "w": 15,
+            "h": 7,
+            "x": 15,
+            "y": 136
+          },
+          "x": -7.5,
+          "y": -3.5,
+          "angle": 0,
+          "scale": 1
+        }
+      ]
+    },
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": -23,
+      "scale": 0.8,
+      "children": [
+        {
+          "label": "iron_platemail_hand",
+          "sprite": {
+            "w": 15,
+            "h": 7,
+            "x": 15,
+            "y": 119
+          },
+          "x": 5,
+          "y": -3
+        }
+      ]
+    }
+  },
+  {
     "display": "Kendo Stick",
     "id": 4,
     "description": "Whack whack",
     "type": "hand",
+    "stats": {},
     "sprite": {
       "w": 10,
       "h": 10,
@@ -196,6 +383,10 @@
     "id": 5,
     "description": "Slash slash",
     "type": "hand",
+    "stats": {
+      "health": 5,
+      "speed": 5
+    },
     "sprite": {
       "w": 10,
       "h": 10,
@@ -262,6 +453,7 @@
     "id": 6,
     "description": "Bang bang",
     "type": "hand",
+    "stats": {},
     "sprite": {
       "w": 10,
       "h": 10,
@@ -308,6 +500,7 @@
     "id": 7,
     "description": "Splash splash",
     "type": "hand",
+    "stats": {},
     "sprite": {
       "w": 10,
       "h": 10,

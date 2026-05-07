@@ -12,7 +12,22 @@ const [
   DAMAGED,
   TILES,
   SELECT_SLOT,
-] = [0, 1, 2, 3, 4, 5, 6, 7]
+  CHAT_MESSAGE,
+  CHANGE_INVENTORY,
+  SET_HEALTH,
+  CHARACTER_DEAD,
+  LOOT_LOOTED,
+] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+function get_character(id) {
+  if (characters[id]) {
+    return characters[id]
+  } else if (token == id) {
+    return character
+  } else {
+    return null
+  }
+}
 
 function handshake() {
   token = (Math.random() * 0x100000000) >>> 0
@@ -27,21 +42,23 @@ function handshake() {
 
 let initialized_character = false
 function set_character(data) {
-  const [x, y, angle, health, hand, head, body] = [
+  const [x, y, angle, health, max_health, hand, head, body] = [
     data.getFloat32(1, true),
     data.getFloat32(5, true),
     data.getUint16(9, true),
     data.getUint16(11, true),
-    data.getUint8(13),
-    data.getUint8(14),
+    data.getUint16(13, true),
     data.getUint8(15),
+    data.getUint8(16),
+    data.getUint8(17),
   ]
+
   const inventory = {}
-  const slots = data.getUint8(16)
+  const slots = data.getUint8(18)
   for (let i = 0; i < slots; i++) {
     let offset = i * 2
-    let slot = data.getUint8(17 + offset)
-    let item = data.getUint8(18 + offset)
+    let slot = data.getUint8(19 + offset)
+    let item = data.getUint8(20 + offset)
     inventory[slot] = item
   }
 
@@ -61,7 +78,9 @@ function set_character(data) {
       inventory,
     )
   }
-  refresh_inventory(inventory, hand)
+  refresh_inventory(inventory, hand, head, body)
+  update_preview()
+  update_healthbar(health, max_health)
 }
 
 function set_world(data) {
@@ -97,13 +116,47 @@ function set_world(data) {
     let x = data.getFloat32(5 + offset, true)
     let y = data.getFloat32(9 + offset, true)
     let health = data.getUint16(13 + offset, true)
+    let target = data.getUint8(15 + offset)
+    let target_character = null
 
-    offset += 15
+    offset += 16
+    if (target) {
+      let cid = data.getUint32(offset, true)
+      target_character = get_character(cid)
+      offset += 4
+    }
 
     if (npcs[id]) {
-      npcs[id].update(x, y, health)
+      let npc = npcs[id]
+      if (target_character) {
+        npc.interpolator.look_at(target_character)
+      } else {
+        npc.interpolator.look_away(character)
+      }
+      npc.update(x, y, health)
     } else {
-      npcs[id] = new Npc(which, x, y, health)
+      const npc = new Npc(which, x, y, health)
+      if (target_character) {
+        npc.interpolator.look_at(target_character)
+      }
+      npcs[id] = npc
+    }
+  }
+
+  const loot_count = data.getUint16(offset, true)
+  offset += 2
+
+  for (let i = 0; i < loot_count; i++) {
+    let id = data.getUint32(offset, true)
+    let which = data.getUint8(4 + offset)
+    let x = data.getFloat32(5 + offset, true)
+    let y = data.getFloat32(9 + offset, true)
+    offset += 13
+
+    if (loots[id]) {
+      loots[id].update()
+    } else {
+      loots[id] = new Loot(which, x, y)
     }
   }
 }
@@ -176,8 +229,25 @@ function set_tiles(data) {
     let y = data.getInt32(4 + offset, true)
     let tile_id = data.getUint8(8 + offset)
 
-    tiles[y * size + x] = tile_id
+    if (in_map_bounds(x, y)) {
+      tiles[tile_offset(x, y)] = tile_id
+    }
     offset += 9
+  }
+}
+
+function set_health(data) {
+  const health = data.getUint16(1, true)
+  const max_health = data.getUint16(3, true)
+
+  update_healthbar(health, max_health)
+}
+
+function loot_loot(data) {
+  const id = data.getUint32(1, true)
+
+  if (loots[id]) {
+    loots[id].kill(id)
   }
 }
 
@@ -191,6 +261,35 @@ function damaged(data) {
   if (npcs[id]) {
     npcs[id].damage()
   }
+  if (id == token) {
+    character.damage()
+  }
+}
+
+function set_message(data) {
+  let offset = 1
+  const id = data.getUint32(offset, true)
+  offset += 4
+
+  const n = data.getUint8(offset)
+  offset += 1
+
+  let sender = ""
+  for (let i = 0; i < n; i++) {
+    sender += String.fromCharCode(data.getUint8(offset))
+    offset++
+  }
+
+  const m = data.getUint8(offset)
+  offset += 1
+
+  let msg = ""
+  for (let i = 0; i < m; i++) {
+    msg += String.fromCharCode(data.getUint8(offset))
+    offset++
+  }
+
+  add_message(id, msg, sender)
 }
 
 function send_position(x, y, angle) {
@@ -231,6 +330,33 @@ function select_slot(idx) {
   socket.send(data)
 }
 
+function send_message(msg) {
+  const n = msg.length
+  const buffer = new ArrayBuffer(2 + n)
+  const data = new DataView(buffer)
+
+  data.setUint8(0, CHAT_MESSAGE)
+  data.setUint8(1, n)
+  for (let i = 0; i < n; i++) {
+    data.setUint8(i + 2, msg.charCodeAt(i))
+  }
+
+  socket.send(data)
+}
+
+function change_inventory(to, from) {
+  const buffer = new ArrayBuffer(3)
+  const data = new DataView(buffer)
+
+  data.setUint8(0, CHANGE_INVENTORY)
+  data.setUint8(1, to)
+  data.setUint8(2, from)
+
+  console.log(to, from)
+
+  socket.send(data)
+}
+
 function connect() {
   socket = new WebSocket("ws://" + addr + ":8082/connect")
   socket.binaryType = "arraybuffer"
@@ -264,6 +390,15 @@ function connect() {
         break
       case TILES:
         set_tiles(data)
+        break
+      case CHAT_MESSAGE:
+        set_message(data)
+        break
+      case SET_HEALTH:
+        set_health(data)
+        break
+      case LOOT_LOOTED:
+        loot_loot(data)
         break
       default:
         console.log("Bad packet recieved: ", packet_type)

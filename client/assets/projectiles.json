@@ -31,7 +31,7 @@
     "speed": 3,
     "range": 3,
     "damage": 1,
-    "hitbox": 0.5,
+    "hitbox": 1,
     "piercing": true,
     "object": [
       {
@@ -42,14 +42,14 @@
           {
             "label": "iron_sword_1",
             "sprite": {
-              "w": 21,
-              "h": 7,
-              "x": 0,
-              "y": 211
+              "w": 10,
+              "h": 6,
+              "x": 38,
+              "y": 204
             },
             "outline": false,
-            "x": -10.5,
-            "y": -3.5
+            "x": -5,
+            "y": -3
           }
         ]
       }
@@ -60,7 +60,7 @@
     "speed": 3,
     "range": 4,
     "damage": 1,
-    "hitbox": 0.5,
+    "hitbox": 1,
     "piercing": true,
     "object": [
       {
@@ -89,7 +89,7 @@
     "speed": 2,
     "range": 4,
     "damage": 1,
-    "hitbox": 0.5,
+    "hitbox": 1,
     "piercing": true,
     "object": [
       {

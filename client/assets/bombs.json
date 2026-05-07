@@ -34,5 +34,41 @@
         ]
       }
     ]
+  },
+  {
+    "id": 1,
+    "airtime": 1.5,
+    "damage": 1,
+    "radius": 2,
+    "trail": {
+      "label": "bomb_trail",
+      "sprite": {
+        "w": 4,
+        "h": 4,
+        "x": 10,
+        "y": 250
+      },
+      "x": -2,
+      "y": -2
+    },
+    "object": [
+      {
+        "type": "container",
+        "label": "bomb",
+        "children": [
+          {
+            "label": "bomb_bomb",
+            "sprite": {
+              "w": 10,
+              "h": 10,
+              "x": 0,
+              "y": 249
+            },
+            "x": -5,
+            "y": -5
+          }
+        ]
+      }
+    ]
   }
 ]

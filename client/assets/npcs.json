@@ -4,7 +4,468 @@
     "display": "Sheep",
     "health": 5,
     "speed": 1,
+    "range": 4,
+    "hitbox": 1,
+    "modes": [
+      {
+        "duration": 4,
+        "max_health": 5,
+        "min_health": 0,
+        "movement": "run"
+      }
+    ],
+    "body": [
+      {
+        "type": "container",
+        "label": "body",
+        "children": [
+          {
+            "label": "sheep_body",
+            "sprite": {
+              "w": 9,
+              "h": 10,
+              "x": 10,
+              "y": 260
+            },
+            "x": -4.5,
+            "y": -5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "head",
+        "children": [
+          {
+            "label": "sheep_head",
+            "sprite": {
+              "w": 9,
+              "h": 8,
+              "x": 0,
+              "y": 260
+            },
+            "x": -4.5,
+            "y": -9.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "display": "Goblin Archer",
+    "health": 10,
+    "speed": 2.5,
+    "range": 9,
+    "hitbox": 1,
+    "modes": [
+      {
+        "duration": 4,
+        "max_health": 10,
+        "min_health": 0,
+        "movement": "hover",
+        "attacks": [
+          {
+            "animation": 6,
+            "reload": 0.3,
+            "projectiles": [
+              {
+                "id": 4,
+                "angle": 0
+              }
+            ],
+            "wait": 1
+          }
+        ]
+      }
+    ],
+    "body": [
+      {
+        "type": "container",
+        "label": "body",
+        "children": [
+          {
+            "label": "goblin_archer_body",
+            "sprite": {
+              "w": 13,
+              "h": 5,
+              "x": 46,
+              "y": 263
+            },
+            "x": -6.5,
+            "y": -2.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "head",
+        "children": [
+          {
+            "label": "goblin_archer_head",
+            "sprite": {
+              "w": 9,
+              "h": 9,
+              "x": 38,
+              "y": 261
+            },
+            "x": -4.5,
+            "y": -4.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "hand",
+        "children": [
+          {
+            "label": "goblin_archer_bow",
+            "sprite": {
+              "w": 10,
+              "h": 10,
+              "x": 20,
+              "y": 150
+            },
+            "x": 0,
+            "y": -9
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "display": "Goblin Warrior",
+    "health": 20,
+    "speed": 2,
+    "range": 12,
+    "hitbox": 1,
+    "modes": [
+      {
+        "duration": 1.75,
+        "max_health": 20,
+        "min_health": 0,
+        "movement": "chase",
+        "attacks": [
+          {
+            "animation": 3,
+            "reload": 0.5,
+            "projectiles": [
+              {
+                "id": 1,
+                "angle": 0
+              }
+            ],
+            "wait": 0
+          },
+          {
+            "animation": 4,
+            "reload": 0.5,
+            "projectiles": [
+              {
+                "id": 1,
+                "angle": 0
+              }
+            ],
+            "wait": 0
+          },
+          {
+            "animation": 5,
+            "reload": 0.75,
+            "projectiles": [
+              {
+                "id": 2,
+                "angle": 0
+              },
+              {
+                "id": 3,
+                "angle": 0
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "body": [
+      {
+        "type": "container",
+        "label": "body",
+        "children": [
+          {
+            "label": "goblin_warrior_body",
+            "sprite": {
+              "w": 13,
+              "h": 5,
+              "x": 66,
+              "y": 263
+            },
+            "x": -6.5,
+            "y": -2.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "head",
+        "children": [
+          {
+            "label": "goblin_warrior_head",
+            "sprite": {
+              "w": 9,
+              "h": 9,
+              "x": 58,
+              "y": 261
+            },
+            "x": -4.5,
+            "y": -4.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "hand",
+        "angle": -23,
+        "children": [
+          {
+            "label": "goblin_warrior_sword",
+            "sprite": {
+              "w": 10,
+              "h": 10,
+              "x": 10,
+              "y": 150
+            },
+            "x": 5,
+            "y": -6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "display": "Goblin Cannon",
+    "health": 50,
+    "speed": 0,
     "range": 16,
+    "hitbox": 1.5,
+    "modes": [
+      {
+        "duration": 3,
+        "max_health": 50,
+        "min_health": 20,
+        "movement": "turret",
+        "attacks": [
+          {
+            "animation": 8,
+            "reload": 0.5,
+            "bombs": [
+              {
+                "id": 1
+              }
+            ],
+            "wait": 2.5
+          }
+        ]
+      },
+      {
+        "duration": 1,
+        "max_health": 20,
+        "min_health": 0,
+        "movement": "turret",
+        "attacks": [
+          {
+            "animation": 8,
+            "reload": 0.5,
+            "bombs": [
+              {
+                "id": 1
+              }
+            ],
+            "wait": 0.5
+          }
+        ]
+      }
+    ],
+    "body": [
+      {
+        "type": "container",
+        "label": "head",
+        "scale": 1.3,
+        "children": [
+          {
+            "label": "goblin_cannon_body",
+            "sprite": {
+              "w": 9,
+              "h": 10,
+              "x": 100,
+              "y": 260
+            },
+            "x": -4.5,
+            "y": -5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "hand",
+        "scale": 1.3,
+        "children": [
+          {
+            "label": "goblin_cannon_barrel",
+            "sprite": {
+              "w": 7,
+              "h": 7,
+              "x": 108,
+              "y": 260
+            },
+            "x": -3.5,
+            "y": -10
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "misc",
+        "scale": 1.3,
+        "children": [
+          {
+            "label": "goblin_cannon_wheels",
+            "sprite": {
+              "w": 11,
+              "h": 8,
+              "x": 114,
+              "y": 260
+            },
+            "x": -5.5,
+            "y": -5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "display": "Goblin Chief",
+    "health": 30,
+    "speed": 4,
+    "range": 8,
+    "hitbox": 1,
+    "modes": [
+      {
+        "duration": 1,
+        "max_health": 30,
+        "min_health": 29,
+        "movement": "turret",
+        "attacks": []
+      },
+      {
+        "duration": 1,
+        "max_health": 29,
+        "min_health": 0,
+        "movement": "chase",
+        "attacks": [
+          {
+            "animation": 3,
+            "reload": 0.5,
+            "projectiles": [
+              {
+                "id": 1,
+                "angle": 0
+              }
+            ],
+            "wait": 0
+          },
+          {
+            "animation": 4,
+            "reload": 0.5,
+            "projectiles": [
+              {
+                "id": 1,
+                "angle": 0
+              }
+            ],
+            "wait": 0
+          },
+          {
+            "animation": 5,
+            "reload": 0.75,
+            "projectiles": [
+              {
+                "id": 2,
+                "angle": 0
+              },
+              {
+                "id": 3,
+                "angle": 0
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "body": [
+      {
+        "type": "container",
+        "label": "body",
+        "scale": 1.2,
+        "children": [
+          {
+            "label": "goblin_chief_body",
+            "sprite": {
+              "w": 15,
+              "h": 6,
+              "x": 86,
+              "y": 263
+            },
+            "x": -7.5,
+            "y": -3
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "head",
+        "scale": 1.2,
+        "children": [
+          {
+            "label": "goblin_chief_head",
+            "sprite": {
+              "w": 9,
+              "h": 9,
+              "x": 78,
+              "y": 261
+            },
+            "x": -4.5,
+            "y": -4.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "hand",
+        "angle": -23,
+        "children": [
+          {
+            "label": "goblin_chief_axe",
+            "sprite": {
+              "w": 10,
+              "h": 10,
+              "x": 40,
+              "y": 150
+            },
+            "x": 5,
+            "y": -6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "display": "Wolf",
+    "health": 10,
+    "speed": 1.5,
+    "range": 6,
     "hitbox": 1,
     "modes": [
       {
@@ -92,64 +553,6 @@
                 "id": 0
               }
             ]
-          }
-        ]
-      }
-    ],
-    "body": [
-      {
-        "type": "container",
-        "label": "body",
-        "children": [
-          {
-            "label": "sheep_body",
-            "sprite": {
-              "w": 9,
-              "h": 10,
-              "x": 10,
-              "y": 260
-            },
-            "x": -4.5,
-            "y": -5
-          }
-        ]
-      },
-      {
-        "type": "container",
-        "label": "head",
-        "children": [
-          {
-            "label": "sheep_head",
-            "sprite": {
-              "w": 9,
-              "h": 8,
-              "x": 0,
-              "y": 260
-            },
-            "x": -4.5,
-            "y": -9.5
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": 1,
-    "display": "Wolf",
-    "health": 10,
-    "speed": 1.5,
-    "range": 6,
-    "hitbox": 1,
-    "modes": [
-      {
-        "duration": 10,
-        "health": [0, 1],
-        "movement": "chase",
-        "attacks": [
-          {
-            "animation": 0,
-            "reload": 0.3,
-            "wait": 1
           }
         ]
       }

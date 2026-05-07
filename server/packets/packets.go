@@ -20,6 +20,11 @@ const (
 	DAMAGED
 	TILES
 	SELECT_SLOT
+	CHAT_MESSAGE
+	CHANGE_INVENTORY
+	SET_HEALTH
+	CHARACTER_DEAD
+	LOOT_LOOTED
 )
 
 var tokens map[uint32]*engine.Character = make(map[uint32]*engine.Character)
@@ -31,7 +36,11 @@ func PropogateWorldState() {
 	for {
 		for _, client := range Clients {
 			data := client.simulation.Pack(byte(WORLDSTATE))
-			client.send <- data
+			select {
+			case client.send <- data:
+			default:
+				fmt.Println("Dropping world state for blocked client:", client.id)
+			}
 		}
 		<-ticker.C
 	}
@@ -59,8 +68,11 @@ func handshakePacket(client *Client, data []byte) {
 }
 
 func setCharacter(client *Client) {
-	client.character.Move(400, 400, 0)
+	x, y := client.instance.GetBeachpoint()
+	client.character.Move(x, y, 0)
+	client.character.Apply()
 	client.sendCharacter()
+	client.sendCell()
 }
 
 func HandlePacket(client *Client, r io.Reader) {
@@ -113,5 +125,19 @@ func HandlePacket(client *Client, r io.Reader) {
 		var idx_bytes = make([]byte, 1)
 		r.Read(idx_bytes)
 		client.selectSlot(idx_bytes[0])
+	case CHANGE_INVENTORY:
+		var toBytes = make([]byte, 1)
+		var fromBytes = make([]byte, 1)
+		r.Read(toBytes)
+		r.Read(fromBytes)
+		client.changeInventory(toBytes[0], fromBytes[0])
+	case CHAT_MESSAGE:
+		var msg_len = make([]byte, 1)
+		r.Read(msg_len)
+
+		var msg_bytes = make([]byte, int(msg_len[0]))
+		r.Read(msg_bytes)
+
+		client.ProcessMessage(string(msg_bytes))
 	}
 }

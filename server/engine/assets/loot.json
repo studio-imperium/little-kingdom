@@ -1,0 +1,19 @@
+[
+  [
+    {
+      "loot": 2,
+      "chance": 0.2,
+      "soulbound": false
+    },
+    {
+      "loot": 3,
+      "chance": 0.2,
+      "soulbound": false
+    },
+    {
+      "loot": 4,
+      "chance": 0.2,
+      "soulbound": true
+    }
+  ]
+]

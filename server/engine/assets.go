@@ -54,10 +54,29 @@ type NpcData struct {
 	Modes  []NpcModeData `json:"modes,omitempty"`
 }
 
+type SpawnData struct {
+	Chance float32      `json:"chance"`
+	Npcs   []SummonData `json:"npcs"`
+}
+
+type LootData struct {
+	Loot   uint8   `json:"loot"`
+	Chance float32 `json:"chance"`
+	SB     bool    `json:"soulbound"`
+}
+
+type Stats struct {
+	Health float32 `json:"health,omitempty"`
+	Regen  float32 `json:"regen,omitempty"`
+	Speed  float32 `json:"speed,omitempty"`
+	Damage float32 `json:"damage,omitempty"`
+	Reload float32 `json:"reload,omitempty"`
+}
+
 type ItemData struct {
 	ID      uint8        `json:"id"`
 	Slot    string       `json:"type"`
-	Speed   float32      `json:"speed"`
+	Stats   Stats        `json:"stats"`
 	Attacks []AttackData `json:"attacks,omitempty"`
 }
 
@@ -83,6 +102,12 @@ var itemsJSON []byte
 //go:embed assets/npcs.json
 var npcsJSON []byte
 
+//go:embed assets/spawns.json
+var spawnsJSON []byte
+
+//go:embed assets/loot.json
+var lootJSON []byte
+
 //go:embed assets/projectiles.json
 var projectilesJSON []byte
 
@@ -93,26 +118,42 @@ var bombsJSON []byte
 var tilesJSON []byte
 
 var npcData []NpcData
+var spawnsData [][]SpawnData
+var lootData [][]LootData
 var itemData []ItemData
 var projectileData []ProjectileData
 var bombData []BombData
 
-func GetNpcData() []NpcData {
-	return npcData
+var biomeSpawns map[uint8][]SpawnData = map[uint8][]SpawnData{}
+
+func GetNpcData(id uint8) NpcData {
+	return npcData[id]
 }
-func GetItemData() []ItemData {
-	return itemData
+func GetSpawnsData(id uint8) []SpawnData {
+	return spawnsData[id]
 }
-func GetProjectileData() []ProjectileData {
-	return projectileData
+func GetLootData(id uint8) []LootData {
+	return lootData[id]
 }
-func GetBombData() []BombData {
-	return bombData
+func GetItemData(id uint8) ItemData {
+	return itemData[id]
+}
+func GetProjectileData(id uint8) ProjectileData {
+	return projectileData[id]
+}
+func GetBombData(id uint8) BombData {
+	return bombData[id]
 }
 
 func InitAssets() {
 	if err := json.Unmarshal(npcsJSON, &npcData); err != nil {
 		fmt.Println("Error parsing Npc JSON")
+	}
+	if err := json.Unmarshal(spawnsJSON, &spawnsData); err != nil {
+		fmt.Println("Error parsing Spawns JSON")
+	}
+	if err := json.Unmarshal(lootJSON, &lootData); err != nil {
+		fmt.Println("Error parsing Loot JSON")
 	}
 	if err := json.Unmarshal(itemsJSON, &itemData); err != nil {
 		fmt.Println("Error parsing Item JSON")
@@ -124,7 +165,13 @@ func InitAssets() {
 		fmt.Println("Error parsing Bomb JSON")
 	}
 
+	biomeSpawns[20] = spawnsData[0]
+	biomeSpawns[21] = spawnsData[0]
+	biomeSpawns[22] = spawnsData[0]
+
 	fmt.Println("Initialized", len(npcData), "NPCs")
+	fmt.Println("Initialized", len(spawnsData), "Spawns")
+	fmt.Println("Initialized", len(lootData), "Loot Tables")
 	fmt.Println("Initialized", len(itemData), "Items")
 	fmt.Println("Initialized", len(projectileData), "Projectiles")
 	fmt.Println("Initialized", len(bombData), "Bombs")

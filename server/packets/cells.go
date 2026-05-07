@@ -3,7 +3,6 @@ package packets
 import (
 	"bytes"
 	"encoding/binary"
-	"fmt"
 	"server/engine"
 	"time"
 )
@@ -24,28 +23,37 @@ func (client *Client) sendTiles(cell *engine.Cell) {
 	}
 
 	client.send <- data.Bytes()
-	fmt.Println("Sending chunk")
+}
+
+func (client *Client) sendCell() {
+	client.instance.Map.Mu.Lock()
+
+	nearest := client.instance.Map.GetNearestCell(client.character)
+
+	for _, cell := range append(nearest.GetAdjacentCells(), nearest) {
+		for _, adj_cell := range cell.GetAdjacentCells() {
+			cell.Characters[client.id] = client.character
+			if _, okay := client.discoveredCells[adj_cell.Idx]; !okay {
+				cell.Load()
+				client.discoveredCells[adj_cell.Idx] = adj_cell
+				client.sendTiles(adj_cell)
+			}
+		}
+	}
+
+	client.instance.Map.Mu.Unlock()
 }
 
 func (client *Client) UpdateCells() {
-	delta := time.Millisecond * 50
+	delta := time.Millisecond * 500
 	ticker := time.NewTicker(delta)
 
 	for {
+		<-ticker.C
 		if client.character.Dead {
 			return
 		}
 
-		nearest := client.instance.Map.GetNearestCell(client.character)
-
-		for _, cell := range append(nearest.GetAdjacentCells(), nearest) {
-			for _, adj_cell := range cell.GetAdjacentCells() {
-				if _, okay := client.discoveredCells[adj_cell.Idx]; !okay {
-					client.discoveredCells[adj_cell.Idx] = adj_cell
-					client.sendTiles(adj_cell)
-				}
-			}
-		}
-		<-ticker.C
+		client.sendCell()
 	}
 }

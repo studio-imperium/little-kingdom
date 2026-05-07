@@ -17,6 +17,7 @@ type Npc struct {
 	instance *Engine
 
 	target      Object
+	looking     Entity
 	movement    string
 	mode        uint8
 	usedModes   []bool
@@ -25,14 +26,21 @@ type Npc struct {
 	attackTimer float32
 
 	nearby map[uint32]*Character
+	damage map[uint32]uint16
 	Dead   bool
 }
 
 func (npc Npc) GetX() float32      { return npc.x }
 func (npc Npc) GetY() float32      { return npc.y }
+func (npc Npc) GetId() uint32      { return npc.entityID }
 func (npc Npc) GetHitbox() float32 { return float32(npcData[npc.id].Hitbox) }
 func (npc *Npc) Damage(amount uint16) {
 	npc.health -= amount
+
+	if npc.health <= amount && !npc.Dead {
+		npc.Dead = true
+		npc.Death()
+	}
 
 	if len(npc.nearby) == 0 {
 		return
@@ -46,10 +54,36 @@ func (npc *Npc) Damage(amount uint16) {
 	for _, character := range npc.nearby {
 		*character.send <- packet
 	}
+}
+func (npc *Npc) Death() {
+	// we would use enemies loot pool id
+	data := GetNpcData(npc.id)
+	lootPool := GetLootData(0)
+	SBThreshold := min(200, float32(data.Health)/10.0)
 
-	if npc.health <= 0 {
-		npc.Dead = true
+	for id, char := range npc.nearby {
+		damage, ok := npc.damage[id]
+		for _, loot := range lootPool {
+			odds := rand.Float32() >= loot.Chance
+			if odds && loot.SB && ok && damage >= uint16(SBThreshold) {
+				l := CreateLoot(loot.Loot, npc.x, npc.y)
+				char.Simulation.AddLoot(l)
+			}
+		}
 	}
+	for _, loot := range lootPool {
+		odds := rand.Float32() >= loot.Chance
+		if odds && !loot.SB {
+			l := CreateLoot(loot.Loot, npc.x, npc.y)
+			for _, char := range npc.nearby {
+				char.Simulation.AddLoot(l)
+			}
+		}
+	}
+}
+
+func (npc *Npc) Look(obj Entity) {
+	npc.looking = obj
 }
 
 func (npc *Npc) Pack() []byte {
@@ -60,15 +94,21 @@ func (npc *Npc) Pack() []byte {
 	binary.Write(data, binary.LittleEndian, npc.y)
 	binary.Write(data, binary.LittleEndian, npc.health)
 
+	if npc.looking != nil {
+		data.WriteByte(1)
+		binary.Write(data, binary.LittleEndian, npc.looking.GetId())
+	} else {
+		data.WriteByte(0)
+	}
 	return data.Bytes()
 }
 
 func (npc *Npc) UpdateTarget() {
-	min_dist := float64(npcData[npc.id].Range)
+	min_dist := GetNpcData(npc.id).Range
 	found_character := false
 
 	for _, character := range npc.nearby {
-		dist := Distance(npc, character)
+		dist := float32(Distance(npc, character))
 		if dist < min_dist {
 			npc.target = character
 			min_dist = dist
@@ -79,6 +119,7 @@ func (npc *Npc) UpdateTarget() {
 	if !found_character {
 		if _, ok := npc.target.(*Character); ok {
 			npc.target = nil
+			npc.Look(nil)
 		}
 	}
 }
@@ -94,10 +135,10 @@ func (npc *Npc) ExitView(id uint32, character *Character) {
 }
 
 func (npc *Npc) Data() NpcData {
-	return GetNpcData()[npc.id]
+	return GetNpcData(npc.id)
 }
 func (npc *Npc) ValidMode(idx uint8) bool {
-	data := GetNpcData()[npc.id]
+	data := GetNpcData(npc.id)
 	mode := data.Modes[idx]
 
 	if mode.SingleUse && npc.usedModes[idx] {
@@ -113,7 +154,8 @@ func (npc *Npc) ValidMode(idx uint8) bool {
 }
 
 func (npc *Npc) NewMode() {
-	data := GetNpcData()[npc.id]
+	npc.Look(nil)
+	data := GetNpcData(npc.id)
 	pool := make([]uint8, 0)
 
 	for idx := range data.Modes {
@@ -140,12 +182,58 @@ func (npc *Npc) Tick(delta time.Duration) {
 		npc.Dead = true
 	}
 
-	if !npc.ValidMode(npc.mode) || npc.modeTimer < 0 {
-		npc.NewMode()
-	}
+	if npc.InCombat() {
+		if !npc.ValidMode(npc.mode) || npc.modeTimer <= 0 {
+			npc.NewMode()
+		}
 
-	if npc.attackTimer < 0 {
-		npc.NewAttack()
+		if npc.movement == "hover" && !npc.Hovering() {
+			return
+		}
+
+		if npc.attackTimer < 0 {
+			npc.NewAttack()
+		}
+	} else {
+		npc.modeTimer = 0
+	}
+}
+
+func (npc *Npc) GetAttack() *AttackData {
+	d := npcData[npc.id]
+	mode := d.Modes[npc.mode]
+	attackLen := len(mode.Attacks)
+
+	if attackLen > 0 {
+		return &mode.Attacks[int(npc.attack)%attackLen]
+	}
+	return nil
+}
+
+func Max(a float32, b float32) float32 {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func (npc *Npc) CanAttack() bool {
+	dist := float32(Distance(npc.target, npc))
+	attack := npc.GetAttack()
+	var attack_range float32 = 0
+
+	if attack != nil {
+		for _, proj := range attack.Projectiles {
+			attack_range = Max(attack_range, GetProjectileData(proj.ID).Range)
+		}
+		if len(attack.Bombs) > 0 {
+			attack_range = 32
+		}
+
+		return (npc.InCombat() &&
+			dist < attack_range)
+	} else {
+		return false
 	}
 }
 
@@ -167,6 +255,10 @@ func (npc *Npc) Move(delta time.Duration) {
 		npc.Run(delta)
 	case "overshoot":
 		npc.Overshoot(delta)
+	case "hover":
+		npc.Hover(delta)
+	case "turret":
+		npc.Turret(delta)
 	default:
 		return
 	}
@@ -180,16 +272,19 @@ func DefaultNpc(id uint8, x float32, y float32) *Npc {
 		y:      y,
 		health: health,
 		origin: Point{x, y},
+		id:     id,
 
 		target:    nil,
+		looking:   nil,
 		movement:  "wander",
 		mode:      0,
-		usedModes: make([]bool, len(GetNpcData()[id].Modes)),
+		usedModes: make([]bool, len(GetNpcData(id).Modes)),
 		modeTimer: 0,
 
 		attack:      0,
 		attackTimer: 0,
 		nearby:      make(map[uint32]*Character),
+		damage:      make(map[uint32]uint16),
 		Dead:        false,
 	}
 }

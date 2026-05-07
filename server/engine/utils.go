@@ -8,6 +8,7 @@ import (
 type Entity interface {
 	GetX() float32
 	GetY() float32
+	GetId() uint32
 	GetHitbox() float32
 	Damage(uint16)
 }

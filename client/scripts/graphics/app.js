@@ -2,10 +2,6 @@ const OBJECT_SIZE = 8
 const TILE_SIZE = 8
 const app = new PIXI.Application()
 
-window.__PIXI_DEVTOOLS__ = {
-  app: app,
-}
-
 async function init() {
   await app.init({
     background: "#1f1f1f",
@@ -22,6 +18,8 @@ async function init() {
   app.stage.scale = 48
   app.canvas.style.imageRendering = "pixelated"
   app.canvas.style.imageRendering = "crisp-edges"
+
+  await PIXI.Assets.load("/assets/myriad-pro.ttf")
 
   await load_textures()
   connect()
