@@ -111,7 +111,7 @@ func (client *Client) characterAttack(x float32, y float32, targetX float32, tar
 			bombs := attack.Bombs
 
 			// can make this longer/shorter here
-			reload := attack.Reload
+			reload := attack.Reload / client.character.Reload
 
 			client.character.AttackCooldown = reload
 
@@ -124,7 +124,7 @@ func (client *Client) characterAttack(x float32, y float32, targetX float32, tar
 			for _, projectile := range projectiles {
 				baseDamage := engine.GetProjectileData(projectile.ID).Damage
 
-				damage := baseDamage
+				damage := float32(baseDamage) * client.character.Power
 				// we can freely scale damage up/down here based on whatever we want
 
 				id := client.instance.CreateProjectile(projectile.ID, projectile.X+x, projectile.Y+y, (projectile.Angle+angle)%360, false, damage)

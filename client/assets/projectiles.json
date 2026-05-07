@@ -31,7 +31,7 @@
     "speed": 3,
     "range": 3,
     "damage": 1,
-    "hitbox": 1,
+    "hitbox": 0.6,
     "piercing": true,
     "object": [
       {
@@ -40,7 +40,7 @@
         "scale": 1.3,
         "children": [
           {
-            "label": "iron_sword_1",
+            "label": "shortsword_1",
             "sprite": {
               "w": 10,
               "h": 6,
@@ -60,7 +60,7 @@
     "speed": 3,
     "range": 4,
     "damage": 1,
-    "hitbox": 1,
+    "hitbox": 0.6,
     "piercing": true,
     "object": [
       {
@@ -69,7 +69,7 @@
         "scale": 2,
         "children": [
           {
-            "label": "iron_sword_2",
+            "label": "shortsword_2",
             "sprite": {
               "w": 7,
               "h": 5,
@@ -98,7 +98,7 @@
         "scale": 1.3,
         "children": [
           {
-            "label": "iron_sword_3",
+            "label": "shortsword_3",
             "sprite": {
               "w": 7,
               "h": 6,
@@ -136,6 +136,208 @@
             },
             "x": -2.5,
             "y": -5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "speed": 3,
+    "range": 3,
+    "damage": 1,
+    "hitbox": 0.6,
+    "piercing": false,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1.3,
+        "children": [
+          {
+            "label": "hatchet_1",
+            "sprite": {
+              "w": 10,
+              "h": 9,
+              "x": 47,
+              "y": 201
+            },
+            "outline": false,
+            "x": -5,
+            "y": -4.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "speed": 3,
+    "range": 3,
+    "damage": 1,
+    "hitbox": 0.8,
+    "piercing": false,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1.5,
+        "children": [
+          {
+            "label": "hatchet_2",
+            "sprite": {
+              "w": 10,
+              "h": 9,
+              "x": 47,
+              "y": 201
+            },
+            "outline": false,
+            "x": -5,
+            "y": -4.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "speed": 3,
+    "range": 3,
+    "damage": 2,
+    "hitbox": 0.6,
+    "piercing": true,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1.4,
+        "children": [
+          {
+            "label": "longsword_1",
+            "sprite": {
+              "w": 10,
+              "h": 6,
+              "x": 38,
+              "y": 204
+            },
+            "outline": false,
+            "x": -5,
+            "y": -3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "speed": 2,
+    "range": 3,
+    "damage": 1,
+    "hitbox": 0.6,
+    "piercing": true,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1.3,
+        "children": [
+          {
+            "label": "longsword_2",
+            "sprite": {
+              "w": 10,
+              "h": 5,
+              "x": 29,
+              "y": 205
+            },
+            "outline": false,
+            "x": -5,
+            "y": -2.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "speed": 4,
+    "range": 4,
+    "damage": 3,
+    "hitbox": 0.8,
+    "piercing": true,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1.5,
+        "children": [
+          {
+            "label": "longsword_3",
+            "sprite": {
+              "w": 10,
+              "h": 9,
+              "x": 47,
+              "y": 201
+            },
+            "outline": false,
+            "x": -5,
+            "y": -4.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "speed": 3,
+    "range": 6,
+    "damage": 1,
+    "hitbox": 0.4,
+    "piercing": true,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1,
+        "children": [
+          {
+            "label": "longbow_1",
+            "sprite": {
+              "w": 5,
+              "h": 11,
+              "x": 5,
+              "y": 220
+            },
+            "x": -2.5,
+            "y": -5.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "speed": 2,
+    "range": 2,
+    "damage": 2,
+    "hitbox": 0.6,
+    "piercing": false,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1.4,
+        "children": [
+          {
+            "label": "waraxe_1",
+            "sprite": {
+              "w": 10,
+              "h": 5,
+              "x": 29,
+              "y": 205
+            },
+            "outline": false,
+            "x": -5,
+            "y": -2.5
           }
         ]
       }

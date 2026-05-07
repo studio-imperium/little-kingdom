@@ -12,7 +12,7 @@ type Npc struct {
 	entityID uint32
 	x        float32
 	y        float32
-	health   uint16
+	health   float32
 	origin   Object
 	instance *Engine
 
@@ -26,7 +26,7 @@ type Npc struct {
 	attackTimer float32
 
 	nearby map[uint32]*Character
-	damage map[uint32]uint16
+	damage map[uint32]float32
 	Dead   bool
 }
 
@@ -34,10 +34,10 @@ func (npc Npc) GetX() float32      { return npc.x }
 func (npc Npc) GetY() float32      { return npc.y }
 func (npc Npc) GetId() uint32      { return npc.entityID }
 func (npc Npc) GetHitbox() float32 { return float32(npcData[npc.id].Hitbox) }
-func (npc *Npc) Damage(amount uint16) {
+func (npc *Npc) Damage(amount float32) {
 	npc.health -= amount
 
-	if npc.health <= amount && !npc.Dead {
+	if npc.health <= 0 && !npc.Dead {
 		npc.Dead = true
 		npc.Death()
 	}
@@ -59,13 +59,13 @@ func (npc *Npc) Death() {
 	// we would use enemies loot pool id
 	data := GetNpcData(npc.id)
 	lootPool := GetLootData(0)
-	SBThreshold := min(200, float32(data.Health)/10.0)
+	SBThreshold := min(float32(200), data.Health/10.0)
 
 	for id, char := range npc.nearby {
 		damage, ok := npc.damage[id]
 		for _, loot := range lootPool {
 			odds := rand.Float32() >= loot.Chance
-			if odds && loot.SB && ok && damage >= uint16(SBThreshold) {
+			if odds && loot.SB && ok && damage >= SBThreshold {
 				l := CreateLoot(loot.Loot, npc.x, npc.y)
 				char.Simulation.AddLoot(l)
 			}
@@ -284,7 +284,7 @@ func DefaultNpc(id uint8, x float32, y float32) *Npc {
 		attack:      0,
 		attackTimer: 0,
 		nearby:      make(map[uint32]*Character),
-		damage:      make(map[uint32]uint16),
+		damage:      make(map[uint32]float32),
 		Dead:        false,
 	}
 }

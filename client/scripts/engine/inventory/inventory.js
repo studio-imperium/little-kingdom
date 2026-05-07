@@ -59,7 +59,7 @@ function create_slot(idx) {
     drag.style.width = "40px"
     drag.style.height = "40px"
     drag.style.backgroundSize = "2048px 2048px"
-    drag.style.backgroundPosition = `${-20 * 4}px ${-140 * 4}px`
+    drag.style.backgroundPosition = `${0}px ${-90 * 4}px`
 
     document.body.appendChild(drag)
 
@@ -102,9 +102,9 @@ function create_gear_slot(idx) {
   slot.className = "inventory_slot gear_slot"
   sprite.className = "placeholder_sprite"
   if (idx == 24) {
-    sprite.style.backgroundPosition = "0px -159px"
+    sprite.style.backgroundPosition = "0px -144px"
   } else if (idx == 25) {
-    sprite.style.backgroundPosition = "-0.5px -169.5px"
+    sprite.style.backgroundPosition = "-0.5px -153.5px"
   }
   slot.appendChild(sprite)
   return slot

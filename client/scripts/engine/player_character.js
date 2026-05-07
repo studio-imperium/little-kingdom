@@ -1,5 +1,6 @@
 let character = null
 let speed = 4
+let reload = 1
 let inventory = {}
 let velocity = {
   x: 0,
@@ -87,7 +88,7 @@ function attack() {
     const attacks = data.attacks
     const attack = attacks[attack_counter % data.attacks.length]
 
-    attack_cooldown = attack.reload
+    attack_cooldown = attack.reload / reload
 
     const attack_projectiles = attack.projectiles ? attack.projectiles : []
     const attack_bombs = attack.bombs ? attack.bombs : []

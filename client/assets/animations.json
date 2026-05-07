@@ -210,6 +210,88 @@
   },
   {
     "id": 8,
+    "display": "Bomb Throw",
+    "frames": [
+      {
+        "time": 0,
+        "body_angle": 45,
+        "hand_angle": 0,
+        "hand_scale": 0,
+        "hand_y": 0
+      },
+      {
+        "time": 0.3,
+        "body_angle": -25,
+        "hand_angle": 0,
+        "hand_scale": 0.5,
+        "hand_y": 0
+      },
+      {
+        "time": 0.6,
+        "body_angle": 0,
+        "hand_angle": 20,
+        "hand_scale": 1,
+        "hand_y": 0
+      },
+      {
+        "time": 1,
+        "body_angle": 0,
+        "hand_angle": 20,
+        "hand_scale": 1,
+        "hand_y": 0
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "display": "Waraxe Spin",
+    "frames": [
+      {
+        "time": 0,
+        "head_angle": 210,
+        "body_angle": 180,
+        "hand_angle": 220,
+        "hand_scale": 1.2
+      },
+      {
+        "time": 0.15,
+        "head_angle": 0,
+        "body_angle": 0,
+        "hand_angle": -23,
+        "hand_scale": 1.3
+      },
+      {
+        "time": 0.3,
+        "head_angle": -110,
+        "body_angle": -90,
+        "hand_angle": -260,
+        "hand_scale": 1.2
+      },
+      {
+        "time": 0.4,
+        "head_angle": -50,
+        "body_angle": -45,
+        "hand_angle": -270,
+        "hand_scale": 0.9
+      },
+      {
+        "time": 0.7,
+        "head_angle": 0,
+        "body_angle": 0,
+        "hand_angle": -100,
+        "hand_scale": 1
+      },
+      {
+        "time": 1,
+        "head_angle": 0,
+        "body_angle": 0,
+        "hand_angle": -23,
+        "hand_scale": 1
+      }
+    ]
+  },
+  {
+    "id": 9,
     "display": "Cannon Blast",
     "frames": [
       {

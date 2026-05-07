@@ -88,7 +88,7 @@ func (engine *Engine) RemoveCharacter(id uint32, lock bool) {
 	delete(engine.Characters, id)
 }
 
-func (engine *Engine) CreateProjectile(which uint8, x float32, y float32, angle uint16, evil bool, damage uint16) uint32 {
+func (engine *Engine) CreateProjectile(which uint8, x float32, y float32, angle uint16, evil bool, damage float32) uint32 {
 	engine.mu.Lock()
 	defer engine.mu.Unlock()
 
@@ -106,7 +106,7 @@ func (engine *Engine) AddProjectile(id uint32, projectile *Projectile) {
 	engine.Projectiles[id] = projectile
 }
 
-func (engine *Engine) CreateBomb(which uint8, x float32, y float32, origin Object, evil bool, damage uint16, timer float32) uint32 {
+func (engine *Engine) CreateBomb(which uint8, x float32, y float32, origin Object, evil bool, damage float32, timer float32) uint32 {
 	engine.mu.Lock()
 	defer engine.mu.Unlock()
 

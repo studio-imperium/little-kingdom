@@ -42,23 +42,28 @@ function handshake() {
 
 let initialized_character = false
 function set_character(data) {
-  const [x, y, angle, health, max_health, hand, head, body] = [
+  const [x, y, angle, health, max_health, _reload, _speed, hand, head, body] = [
     data.getFloat32(1, true),
     data.getFloat32(5, true),
     data.getUint16(9, true),
     data.getUint16(11, true),
     data.getUint16(13, true),
-    data.getUint8(15),
-    data.getUint8(16),
-    data.getUint8(17),
+    data.getFloat32(15, true),
+    data.getFloat32(19, true),
+    data.getUint8(23),
+    data.getUint8(24),
+    data.getUint8(25),
   ]
 
+  speed = 4 * _speed
+  reload = _reload
+
   const inventory = {}
-  const slots = data.getUint8(18)
+  const slots = data.getUint8(26)
   for (let i = 0; i < slots; i++) {
     let offset = i * 2
-    let slot = data.getUint8(19 + offset)
-    let item = data.getUint8(20 + offset)
+    let slot = data.getUint8(27 + offset)
+    let item = data.getUint8(28 + offset)
     inventory[slot] = item
   }
 
@@ -115,11 +120,11 @@ function set_world(data) {
     let which = data.getUint8(4 + offset)
     let x = data.getFloat32(5 + offset, true)
     let y = data.getFloat32(9 + offset, true)
-    let health = data.getUint16(13 + offset, true)
-    let target = data.getUint8(15 + offset)
+    let health = data.getFloat32(13 + offset, true)
+    let target = data.getUint8(17 + offset)
     let target_character = null
 
-    offset += 16
+    offset += 18
     if (target) {
       let cid = data.getUint32(offset, true)
       target_character = get_character(cid)

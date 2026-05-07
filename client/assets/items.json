@@ -37,10 +37,10 @@
     "type": "body",
     "stats": {},
     "sprite": {
-      "w": 15,
-      "h": 7,
+      "w": 0,
+      "h": 0,
       "x": 0,
-      "y": 78
+      "y": 0
     },
     "equipped": {
       "type": "container",
@@ -52,7 +52,7 @@
             "w": 15,
             "h": 7,
             "x": 0,
-            "y": 135
+            "y": 136
           },
           "x": -7.5,
           "y": -3.5,
@@ -95,7 +95,25 @@
         }
       ]
     },
-    "hand": {}
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 22.5,
+      "scale": 0.8,
+      "children": [
+        {
+          "label": "iron_helmet_hand",
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 14.5,
+            "y": 143.5
+          },
+          "x": 2,
+          "y": -10
+        }
+      ]
+    }
   },
   {
     "display": "Iron Platemail",
@@ -134,19 +152,19 @@
     "hand": {
       "type": "container",
       "label": "hand",
-      "angle": -23,
+      "angle": 22.5,
       "scale": 0.8,
       "children": [
         {
           "label": "iron_platemail_hand",
           "sprite": {
-            "w": 15,
-            "h": 7,
+            "w": 10,
+            "h": 10,
             "x": 15,
-            "y": 119
+            "y": 154
           },
-          "x": 5,
-          "y": -3
+          "x": 2,
+          "y": -10
         }
       ]
     }
@@ -182,7 +200,25 @@
         }
       ]
     },
-    "hand": {}
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 22.5,
+      "scale": 0.8,
+      "children": [
+        {
+          "label": "leather_cap_hand",
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 29.5,
+            "y": 143.5
+          },
+          "x": 2,
+          "y": -10
+        }
+      ]
+    }
   },
   {
     "display": "Leather Hide",
@@ -190,7 +226,7 @@
     "description": "An armor crafted from a cow hide, said to make the wearer more agile.",
     "type": "body",
     "stats": {
-      "speed": 1.1,
+      "speed": 1.05,
       "reload": 1.1
     },
     "sprite": {
@@ -221,19 +257,19 @@
     "hand": {
       "type": "container",
       "label": "hand",
-      "angle": -23,
+      "angle": 22.5,
       "scale": 0.8,
       "children": [
         {
-          "label": "iron_platemail_hand",
+          "label": "leather_hide_hand",
           "sprite": {
-            "w": 15,
-            "h": 7,
-            "x": 15,
-            "y": 119
+            "w": 10,
+            "h": 10,
+            "x": 30,
+            "y": 154
           },
-          "x": 5,
-          "y": -3
+          "x": 2,
+          "y": -10
         }
       ]
     }
@@ -249,8 +285,8 @@
     "sprite": {
       "w": 10,
       "h": 10,
-      "x": 45.5,
-      "y": 143.5
+      "x": 44.5,
+      "y": 142.5
     },
     "equipped": {
       "type": "container",
@@ -269,7 +305,25 @@
         }
       ]
     },
-    "hand": {}
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 22.5,
+      "scale": 0.8,
+      "children": [
+        {
+          "label": "leather_hat_hand",
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 44.5,
+            "y": 142.5
+          },
+          "x": 2,
+          "y": -10
+        }
+      ]
+    }
   },
   {
     "display": "Leather Robes",
@@ -283,7 +337,7 @@
     "sprite": {
       "w": 10,
       "h": 10,
-      "x": 15,
+      "x": 45,
       "y": 154
     },
     "equipped": {
@@ -291,11 +345,11 @@
       "label": "body",
       "children": [
         {
-          "label": "iron_platemail_body",
+          "label": "leather_robes_body",
           "sprite": {
             "w": 15,
             "h": 7,
-            "x": 15,
+            "x": 45,
             "y": 136
           },
           "x": -7.5,
@@ -308,26 +362,26 @@
     "hand": {
       "type": "container",
       "label": "hand",
-      "angle": -23,
+      "angle": 22.5,
       "scale": 0.8,
       "children": [
         {
-          "label": "iron_platemail_hand",
+          "label": "leather_robes_hand",
           "sprite": {
-            "w": 15,
-            "h": 7,
-            "x": 15,
-            "y": 119
+            "w": 10,
+            "h": 10,
+            "x": 45,
+            "y": 154
           },
-          "x": 5,
-          "y": -3
+          "x": 2,
+          "y": -10
         }
       ]
     }
   },
   {
     "display": "Kendo Stick",
-    "id": 4,
+    "id": 8,
     "description": "Whack whack",
     "type": "hand",
     "stats": {},
@@ -335,7 +389,7 @@
       "w": 10,
       "h": 10,
       "x": 0,
-      "y": 150
+      "y": 170
     },
     "attacks": [
       {
@@ -370,7 +424,7 @@
             "w": 10,
             "h": 10,
             "x": 0,
-            "y": 150
+            "y": 170
           },
           "x": 5,
           "y": -6
@@ -379,8 +433,8 @@
     }
   },
   {
-    "display": "Iron Sword",
-    "id": 5,
+    "display": "Shortsword",
+    "id": 9,
     "description": "Slash slash",
     "type": "hand",
     "stats": {
@@ -391,7 +445,7 @@
       "w": 10,
       "h": 10,
       "x": 10,
-      "y": 150
+      "y": 170
     },
     "attacks": [
       {
@@ -435,12 +489,12 @@
       "angle": -23,
       "children": [
         {
-          "label": "iron_sword_hand",
+          "label": "shortsword_hand",
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 10,
-            "y": 150
+            "y": 170
           },
           "x": 5,
           "y": -6
@@ -450,7 +504,7 @@
   },
   {
     "display": "Shortbow",
-    "id": 6,
+    "id": 10,
     "description": "Bang bang",
     "type": "hand",
     "stats": {},
@@ -458,7 +512,7 @@
       "w": 10,
       "h": 10,
       "x": 20,
-      "y": 150
+      "y": 170
     },
     "attacks": [
       {
@@ -467,11 +521,7 @@
         "projectiles": [
           {
             "id": 4,
-            "angle": 355
-          },
-          {
-            "id": 4,
-            "angle": 5
+            "angle": 0
           }
         ]
       }
@@ -487,7 +537,7 @@
             "w": 10,
             "h": 10,
             "x": 20,
-            "y": 150
+            "y": 170
           },
           "x": 0,
           "y": -9
@@ -497,7 +547,7 @@
   },
   {
     "display": "Wind Spell",
-    "id": 7,
+    "id": 11,
     "description": "Splash splash",
     "type": "hand",
     "stats": {},
@@ -505,7 +555,7 @@
       "w": 10,
       "h": 10,
       "x": 30,
-      "y": 150
+      "y": 170
     },
     "attacks": [
       {
@@ -529,11 +579,367 @@
             "w": 10,
             "h": 10,
             "x": 30,
-            "y": 150
+            "y": 170
           },
           "x": 1,
           "y": -9,
           "scale": 0.8
+        }
+      ]
+    }
+  },
+  {
+    "display": "Hatchet",
+    "id": 12,
+    "description": "Bane of the stump",
+    "type": "hand",
+    "stats": {},
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 40,
+      "y": 170
+    },
+    "attacks": [
+      {
+        "animation": 3,
+        "reload": 0.5,
+        "projectiles": [
+          {
+            "id": 5,
+            "angle": 0
+          }
+        ]
+      },
+      {
+        "animation": 4,
+        "reload": 0.5,
+        "projectiles": [
+          {
+            "id": 6,
+            "angle": 0
+          }
+        ]
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": -23,
+      "children": [
+        {
+          "label": "hatchet_hand",
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 40,
+            "y": 170
+          },
+          "x": 5,
+          "y": -6
+        }
+      ]
+    }
+  },
+  {
+    "display": "Longsword",
+    "id": 13,
+    "description": "The longest sword ever",
+    "type": "hand",
+    "stats": {},
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 50,
+      "y": 170
+    },
+    "attacks": [
+      {
+        "animation": 3,
+        "reload": 0.8,
+        "projectiles": [
+          {
+            "id": 7,
+            "angle": 0
+          },
+          {
+            "id": 8,
+            "angle": 0
+          }
+        ]
+      },
+      {
+        "animation": 4,
+        "reload": 0.8,
+        "projectiles": [
+          {
+            "id": 7,
+            "angle": 0
+          },
+          {
+            "id": 8,
+            "angle": 0
+          }
+        ]
+      },
+      {
+        "animation": 5,
+        "reload": 1,
+        "projectiles": [
+          {
+            "id": 7,
+            "angle": 0
+          },
+          {
+            "id": 8,
+            "angle": 0
+          },
+          {
+            "id": 9,
+            "angle": 0
+          }
+        ]
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": -23,
+      "children": [
+        {
+          "label": "longsword_hand",
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 50,
+            "y": 170
+          },
+          "x": 5,
+          "y": -6
+        }
+      ]
+    }
+  },
+  {
+    "display": "Longbow",
+    "id": 14,
+    "description": "The longest bow ever.",
+    "type": "hand",
+    "stats": {},
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 60,
+      "y": 170
+    },
+    "attacks": [
+      {
+        "animation": 6,
+        "reload": 0.3,
+        "projectiles": [
+          {
+            "id": 10,
+            "angle": 0
+          }
+        ]
+      },
+      {
+        "animation": 6,
+        "reload": 0.3,
+        "projectiles": [
+          {
+            "id": 10,
+            "angle": 355
+          },
+          {
+            "id": 10,
+            "angle": 5
+          }
+        ]
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 0,
+      "children": [
+        {
+          "label": "longbow_hand",
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 60,
+            "y": 170
+          },
+          "x": 0,
+          "y": -9
+        }
+      ]
+    }
+  },
+  {
+    "display": "Light Spell",
+    "id": 15,
+    "description": "A blinding spell, forged on the hottest day on record.",
+    "type": "hand",
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 70,
+      "y": 170
+    },
+    "attacks": [
+      {
+        "animation": 7,
+        "reload": 0.5,
+        "bombs": [
+          {
+            "id": 1
+          }
+        ]
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 20,
+      "children": [
+        {
+          "label": "light_spell_hand",
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 70,
+            "y": 170
+          },
+          "x": 1,
+          "y": -9,
+          "scale": 0.8
+        }
+      ]
+    }
+  },
+  {
+    "display": "Bomb",
+    "id": 16,
+    "description": "Kablow!",
+    "type": "hand",
+    "stats": {},
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 80,
+      "y": 170
+    },
+    "attacks": [
+      {
+        "animation": 8,
+        "reload": 1,
+        "bombs": [
+          {
+            "id": 2
+          },
+          {
+            "id": 3
+          }
+        ]
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 20,
+      "children": [
+        {
+          "label": "bomb_hand",
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 80,
+            "y": 170
+          },
+          "x": 1,
+          "y": -9,
+          "scale": 0.8
+        }
+      ]
+    }
+  },
+  {
+    "display": "Waraxe",
+    "id": 17,
+    "description": "",
+    "type": "hand",
+    "stats": {},
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 90,
+      "y": 170
+    },
+    "attacks": [
+      {
+        "animation": 3,
+        "reload": 0.6,
+        "projectiles": [
+          {
+            "id": 11,
+            "angle": 320
+          },
+          {
+            "id": 11,
+            "angle": 0
+          },
+          {
+            "id": 11,
+            "angle": 40
+          }
+        ]
+      },
+      {
+        "animation": 4,
+        "reload": 0.6,
+        "projectiles": [
+          {
+            "id": 11,
+            "angle": 320
+          },
+          {
+            "id": 11,
+            "angle": 0
+          },
+          {
+            "id": 11,
+            "angle": 40
+          }
+        ]
+      },
+      {
+        "animation": 9,
+        "reload": 1,
+        "bombs": [
+          {
+            "id": 4,
+            "angle": 0
+          }
+        ]
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": -23,
+      "children": [
+        {
+          "label": "waraxe_hand",
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 90,
+            "y": 170
+          },
+          "x": 5,
+          "y": -6
         }
       ]
     }

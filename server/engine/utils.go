@@ -10,7 +10,7 @@ type Entity interface {
 	GetY() float32
 	GetId() uint32
 	GetHitbox() float32
-	Damage(uint16)
+	Damage(float32)
 }
 
 type Object interface {

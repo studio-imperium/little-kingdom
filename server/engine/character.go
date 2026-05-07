@@ -17,9 +17,9 @@ type Character struct {
 	maxHealth float32
 	health    float32
 	regen     float32
-	speed     float32
-	damage    float32
-	reload    float32
+	Speed     float32
+	Power     float32
+	Reload    float32
 
 	inventory      map[uint8]uint8
 	send           *chan []byte
@@ -33,8 +33,8 @@ func (c *Character) GetX() float32      { return c.x }
 func (c *Character) GetY() float32      { return c.y }
 func (c *Character) GetId() uint32      { return c.id }
 func (c *Character) GetHitbox() float32 { return 1 }
-func (c *Character) Damage(amount uint16) {
-	c.health -= float32(amount)
+func (c *Character) Damage(amount float32) {
+	c.health -= amount
 
 	if c.health < 1 {
 		*c.send <- []byte{11}
@@ -72,56 +72,83 @@ func (engine *Engine) GetSlot(id uint32, idx uint8) uint8 {
 func (engine *Engine) ChangeInventory(id uint32, to uint8, from uint8) {
 	engine.mu.Lock()
 	defer engine.mu.Unlock()
-	char := engine.Characters[id]
 
-	remove_gear := func(slot_type string, gear_slot *uint8) {
-		if item, ok := char.inventory[to]; ok {
-			slot := GetItemData(item).Slot
-			if slot == slot_type && char.head != 0 {
-				char.inventory[to] = *gear_slot
-				*gear_slot = item
-			}
-		} else {
-			char.inventory[to] = *gear_slot
-
-			if slot_type == "head" {
-				*gear_slot = 0
-			} else {
-				*gear_slot = 1
-			}
-		}
-	}
-	equip_gear := func(slot_type string, gear_slot *uint8) {
-		if item, ok := char.inventory[from]; ok {
-			slot := GetItemData(item).Slot
-			if slot == slot_type && char.head != 0 {
-				char.inventory[from] = *gear_slot
-				*gear_slot = item
-			} else if slot == slot_type {
-				delete(char.inventory, from)
-				*gear_slot = item
-			}
-		}
-	}
-
-	if to == 24 && from == 25 || to == 25 && from == 24 {
+	if to == from {
 		return
-	} else if to == 24 {
-		equip_gear("head", &char.head)
-	} else if from == 24 {
-		remove_gear("head", &char.head)
-	} else if to == 25 {
-		equip_gear("body", &char.body)
-	} else if from == 25 {
-		remove_gear("body", &char.body)
-	} else if item1, ok := char.inventory[from]; ok {
-		if item2, ok := char.inventory[to]; ok {
-			char.inventory[from] = item2
-		} else {
-			delete(char.inventory, from)
-		}
-		char.inventory[to] = item1
 	}
+
+	char, ok := engine.Characters[id]
+	if !ok {
+		return
+	}
+
+	const (
+		headSlot    uint8 = 24
+		bodySlot    uint8 = 25
+		defaultHead uint8 = 0
+		defaultBody uint8 = 1
+	)
+
+	gearInfo := func(slot uint8) (*uint8, string, uint8, bool) {
+		switch slot {
+		case headSlot:
+			return &char.head, "head", defaultHead, true
+		case bodySlot:
+			return &char.body, "body", defaultBody, true
+		default:
+			return nil, "", 0, false
+		}
+	}
+
+	if toGear, toType, toDefault, toIsGear := gearInfo(to); toIsGear {
+		fromItem, ok := char.inventory[from]
+		if !ok || GetItemData(fromItem).Slot != toType {
+			return
+		}
+
+		equipped := *toGear
+		*toGear = fromItem
+
+		if equipped == toDefault {
+			delete(char.inventory, from)
+		} else {
+			char.inventory[from] = equipped
+		}
+
+		char.Apply()
+		return
+	}
+
+	if fromGear, fromType, fromDefault, fromIsGear := gearInfo(from); fromIsGear {
+		equipped := *fromGear
+		if equipped == fromDefault {
+			return
+		}
+
+		if toItem, ok := char.inventory[to]; ok {
+			if GetItemData(toItem).Slot != fromType {
+				return
+			}
+			*fromGear = toItem
+		} else {
+			*fromGear = fromDefault
+		}
+
+		char.inventory[to] = equipped
+		char.Apply()
+		return
+	}
+
+	item1, ok := char.inventory[from]
+	if !ok {
+		return
+	}
+	if item2, ok := char.inventory[to]; ok {
+		char.inventory[from] = item2
+	} else {
+		delete(char.inventory, from)
+	}
+	char.inventory[to] = item1
 	char.Apply()
 }
 
@@ -148,6 +175,8 @@ func (character *Character) PackFull(packet_type uint8) []byte {
 	binary.Write(data, binary.LittleEndian, character.angle)
 	binary.Write(data, binary.LittleEndian, uint16(character.health))
 	binary.Write(data, binary.LittleEndian, uint16(character.maxHealth))
+	binary.Write(data, binary.LittleEndian, float32(character.Reload))
+	binary.Write(data, binary.LittleEndian, float32(character.Speed))
 	data.WriteByte(character.hand)
 	data.WriteByte(character.head)
 	data.WriteByte(character.body)
@@ -189,7 +218,22 @@ func DefaultCharacter(simulation *Engine, send *chan []byte, id uint32) *Charact
 		body:   1,
 		health: 1000,
 		inventory: map[uint8]uint8{
-			0: 4,
+			0:  2,
+			1:  3,
+			2:  4,
+			3:  5,
+			4:  6,
+			5:  7,
+			6:  8,
+			7:  9,
+			8:  10,
+			9:  11,
+			10: 12,
+			11: 13,
+			12: 14,
+			13: 15,
+			14: 16,
+			15: 17,
 		},
 		send:           send,
 		AttackCounter:  0,
@@ -257,9 +301,9 @@ func (character *Character) Apply() {
 
 	character.maxHealth = health
 	character.regen = regen
-	character.speed = speed
-	character.damage = damage
-	character.reload = reload
+	character.Speed = speed
+	character.Power = damage
+	character.Reload = reload
 
 	data := character.PackFull(0)
 	*character.send <- data

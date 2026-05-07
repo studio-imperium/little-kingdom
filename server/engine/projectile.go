@@ -10,7 +10,7 @@ import (
 type Projectile struct {
 	id      uint8
 	evil    bool
-	damage  uint16
+	damage  float32
 	x       float32
 	y       float32
 	origin  *Point
@@ -45,7 +45,7 @@ func (projectile *Projectile) Tick(delta time.Duration) {
 	projectile.y += dy * speed * deltaTime / 16
 }
 
-func DefaultProjectile(id uint8, x float32, y float32, angle uint16, evil bool, damage uint16) *Projectile {
+func DefaultProjectile(id uint8, x float32, y float32, angle uint16, evil bool, damage float32) *Projectile {
 	return &Projectile{
 		id:      id,
 		evil:    evil,

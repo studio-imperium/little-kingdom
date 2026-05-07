@@ -36,8 +36,8 @@ type AttackData struct {
 
 type NpcModeData struct {
 	Duration  float32      `json:"duration"`
-	MaxHealth uint16       `json:"max_health,omitempty"`
-	MinHealth uint16       `json:"min_health,omitempty"`
+	MaxHealth float32      `json:"max_health,omitempty"`
+	MinHealth float32      `json:"min_health,omitempty"`
 	SingleUse bool         `json:"single_use,omitempty"`
 	OnSpawn   bool         `json:"on_spawn,omitempty"`
 	Movement  string       `json:"movement"`
@@ -47,7 +47,7 @@ type NpcModeData struct {
 type NpcData struct {
 	ID     uint8         `json:"id"`
 	Name   string        `json:"display"`
-	Health uint16        `json:"health"`
+	Health float32       `json:"health"`
 	Speed  float32       `json:"speed"`
 	Range  float32       `json:"range"`
 	Hitbox uint8         `json:"hitbox"`
@@ -84,7 +84,7 @@ type ProjectileData struct {
 	ID       uint8   `json:"id"`
 	Speed    float32 `json:"speed"`
 	Range    float32 `json:"range"`
-	Damage   uint16  `json:"damage"`
+	Damage   float32 `json:"damage"`
 	Piercing bool    `json:"piercing"`
 	Hitbox   uint8   `json:"hitbox"`
 }
@@ -92,7 +92,7 @@ type ProjectileData struct {
 type BombData struct {
 	ID      uint8   `json:"id"`
 	Airtime float32 `json:"airtime"`
-	Damage  uint16  `json:"damage"`
+	Damage  float32 `json:"damage"`
 	Radius  uint8   `json:"radius"`
 }
 
