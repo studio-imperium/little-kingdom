@@ -1,4 +1,5 @@
 let textures
+const DATA_ASSET_BASE = "http://localhost:8082/assets"
 const spritesheet_data = {
   frames: {},
   meta: {
@@ -7,6 +8,10 @@ const spritesheet_data = {
     size: { w: 512, h: 512 },
     scale: 1,
   },
+}
+
+function load_json_asset(name) {
+  return fetch(`${DATA_ASSET_BASE}/${name}`).then((response) => response.json())
 }
 
 async function load_textures() {
@@ -27,7 +32,7 @@ async function load_textures() {
 }
 
 async function load_tiles() {
-  const tiles_json = await (await fetch("/assets/tiles.json")).json()
+  const tiles_json = await load_json_asset("tiles.json")
 
   for (let { id, size, x, y } of tiles_json) {
     tile_data[id] = { size, x, y }
@@ -56,7 +61,7 @@ function load_recursive(obj) {
 }
 
 async function load_items() {
-  const items_json = await (await fetch("/assets/items.json")).json()
+  const items_json = await load_json_asset("items.json")
 
   for (let { id, sprite, hand, equipped } of items_json) {
     spritesheet_data.frames[id] = {
@@ -76,7 +81,7 @@ async function load_items() {
 }
 
 async function load_npcs() {
-  const npc_json = await (await fetch("/assets/npcs.json")).json()
+  const npc_json = await load_json_asset("npcs.json")
 
   for (let { body } of npc_json) {
     for (let bodypart of body) {
@@ -87,7 +92,7 @@ async function load_npcs() {
 }
 
 async function load_projectiles() {
-  const projectile_json = await (await fetch("/assets/projectiles.json")).json()
+  const projectile_json = await load_json_asset("projectiles.json")
 
   for (let { object } of projectile_json) {
     for (let part of object) {
@@ -98,7 +103,7 @@ async function load_projectiles() {
 }
 
 async function load_bombs() {
-  const bomb_json = await (await fetch("/assets/bombs.json")).json()
+  const bomb_json = await load_json_asset("bombs.json")
 
   for (let { object, trail } of bomb_json) {
     for (let part of object) {
@@ -111,6 +116,6 @@ async function load_bombs() {
 }
 
 async function load_animations() {
-  const animation_json = await (await fetch("/assets/animations.json")).json()
+  const animation_json = await load_json_asset("animations.json")
   animation_data = animation_json
 }

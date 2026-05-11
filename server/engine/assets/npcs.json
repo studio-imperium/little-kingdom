@@ -1,51 +1,94 @@
 [
   {
     "id": 0,
-    "display": "Sheep",
-    "health": 5,
+    "display": "Pirate",
+    "health": 3,
     "speed": 1,
-    "range": 4,
+    "loot": 1,
+    "range": 6,
     "hitbox": 1,
     "modes": [
       {
         "duration": 4,
-        "max_health": 5,
+        "max_health": 3,
         "min_health": 0,
-        "movement": "run"
+        "movement": "chase",
+        "attacks": [
+          {
+            "animation": 3,
+            "reload": 1,
+            "projectiles": [
+              {
+                "id": 1,
+                "angle": 0
+              }
+            ],
+            "wait": 1
+          },
+          {
+            "animation": 4,
+            "reload": 1,
+            "projectiles": [
+              {
+                "id": 1,
+                "angle": 0
+              }
+            ],
+            "wait": 1
+          }
+        ]
       }
     ],
     "body": [
       {
         "type": "container",
-        "label": "body",
+        "label": "head",
         "children": [
           {
-            "label": "sheep_body",
+            "label": "pirate_head",
             "sprite": {
-              "w": 9,
-              "h": 10,
-              "x": 10,
-              "y": 260
+              "w": 7,
+              "h": 9,
+              "x": 0,
+              "y": 258
             },
-            "x": -4.5,
-            "y": -5
+            "x": -3.5,
+            "y": -3.5
           }
         ]
       },
       {
         "type": "container",
-        "label": "head",
+        "label": "body",
         "children": [
           {
-            "label": "sheep_head",
+            "label": "pirate_body",
             "sprite": {
-              "w": 9,
-              "h": 8,
-              "x": 0,
-              "y": 260
+              "w": 13,
+              "h": 5,
+              "x": 6,
+              "y": 258
             },
-            "x": -4.5,
-            "y": -9.5
+            "x": -6.5,
+            "y": -2.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "hand",
+        "angle": -23,
+        "children": [
+          {
+            "label": "pirate_sword",
+            "sprite": {
+              "w": 10,
+              "h": 10,
+              "x": 10,
+              "y": 170
+            },
+            "x": 5,
+            "y": -6
           }
         ]
       }
@@ -53,9 +96,324 @@
   },
   {
     "id": 1,
-    "display": "Goblin Archer",
+    "display": "Pirate Captain",
+    "health": 5,
+    "speed": 1.25,
+    "loot": 1,
+    "range": 12,
+    "hitbox": 1,
+    "modes": [
+      {
+        "duration": 2,
+        "max_health": 5,
+        "min_health": 0,
+        "movement": "chase",
+        "attacks": [
+          {
+            "animation": 3,
+            "reload": 1,
+            "projectiles": [
+              {
+                "id": 5,
+                "angle": 0
+              }
+            ]
+          },
+          {
+            "animation": 4,
+            "reload": 1,
+            "projectiles": [
+              {
+                "id": 6,
+                "angle": 0
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "body": [
+      {
+        "type": "container",
+        "label": "head",
+        "scale": 1.1,
+        "children": [
+          {
+            "label": "pirate_captain_head",
+            "sprite": {
+              "w": 9,
+              "h": 7,
+              "x": 18,
+              "y": 258
+            },
+            "x": -4.5,
+            "y": -3.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "body",
+        "scale": 1.1,
+        "children": [
+          {
+            "label": "pirate_captain_body",
+            "sprite": {
+              "w": 13,
+              "h": 5,
+              "x": 26,
+              "y": 258
+            },
+            "x": -6.5,
+            "y": -2.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "hand",
+        "scale": 1,
+        "angle": -23,
+        "children": [
+          {
+            "label": "pirate_captain_hook",
+            "sprite": {
+              "w": 5,
+              "h": 8,
+              "x": 38,
+              "y": 258
+            },
+            "x": 5,
+            "y": -6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "display": "Nature Druid",
     "health": 10,
+    "speed": 2,
+    "loot": 2,
+    "range": 8,
+    "hitbox": 1,
+    "modes": [
+      {
+        "duration": 1,
+        "max_health": 10,
+        "min_health": 2,
+        "movement": "hover",
+        "attacks": [
+          {
+            "animation": 7,
+            "reload": 0.5,
+            "bombs": [
+              {
+                "id": 5
+              }
+            ],
+            "wait": 0.5
+          }
+        ]
+      },
+      {
+        "duration": 3,
+        "max_health": 2,
+        "min_health": 0,
+        "single_use": true,
+        "priority": true,
+        "movement": "run",
+        "attacks": [
+          {
+            "animation": 7,
+            "reload": 1,
+            "summons": [
+              {
+                "id": 3,
+                "x": 0,
+                "y": 0
+              }
+            ],
+            "wait": 0
+          },
+          {
+            "animation": 7,
+            "reload": 1,
+            "summons": [
+              {
+                "id": 3,
+                "x": 0,
+                "y": 0
+              }
+            ],
+            "wait": 0
+          },
+          {
+            "animation": 7,
+            "reload": 1,
+            "summons": [
+              {
+                "id": 3,
+                "x": 0,
+                "y": 0
+              }
+            ],
+            "wait": 0
+          }
+        ]
+      },
+      {
+        "duration": 0.5,
+        "max_health": 2,
+        "min_health": 0,
+        "movement": "run",
+        "attacks": [
+          {
+            "animation": 7,
+            "reload": 0.5,
+            "bombs": [
+              {
+                "id": 5
+              }
+            ],
+            "wait": 0
+          }
+        ]
+      }
+    ],
+    "body": [
+      {
+        "type": "container",
+        "label": "head",
+        "children": [
+          {
+            "label": "nature_druid_head",
+            "sprite": {
+              "w": 7,
+              "h": 11,
+              "x": 42,
+              "y": 258
+            },
+            "x": -3.5,
+            "y": -5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "body",
+        "children": [
+          {
+            "label": "nature_druid_body",
+            "sprite": {
+              "w": 13,
+              "h": 6,
+              "x": 48,
+              "y": 258
+            },
+            "x": -6.5,
+            "y": -2.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "hand",
+        "angle": 20,
+        "children": [
+          {
+            "label": "nature_druid_spell",
+            "sprite": {
+              "w": 10,
+              "h": 10,
+              "x": 100,
+              "y": 170
+            },
+            "x": 1,
+            "y": -9,
+            "scale": 0.8
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "display": "Nature Spirit",
+    "health": 3,
+    "speed": 4,
+    "loot": 0,
+    "range": 12,
+    "hitbox": 1,
+    "modes": [
+      {
+        "duration": 1,
+        "max_health": 3,
+        "min_health": 0,
+        "movement": "chase",
+        "attacks": [
+          {
+            "animation": 11,
+            "reload": 1,
+            "wait": 0.1,
+            "projectiles": [
+              {
+                "id": 12,
+                "angle": 0
+              },
+              {
+                "id": 12,
+                "angle": 180
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "body": [
+      {
+        "type": "container",
+        "label": "hand",
+        "children": [
+          {
+            "label": "nature_spirit_head",
+            "sprite": {
+              "w": 9,
+              "h": 8,
+              "x": 60,
+              "y": 258
+            },
+            "x": -4.5,
+            "y": -4
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "misc",
+        "children": [
+          {
+            "label": "nature_spirit_body",
+            "sprite": {
+              "w": 5,
+              "h": 9,
+              "x": 68,
+              "y": 258
+            },
+            "x": -2.5,
+            "y": -2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "display": "Goblin Archer",
+    "health": 5,
     "speed": 2.5,
+    "loot": 3,
     "range": 9,
     "hitbox": 1,
     "modes": [
@@ -82,23 +440,6 @@
     "body": [
       {
         "type": "container",
-        "label": "body",
-        "children": [
-          {
-            "label": "goblin_archer_body",
-            "sprite": {
-              "w": 13,
-              "h": 5,
-              "x": 46,
-              "y": 263
-            },
-            "x": -6.5,
-            "y": -2.5
-          }
-        ]
-      },
-      {
-        "type": "container",
         "label": "head",
         "children": [
           {
@@ -106,11 +447,28 @@
             "sprite": {
               "w": 9,
               "h": 9,
-              "x": 38,
-              "y": 261
+              "x": 72,
+              "y": 258
             },
             "x": -4.5,
             "y": -4.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "body",
+        "children": [
+          {
+            "label": "goblin_archer_body",
+            "sprite": {
+              "w": 13,
+              "h": 5,
+              "x": 80,
+              "y": 260
+            },
+            "x": -6.5,
+            "y": -2.5
           }
         ]
       },
@@ -124,7 +482,7 @@
               "w": 10,
               "h": 10,
               "x": 20,
-              "y": 150
+              "y": 170
             },
             "x": 0,
             "y": -9
@@ -134,10 +492,11 @@
     ]
   },
   {
-    "id": 2,
+    "id": 5,
     "display": "Goblin Warrior",
-    "health": 20,
+    "health": 10,
     "speed": 2,
+    "loot": 3,
     "range": 12,
     "hitbox": 1,
     "modes": [
@@ -189,23 +548,6 @@
     "body": [
       {
         "type": "container",
-        "label": "body",
-        "children": [
-          {
-            "label": "goblin_warrior_body",
-            "sprite": {
-              "w": 13,
-              "h": 5,
-              "x": 66,
-              "y": 263
-            },
-            "x": -6.5,
-            "y": -2.5
-          }
-        ]
-      },
-      {
-        "type": "container",
         "label": "head",
         "children": [
           {
@@ -213,11 +555,28 @@
             "sprite": {
               "w": 9,
               "h": 9,
-              "x": 58,
-              "y": 261
+              "x": 92,
+              "y": 258
             },
             "x": -4.5,
             "y": -4.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "body",
+        "children": [
+          {
+            "label": "goblin_warrior_body",
+            "sprite": {
+              "w": 13,
+              "h": 5,
+              "x": 100,
+              "y": 260
+            },
+            "x": -6.5,
+            "y": -2.5
           }
         ]
       },
@@ -232,7 +591,7 @@
               "w": 10,
               "h": 10,
               "x": 10,
-              "y": 150
+              "y": 170
             },
             "x": 5,
             "y": -6
@@ -242,25 +601,26 @@
     ]
   },
   {
-    "id": 3,
+    "id": 6,
     "display": "Goblin Cannon",
-    "health": 50,
+    "health": 20,
     "speed": 0,
+    "loot": 4,
     "range": 16,
-    "hitbox": 1.5,
+    "hitbox": 2,
     "modes": [
       {
         "duration": 3,
-        "max_health": 50,
-        "min_health": 20,
+        "max_health": 20,
+        "min_health": 10,
         "movement": "turret",
         "attacks": [
           {
-            "animation": 8,
+            "animation": 10,
             "reload": 0.5,
             "bombs": [
               {
-                "id": 1
+                "id": 2
               }
             ],
             "wait": 2.5
@@ -269,16 +629,16 @@
       },
       {
         "duration": 1,
-        "max_health": 20,
+        "max_health": 10,
         "min_health": 0,
         "movement": "turret",
         "attacks": [
           {
-            "animation": 8,
+            "animation": 10,
             "reload": 0.5,
             "bombs": [
               {
-                "id": 1
+                "id": 2
               }
             ],
             "wait": 0.5
@@ -297,7 +657,7 @@
             "sprite": {
               "w": 9,
               "h": 10,
-              "x": 100,
+              "x": 134,
               "y": 260
             },
             "x": -4.5,
@@ -315,7 +675,7 @@
             "sprite": {
               "w": 7,
               "h": 7,
-              "x": 108,
+              "x": 142,
               "y": 260
             },
             "x": -3.5,
@@ -333,7 +693,7 @@
             "sprite": {
               "w": 11,
               "h": 8,
-              "x": 114,
+              "x": 148,
               "y": 260
             },
             "x": -5.5,
@@ -344,23 +704,36 @@
     ]
   },
   {
-    "id": 4,
+    "id": 7,
     "display": "Goblin Chief",
-    "health": 30,
+    "health": 15,
     "speed": 4,
+    "loot": 3,
     "range": 8,
     "hitbox": 1,
     "modes": [
       {
-        "duration": 1,
-        "max_health": 30,
-        "min_health": 29,
+        "duration": 2.5,
+        "max_health": 15,
+        "min_health": 14,
         "movement": "turret",
-        "attacks": []
+        "attacks": [
+          {
+            "animation": 3,
+            "reload": 0.5,
+            "projectiles": [
+              {
+                "id": 1,
+                "angle": 0
+              }
+            ],
+            "wait": 2
+          }
+        ]
       },
       {
         "duration": 1,
-        "max_health": 29,
+        "max_health": 14,
         "min_health": 0,
         "movement": "chase",
         "attacks": [
@@ -406,37 +779,37 @@
     "body": [
       {
         "type": "container",
-        "label": "body",
-        "scale": 1.2,
-        "children": [
-          {
-            "label": "goblin_chief_body",
-            "sprite": {
-              "w": 15,
-              "h": 6,
-              "x": 86,
-              "y": 263
-            },
-            "x": -7.5,
-            "y": -3
-          }
-        ]
-      },
-      {
-        "type": "container",
         "label": "head",
-        "scale": 1.2,
+        "scale": 1.1,
         "children": [
           {
             "label": "goblin_chief_head",
             "sprite": {
               "w": 9,
               "h": 9,
-              "x": 78,
-              "y": 261
+              "x": 112,
+              "y": 258
             },
             "x": -4.5,
             "y": -4.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "body",
+        "scale": 1.1,
+        "children": [
+          {
+            "label": "goblin_chief_body",
+            "sprite": {
+              "w": 15,
+              "h": 6,
+              "x": 120,
+              "y": 260
+            },
+            "x": -7.5,
+            "y": -3
           }
         ]
       },
@@ -451,7 +824,7 @@
               "w": 10,
               "h": 10,
               "x": 40,
-              "y": 150
+              "y": 170
             },
             "x": 5,
             "y": -6
@@ -461,98 +834,374 @@
     ]
   },
   {
-    "id": 1,
-    "display": "Wolf",
-    "health": 10,
-    "speed": 1.5,
-    "range": 6,
-    "hitbox": 1,
+    "id": 8,
+    "display": "Goblin Warlord",
+    "health": 40,
+    "speed": 2,
+    "loot": 3,
+    "range": 16,
+    "hitbox": 2,
     "modes": [
       {
-        "duration": 1,
-        "max_health": 5,
+        "duration": 5,
+        "max_health": 40,
         "min_health": 0,
-        "single_use": true,
-        "on_spawn": true,
-        "movement": "run",
+        "priority": true,
+        "movement": "chase",
         "attacks": [
           {
-            "animation": 6,
-            "reload": 0.3,
-            "wait": 2,
+            "animation": 13,
+            "reload": 0.5,
+            "projectiles": [
+              {
+                "id": 13,
+                "angle": 0
+              }
+            ],
+            "wait": 0
+          }
+        ]
+      },
+      {
+        "duration": 4.5,
+        "max_health": 40,
+        "min_health": 20,
+        "movement": "turret",
+        "attacks": [
+          {
+            "animation": 14,
+            "reload": 1.1,
+            "projectiles": [
+              {
+                "id": 13,
+                "angle": 345
+              },
+              {
+                "id": 13,
+                "angle": 0
+              },
+              {
+                "id": 13,
+                "angle": 15
+              }
+            ],
+            "wait": 0.25
+          },
+          {
+            "animation": 12,
+            "reload": 0.9,
+            "projectiles": [
+              {
+                "id": 14,
+                "angle": 330
+              },
+              {
+                "id": 14,
+                "angle": 0
+              },
+              {
+                "id": 14,
+                "angle": 30
+              }
+            ],
+            "wait": 0.35
+          }
+        ]
+      },
+      {
+        "duration": 5,
+        "max_health": 40,
+        "min_health": 20,
+        "movement": "hover",
+        "attacks": [
+          {
+            "animation": 13,
+            "reload": 0.65,
+            "projectiles": [
+              {
+                "id": 15,
+                "angle": 330
+              },
+              {
+                "id": 15,
+                "angle": 345
+              },
+              {
+                "id": 15,
+                "angle": 0
+              },
+              {
+                "id": 15,
+                "angle": 15
+              },
+              {
+                "id": 15,
+                "angle": 30
+              }
+            ],
+            "wait": 0.15
+          },
+          {
+            "animation": 15,
+            "reload": 1.2,
+            "bombs": [
+              {
+                "id": 3,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "id": 3,
+                "x": 3,
+                "y": 0
+              },
+              {
+                "id": 3,
+                "x": -3,
+                "y": 0
+              }
+            ],
+            "wait": 0.8
+          }
+        ]
+      },
+      {
+        "duration": 3.5,
+        "max_health": 40,
+        "min_health": 20,
+        "movement": "overshoot",
+        "attacks": [
+          {
+            "animation": 14,
+            "reload": 0.55,
+            "projectiles": [
+              {
+                "id": 16,
+                "angle": 350
+              },
+              {
+                "id": 16,
+                "angle": 0
+              },
+              {
+                "id": 16,
+                "angle": 10
+              }
+            ],
+            "wait": 0.1
+          }
+        ]
+      },
+      {
+        "duration": 2.5,
+        "max_health": 20,
+        "min_health": 0,
+        "single_use": true,
+        "priority": true,
+        "movement": "turret",
+        "attacks": [
+          {
+            "animation": 15,
+            "reload": 1.4,
             "summons": [
               {
-                "id": 1,
+                "id": 5,
+                "x": 2,
+                "y": 0
+              },
+              {
+                "id": 5,
+                "x": -2,
+                "y": 0
+              },
+              {
+                "id": 4,
+                "x": 0,
+                "y": 2
+              }
+            ],
+            "bombs": [
+              {
+                "id": 3,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "id": 3,
+                "x": 0,
+                "y": 3
+              },
+              {
+                "id": 3,
+                "x": 0,
+                "y": -3
+              }
+            ],
+            "wait": 0.6
+          }
+        ]
+      },
+      {
+        "duration": 5,
+        "max_health": 20,
+        "min_health": 0,
+        "movement": "turret",
+        "attacks": [
+          {
+            "animation": 12,
+            "reload": 0.9,
+            "projectiles": [
+              {
+                "id": 17,
+                "angle": 0
+              },
+              {
+                "id": 17,
+                "angle": 45
+              },
+              {
+                "id": 17,
+                "angle": 90
+              },
+              {
+                "id": 17,
+                "angle": 135
+              },
+              {
+                "id": 17,
+                "angle": 180
+              },
+              {
+                "id": 17,
+                "angle": 225
+              },
+              {
+                "id": 17,
+                "angle": 270
+              },
+              {
+                "id": 17,
+                "angle": 315
+              }
+            ],
+            "wait": 0.4
+          },
+          {
+            "animation": 15,
+            "reload": 1,
+            "bombs": [
+              {
+                "id": 2,
                 "x": 0,
                 "y": 0
               }
-            ]
+            ],
+            "wait": 0.5
           }
         ]
       },
       {
         "duration": 4,
-        "max_health": 5,
+        "max_health": 20,
         "min_health": 0,
         "movement": "chase",
         "attacks": [
           {
-            "animation": 6,
-            "reload": 0.3,
-            "wait": 1,
+            "animation": 14,
+            "reload": 0.45,
             "projectiles": [
               {
-                "id": 4,
-                "angle": 355
+                "id": 16,
+                "angle": 330
               },
               {
-                "id": 4,
-                "angle": 5
+                "id": 16,
+                "angle": 345
+              },
+              {
+                "id": 16,
+                "angle": 0
+              },
+              {
+                "id": 16,
+                "angle": 15
+              },
+              {
+                "id": 16,
+                "angle": 30
               }
-            ]
+            ],
+            "wait": 0.1
           },
           {
-            "animation": 7,
-            "reload": 0.5,
-            "wait": 1,
+            "animation": 15,
+            "reload": 0.8,
             "bombs": [
               {
-                "id": 0
+                "id": 4,
+                "x": 0,
+                "y": 0
               }
-            ]
+            ],
+            "wait": 0.35
           }
         ]
       },
       {
-        "duration": 4,
-        "max_health": 5,
+        "duration": 6,
+        "max_health": 20,
         "min_health": 0,
-        "movement": "run",
+        "movement": "hover",
         "attacks": [
           {
-            "animation": 6,
-            "reload": 0.3,
-            "wait": 1,
+            "animation": 13,
+            "reload": 0.5,
             "projectiles": [
               {
-                "id": 4,
-                "angle": 355
+                "id": 15,
+                "angle": 315
               },
               {
-                "id": 4,
-                "angle": 5
+                "id": 15,
+                "angle": 345
+              },
+              {
+                "id": 15,
+                "angle": 15
+              },
+              {
+                "id": 15,
+                "angle": 45
               }
-            ]
+            ],
+            "wait": 0
           },
           {
-            "animation": 7,
-            "reload": 0.5,
-            "wait": 1,
+            "animation": 15,
+            "reload": 1.1,
             "bombs": [
               {
-                "id": 0
+                "id": 3,
+                "x": 2,
+                "y": 2
+              },
+              {
+                "id": 3,
+                "x": -2,
+                "y": 2
+              },
+              {
+                "id": 3,
+                "x": 2,
+                "y": -2
+              },
+              {
+                "id": 3,
+                "x": -2,
+                "y": -2
               }
-            ]
+            ],
+            "wait": 0.7
           }
         ]
       }
@@ -560,17 +1209,117 @@
     "body": [
       {
         "type": "container",
-        "label": "body",
+        "label": "head",
+        "scale": 1.1,
         "children": [
           {
-            "label": "wolf_body",
+            "label": "goblin_warlord_head",
             "sprite": {
-              "w": 9,
-              "h": 15,
-              "x": 30,
+              "w": 15,
+              "h": 12,
+              "x": 158,
               "y": 260
             },
-            "x": -4.5,
+            "x": -7.5,
+            "y": -6
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "body",
+        "scale": 1.1,
+        "children": [
+          {
+            "label": "goblin_warlord_body",
+            "sprite": {
+              "w": 19,
+              "h": 7,
+              "x": 175,
+              "y": 260
+            },
+            "x": -9.5,
+            "y": -3.5
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "hand",
+        "angle": -23,
+        "scale": 1.2,
+        "children": [
+          {
+            "label": "goblin_warlord_axe",
+            "sprite": {
+              "w": 10,
+              "h": 10,
+              "x": 90,
+              "y": 170
+            },
+            "x": 5,
+            "y": -6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "display": "Ogg the Treacherous",
+    "health": 20,
+    "speed": 0.8,
+    "range": 64,
+    "hitbox": 8,
+    "modes": [
+      {
+        "duration": 10,
+        "health": [0, 1],
+        "movement": "chase",
+        "attacks": [
+          {
+            "animation": 0,
+            "reload": 0.3,
+            "wait": 1
+          }
+        ]
+      }
+    ],
+    "body": [
+      {
+        "type": "container",
+        "label": "hand",
+        "scale": 1.5,
+        "angle": 6.5,
+        "children": [
+          {
+            "label": "ogg_hand",
+            "sprite": {
+              "w": 10,
+              "h": 10,
+              "x": 50,
+              "y": 400
+            },
+            "x": 5,
+            "y": -10
+          }
+        ]
+      },
+      {
+        "type": "container",
+        "label": "body",
+        "angle": 10,
+        "scale": 1.3,
+        "children": [
+          {
+            "label": "ogg_body",
+            "sprite": {
+              "w": 30,
+              "h": 10,
+              "x": 0,
+              "y": 400
+            },
+            "x": -15,
             "y": -5
           }
         ]
@@ -578,17 +1327,18 @@
       {
         "type": "container",
         "label": "head",
+        "scale": 1.3,
         "children": [
           {
-            "label": "wolf_head",
+            "label": "ogg_head",
             "sprite": {
-              "w": 11,
-              "h": 10,
-              "x": 19,
-              "y": 260
+              "w": 20,
+              "h": 20,
+              "x": 30,
+              "y": 400
             },
-            "x": -5.5,
-            "y": -13
+            "x": -10,
+            "y": -10
           }
         ]
       }

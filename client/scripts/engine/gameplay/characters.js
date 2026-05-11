@@ -19,25 +19,39 @@ class Character {
   }
 
   update(x, y, angle, health, hand, head, body) {
-    console.log(hand)
     if (hand + head + body != this.kit) {
+      let tmp_x = this.object.x
+      let tmp_y = this.object.y
+
       this.object.destroy()
       this.object = build_character(hand, head, body)
+
       this.animator.set_object(this.object)
-      this.interpolator.set_object(this.object)
-      this.kit = hand + head + body
-      this.object.x = x
-      this.object.y = y
+      if (this.interpolator) {
+        this.interpolator.set_object(this.object)
+      }
+      this.object.x = tmp_x
+      this.object.y = tmp_y
       this.object.angle = angle
-      this.interpolator.object = this.object
       this.colorAnimator.object = this.object
+      this.kit = hand + head + body
       add_object(this.object)
     }
     this.object.health = health
     this.hand = hand
     this.head = head
     this.body = body
-    this.interpolator.add_char_frame(x, y, angle)
+
+    if (this.interpolator) {
+      this.interpolator.add_char_frame(x, y, angle)
+    } else if (
+      Math.abs(this.object.x - x) > 1 &&
+      Math.abs(this.object.y - y) > 1
+    ) {
+      this.object.x = x
+      this.object.y = y
+      this.object.angle = angle
+    }
   }
 
   tick(deltaMS) {}

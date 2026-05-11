@@ -78,22 +78,19 @@
         "time": 0,
         "head_angle": 0,
         "body_angle": 45,
-        "hand_angle": 60,
-        "hand_scale": 1
+        "hand_angle": 60
       },
       {
         "time": 0.2,
         "head_angle": 0,
         "body_angle": -25,
-        "hand_angle": -120,
-        "hand_scale": 1
+        "hand_angle": -120
       },
       {
         "time": 1,
         "head_angle": 0,
         "body_angle": 0,
-        "hand_angle": -23,
-        "hand_scale": 1
+        "hand_angle": -23
       }
     ]
   },
@@ -105,22 +102,19 @@
         "time": 0,
         "head_angle": 0,
         "body_angle": -45,
-        "hand_angle": -180,
-        "hand_scale": 1
+        "hand_angle": -180
       },
       {
         "time": 0.2,
         "head_angle": 0,
         "body_angle": 25,
-        "hand_angle": 25,
-        "hand_scale": 1
+        "hand_angle": 25
       },
       {
         "time": 1,
         "head_angle": 0,
         "body_angle": 0,
-        "hand_angle": -23,
-        "hand_scale": 1
+        "hand_angle": -23
       }
     ]
   },
@@ -291,7 +285,7 @@
     ]
   },
   {
-    "id": 9,
+    "id": 10,
     "display": "Cannon Blast",
     "frames": [
       {
@@ -311,6 +305,231 @@
         "body_angle": 0,
         "hand_angle": 0,
         "hand_scale": 1.3
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "display": "Nature Spirit Explode",
+    "frames": [
+      {
+        "time": 0,
+        "body_angle": 0,
+        "hand_angle": 0,
+        "hand_scale": 1
+      },
+      {
+        "time": 0.2,
+        "body_angle": 0,
+        "hand_angle": 0,
+        "hand_scale": 1.5
+      },
+      {
+        "time": 1,
+        "body_angle": 0,
+        "hand_angle": 0,
+        "hand_scale": 1
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "display": "Warlord Spin",
+    "frames": [
+      {
+        "time": 0,
+        "head_angle": 210,
+        "body_angle": 180,
+        "hand_angle": 220,
+        "hand_scale": 1.2
+      },
+      {
+        "time": 0.15,
+        "head_angle": 0,
+        "body_angle": 0,
+        "hand_angle": -23,
+        "hand_scale": 1.3
+      },
+      {
+        "time": 0.3,
+        "head_angle": -110,
+        "body_angle": -90,
+        "hand_angle": -260,
+        "hand_scale": 1.2
+      },
+      {
+        "time": 0.4,
+        "head_angle": -50,
+        "body_angle": -45,
+        "hand_angle": -270,
+        "hand_scale": 0.9
+      },
+      {
+        "time": 0.7,
+        "head_angle": 0,
+        "body_angle": 0,
+        "hand_angle": -100,
+        "hand_scale": 1
+      },
+      {
+        "time": 1,
+        "head_angle": 0,
+        "body_angle": 0,
+        "hand_angle": -23,
+        "hand_scale": 1.2
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "display": "Warlord Twirl",
+    "frames": [
+      {
+        "time": 0,
+        "head_angle": 0,
+        "body_angle": 0,
+        "hand_angle": -23,
+        "hand_scale": 1.2
+      },
+      {
+        "time": 0.125,
+        "head_angle": 45,
+        "body_angle": 45,
+        "hand_angle": 22,
+        "hand_scale": 1.25
+      },
+      {
+        "time": 0.25,
+        "head_angle": 90,
+        "body_angle": 90,
+        "hand_angle": 67,
+        "hand_scale": 1.3
+      },
+      {
+        "time": 0.375,
+        "head_angle": 135,
+        "body_angle": 135,
+        "hand_angle": 112,
+        "hand_scale": 1.25
+      },
+      {
+        "time": 0.5,
+        "head_angle": 180,
+        "body_angle": 180,
+        "hand_angle": 157,
+        "hand_scale": 1.2
+      },
+      {
+        "time": 0.625,
+        "head_angle": 225,
+        "body_angle": 225,
+        "hand_angle": 202,
+        "hand_scale": 1.25
+      },
+      {
+        "time": 0.75,
+        "head_angle": 270,
+        "body_angle": 270,
+        "hand_angle": 247,
+        "hand_scale": 1.3
+      },
+      {
+        "time": 0.875,
+        "head_angle": 315,
+        "body_angle": 315,
+        "hand_angle": 292,
+        "hand_scale": 1.25
+      },
+      {
+        "time": 1,
+        "head_angle": 0,
+        "body_angle": 0,
+        "hand_angle": 337,
+        "hand_scale": 1.2
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "display": "Warlord Cleave",
+    "frames": [
+      {
+        "time": 0,
+        "head_angle": 15,
+        "body_angle": 35,
+        "hand_angle": 145,
+        "hand_x": 8,
+        "hand_y": -4,
+        "hand_scale": 1.25
+      },
+      {
+        "time": 0.25,
+        "head_angle": -5,
+        "body_angle": -35,
+        "hand_angle": -190,
+        "hand_x": 11,
+        "hand_y": -1,
+        "hand_scale": 1.35
+      },
+      {
+        "time": 0.55,
+        "head_angle": -12,
+        "body_angle": -10,
+        "hand_angle": -90,
+        "hand_x": 6,
+        "hand_y": -5,
+        "hand_scale": 1.15
+      },
+      {
+        "time": 1,
+        "head_angle": 0,
+        "body_angle": 0,
+        "hand_angle": -23,
+        "hand_x": 0,
+        "hand_y": 0,
+        "hand_scale": 1.2
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "display": "Warlord Slam",
+    "frames": [
+      {
+        "time": 0,
+        "head_angle": -20,
+        "body_angle": -15,
+        "hand_angle": 205,
+        "hand_x": 0,
+        "hand_y": -8,
+        "hand_scale": 1.35
+      },
+      {
+        "time": 0.35,
+        "head_angle": 12,
+        "body_angle": 20,
+        "hand_angle": -20,
+        "hand_x": 4,
+        "hand_y": 8,
+        "hand_scale": 1.45
+      },
+      {
+        "time": 0.65,
+        "head_angle": 0,
+        "body_angle": 0,
+        "hand_angle": -60,
+        "hand_x": 3,
+        "hand_y": 2,
+        "hand_scale": 1.25
+      },
+      {
+        "time": 1,
+        "head_angle": 0,
+        "body_angle": 0,
+        "hand_angle": -23,
+        "hand_x": 0,
+        "hand_y": 0,
+        "hand_scale": 1.2
       }
     ]
   }

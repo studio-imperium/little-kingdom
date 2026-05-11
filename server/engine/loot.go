@@ -21,8 +21,8 @@ func (l *Loot) GetY() float32 { return l.y }
 
 func CreateLoot(loot uint8, x float32, y float32) *Loot {
 	id := rand.Uint32()
-	x += rand.Float32() - 0.5
-	y += rand.Float32() - 0.5
+	x += rand.Float32() + 1
+	y += rand.Float32() + 1
 	return &Loot{
 		id:    id,
 		loot:  loot,

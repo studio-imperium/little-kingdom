@@ -58,13 +58,13 @@ func (npc *Npc) Damage(amount float32) {
 func (npc *Npc) Death() {
 	// we would use enemies loot pool id
 	data := GetNpcData(npc.id)
-	lootPool := GetLootData(0)
+	lootPool := GetLootData(data.Loot)
 	SBThreshold := min(float32(200), data.Health/10.0)
 
 	for id, char := range npc.nearby {
 		damage, ok := npc.damage[id]
 		for _, loot := range lootPool {
-			odds := rand.Float32() >= loot.Chance
+			odds := rand.Float32() <= loot.Chance
 			if odds && loot.SB && ok && damage >= SBThreshold {
 				l := CreateLoot(loot.Loot, npc.x, npc.y)
 				char.Simulation.AddLoot(l)
@@ -72,7 +72,7 @@ func (npc *Npc) Death() {
 		}
 	}
 	for _, loot := range lootPool {
-		odds := rand.Float32() >= loot.Chance
+		odds := rand.Float32() <= loot.Chance
 		if odds && !loot.SB {
 			l := CreateLoot(loot.Loot, npc.x, npc.y)
 			for _, char := range npc.nearby {
@@ -137,6 +137,7 @@ func (npc *Npc) ExitView(id uint32, character *Character) {
 func (npc *Npc) Data() NpcData {
 	return GetNpcData(npc.id)
 }
+
 func (npc *Npc) ValidMode(idx uint8) bool {
 	data := GetNpcData(npc.id)
 	mode := data.Modes[idx]
@@ -147,7 +148,7 @@ func (npc *Npc) ValidMode(idx uint8) bool {
 	if mode.MaxHealth < npc.health {
 		return false
 	}
-	if mode.MinHealth > npc.health {
+	if mode.MinHealth >= npc.health {
 		return false
 	}
 	return true
@@ -158,16 +159,20 @@ func (npc *Npc) NewMode() {
 	data := GetNpcData(npc.id)
 	pool := make([]uint8, 0)
 
-	for idx := range data.Modes {
+	for idx, mode := range data.Modes {
 		if npc.ValidMode(uint8(idx)) {
 			pool = append(pool, uint8(idx))
+
+			if mode.Priority {
+				pool = []uint8{uint8(idx)}
+				break
+			}
 		}
 	}
 
 	if len(pool) > 0 {
 		mode := pool[rand.IntN(len(pool))]
 		npc.mode = mode
-		npc.usedModes[mode] = true
 		npc.modeTimer = data.Modes[mode].Duration
 		npc.movement = data.Modes[mode].Movement
 		npc.attackTimer = 0
@@ -184,6 +189,7 @@ func (npc *Npc) Tick(delta time.Duration) {
 
 	if npc.InCombat() {
 		if !npc.ValidMode(npc.mode) || npc.modeTimer <= 0 {
+			npc.usedModes[npc.mode] = true
 			npc.NewMode()
 		}
 
@@ -228,6 +234,9 @@ func (npc *Npc) CanAttack() bool {
 		}
 		if len(attack.Bombs) > 0 {
 			attack_range = 32
+		}
+		if len(attack.Summons) > 0 {
+			attack_range = Max(attack_range, GetNpcData(npc.id).Range)
 		}
 
 		return (npc.InCombat() &&

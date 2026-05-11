@@ -175,5 +175,41 @@
         ]
       }
     ]
+  },
+  {
+    "id": 5,
+    "airtime": 1,
+    "damage": 1,
+    "radius": 3,
+    "trail": {
+      "label": "nature_druid_trail",
+      "sprite": {
+        "w": 4,
+        "h": 4,
+        "x": 8,
+        "y": 232
+      },
+      "x": -2,
+      "y": -2
+    },
+    "object": [
+      {
+        "type": "container",
+        "label": "bomb",
+        "children": [
+          {
+            "label": "nature_druid_bomb",
+            "sprite": {
+              "w": 5,
+              "h": 5,
+              "x": 8,
+              "y": 235
+            },
+            "x": -2.5,
+            "y": -2.5
+          }
+        ]
+      }
+    ]
   }
 ]

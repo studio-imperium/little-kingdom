@@ -100,6 +100,12 @@ func (npc *Npc) NewAttack() {
 			data.Write(packet)
 		}
 
+		npc.instance.mu.Unlock()
+		for _, summon := range attack.Summons {
+			npc.instance.SpawnNpc(summon.ID, npc.x+summon.X, npc.y+summon.Y)
+		}
+		npc.instance.mu.Lock()
+
 		for _, character := range npc.nearby {
 			*character.send <- data.Bytes()
 		}

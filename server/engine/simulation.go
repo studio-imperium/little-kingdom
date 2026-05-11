@@ -104,9 +104,8 @@ func (simulation *Engine) StartSimulation(clientID uint32, instance *Engine, cli
 		}
 
 		for id, bomb := range simulation.Bombs {
-			if bomb.Dead {
+			if bomb.timer <= 0 {
 				delete(simulation.Bombs, id)
-			} else if bomb.timer <= 0 {
 				bomb.Dead = true
 				if bomb.evil {
 					if withinRange(bomb, clientCharacter, false) {

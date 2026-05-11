@@ -943,5 +943,37 @@
         }
       ]
     }
+  },
+  {
+    "display": "Health Potion",
+    "id": 18,
+    "description": "A rejuvinating tincture",
+    "type": "hand",
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 0,
+      "y": 180
+    },
+    "on_use": "potion_heal",
+    "attacks": [],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": -23,
+      "children": [
+        {
+          "label": "health_potion_hand",
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 90,
+            "y": 170
+          },
+          "x": 5,
+          "y": -6
+        }
+      ]
+    }
   }
 ]

@@ -15,6 +15,7 @@ let attack_counter = 0
 
 function init_character(x, y, angle, health, hand, head, body, _inventory) {
   character = new Character(x, y, angle, health, hand, head, body)
+  character.interpolator = null
   character.object.zIndex = 2
   init_combat()
   update_preview()
@@ -34,6 +35,7 @@ function init_character(x, y, angle, health, hand, head, body, _inventory) {
     }
 
     character.animator.tick(deltaMS)
+    character.colorAnimator.tick(deltaMS)
     attack_cooldown -= deltaMS / 1000
 
     if (!chat_focused) {
@@ -77,7 +79,10 @@ function update_healthbar(health, max_health) {
 function attack() {
   const data = item_data[character.hand]
 
-  if (data && data.attacks) {
+  if (data && data.on_use && attack_cooldown < 0) {
+    attack_cooldown = 0.5
+    send_attack(character.object.x, character.object.y, character.object.angle)
+  } else if (data && data.attacks) {
     character.object.angle = ((character.object.angle % 360) + 360) % 360
     send_attack(character.object.x, character.object.y, character.object.angle)
 

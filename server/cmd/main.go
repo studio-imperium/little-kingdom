@@ -25,6 +25,20 @@ func connector(w http.ResponseWriter, r *http.Request) {
 	go packets.CreateClient(conn)
 }
 
+func withCORS(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
 func main() {
 	engine.InitAssets()
 	go engine.Worlds[0].Run()
@@ -32,5 +46,9 @@ func main() {
 
 	fmt.Println("Listening on 8082")
 	http.HandleFunc("/connect", connector)
+	http.Handle(
+		"/assets/",
+		withCORS(http.StripPrefix("/assets/", http.FileServer(http.FS(engine.JSONAssets())))),
+	)
 	log.Fatal(http.ListenAndServe(":8082", nil))
 }

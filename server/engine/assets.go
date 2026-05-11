@@ -1,9 +1,10 @@
 package engine
 
 import (
-	_ "embed"
+	"embed"
 	"encoding/json"
 	"fmt"
+	"io/fs"
 )
 
 type ProjectileSpawnData struct {
@@ -39,7 +40,7 @@ type NpcModeData struct {
 	MaxHealth float32      `json:"max_health,omitempty"`
 	MinHealth float32      `json:"min_health,omitempty"`
 	SingleUse bool         `json:"single_use,omitempty"`
-	OnSpawn   bool         `json:"on_spawn,omitempty"`
+	Priority  bool         `json:"priority,omitempty"`
 	Movement  string       `json:"movement"`
 	Attacks   []AttackData `json:"attacks,omitempty"`
 }
@@ -49,8 +50,9 @@ type NpcData struct {
 	Name   string        `json:"display"`
 	Health float32       `json:"health"`
 	Speed  float32       `json:"speed"`
+	Loot   uint16        `json:"loot"`
 	Range  float32       `json:"range"`
-	Hitbox uint8         `json:"hitbox"`
+	Hitbox float32       `json:"hitbox"`
 	Modes  []NpcModeData `json:"modes,omitempty"`
 }
 
@@ -77,6 +79,7 @@ type ItemData struct {
 	ID      uint8        `json:"id"`
 	Slot    string       `json:"type"`
 	Stats   Stats        `json:"stats"`
+	OnUse   string       `json:"on_use,omitempty"`
 	Attacks []AttackData `json:"attacks,omitempty"`
 }
 
@@ -86,7 +89,7 @@ type ProjectileData struct {
 	Range    float32 `json:"range"`
 	Damage   float32 `json:"damage"`
 	Piercing bool    `json:"piercing"`
-	Hitbox   uint8   `json:"hitbox"`
+	Hitbox   float32 `json:"hitbox"`
 }
 
 type BombData struct {
@@ -117,6 +120,9 @@ var bombsJSON []byte
 //go:embed assets/tiles.json
 var tilesJSON []byte
 
+//go:embed assets/*.json
+var jsonAssets embed.FS
+
 var npcData []NpcData
 var spawnsData [][]SpawnData
 var lootData [][]LootData
@@ -126,13 +132,21 @@ var bombData []BombData
 
 var biomeSpawns map[uint8][]SpawnData = map[uint8][]SpawnData{}
 
+func JSONAssets() fs.FS {
+	assets, err := fs.Sub(jsonAssets, "assets")
+	if err != nil {
+		panic(err)
+	}
+	return assets
+}
+
 func GetNpcData(id uint8) NpcData {
 	return npcData[id]
 }
 func GetSpawnsData(id uint8) []SpawnData {
 	return spawnsData[id]
 }
-func GetLootData(id uint8) []LootData {
+func GetLootData(id uint16) []LootData {
 	return lootData[id]
 }
 func GetItemData(id uint8) ItemData {
@@ -165,9 +179,12 @@ func InitAssets() {
 		fmt.Println("Error parsing Bomb JSON")
 	}
 
-	biomeSpawns[20] = spawnsData[0]
-	biomeSpawns[21] = spawnsData[0]
-	biomeSpawns[22] = spawnsData[0]
+	// forest
+	biomeSpawns[21] = spawnsData[1]
+	biomeSpawns[22] = spawnsData[1]
+
+	// beach
+	biomeSpawns[23] = spawnsData[0]
 
 	fmt.Println("Initialized", len(npcData), "NPCs")
 	fmt.Println("Initialized", len(spawnsData), "Spawns")

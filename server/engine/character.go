@@ -3,6 +3,7 @@ package engine
 import (
 	"bytes"
 	"encoding/binary"
+	"fmt"
 )
 
 type Character struct {
@@ -38,6 +39,13 @@ func (c *Character) Damage(amount float32) {
 
 	if c.health < 1 {
 		*c.send <- []byte{11}
+	} else {
+		data := new(bytes.Buffer)
+		data.WriteByte(byte(5))
+		binary.Write(data, binary.LittleEndian, c.id)
+		packet := data.Bytes()
+
+		*c.send <- packet
 	}
 
 	c.SetHealth(c.health)
@@ -152,6 +160,36 @@ func (engine *Engine) ChangeInventory(id uint32, to uint8, from uint8) {
 	char.Apply()
 }
 
+func (char *Character) RemoveInventory(slot uint8) {
+	if slot < 24 {
+		delete(char.inventory, slot)
+	} else if slot == 24 {
+		char.head = 0
+	} else {
+		char.body = 1
+	}
+	char.Apply()
+}
+
+func (engine *Engine) UseItem(id uint32, onUse string) {
+	engine.mu.Lock()
+	defer engine.mu.Unlock()
+
+	char, ok := engine.Characters[id]
+	if !ok {
+		return
+	}
+
+	switch onUse {
+	case "potion_heal":
+		char.health += 5
+		char.Tick(0)
+		char.RemoveInventory(char.hand)
+	default:
+		fmt.Println("Invalid item use")
+	}
+}
+
 func (engine *Engine) SelectSlot(id uint32, new uint8) {
 	engine.mu.Lock()
 	defer engine.mu.Unlock()
@@ -218,22 +256,7 @@ func DefaultCharacter(simulation *Engine, send *chan []byte, id uint32) *Charact
 		body:   1,
 		health: 1000,
 		inventory: map[uint8]uint8{
-			0:  2,
-			1:  3,
-			2:  4,
-			3:  5,
-			4:  6,
-			5:  7,
-			6:  8,
-			7:  9,
-			8:  10,
-			9:  11,
-			10: 12,
-			11: 13,
-			12: 14,
-			13: 15,
-			14: 16,
-			15: 17,
+			0: 8,
 		},
 		send:           send,
 		AttackCounter:  0,
@@ -251,7 +274,7 @@ func (character *Character) Tick(delta_sec float32) {
 	}
 
 	tmp := uint16(character.health)
-	character.health += character.regen * delta_sec
+	character.health += character.regen * delta_sec / 2
 
 	if character.health > character.maxHealth {
 		character.health = character.maxHealth

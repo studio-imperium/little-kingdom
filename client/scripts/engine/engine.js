@@ -67,9 +67,16 @@ function start_engine() {
       }
     }
     for (let id of Object.keys(loots)) {
-      let { last_update } = loots[id]
+      let { last_update, dead, object } = loots[id]
 
-      if (Date.now() > last_update + 400) {
+      if (dead) {
+        let new_scale = object.scale.x - deltaMS / 10000
+        if (new_scale < 0) {
+          object.scale.set(0)
+        } else {
+          object.scale.set(new_scale)
+        }
+      } else if (Date.now() > last_update + 400) {
         loots[id].kill(id)
       }
     }

@@ -3,6 +3,7 @@ package packets
 import (
 	"bytes"
 	"encoding/binary"
+	"server/engine"
 	"strconv"
 	"strings"
 )
@@ -49,10 +50,16 @@ func (client *Client) ProcessMessage(msg string) {
 		// non admin
 		switch words[0] {
 		case "/tp":
-			id, _ := strconv.Atoi(words[1])
+			username := words[1]
 
-			//using id for some reason. We should use username really
-			client.SendMessage(1, "System", "Teleported to "+Clients[uint32(id)].username)
+			// this is inefficient yet elegant, since I dont want to add another map for usernames
+			for _, c := range Clients {
+				if username == c.username {
+					client.character.Move(c.character.GetX(), c.character.GetY(), 0)
+					client.character.Apply()
+					client.SendMessage(1, "System", "Teleported to "+username)
+				}
+			}
 		default:
 			found = false
 		}
@@ -62,9 +69,30 @@ func (client *Client) ProcessMessage(msg string) {
 			found = true
 			switch words[0] {
 			case "/spawn":
+				amount := 1
+
+				if len(words) == 3 {
+					new_amount, ok := strconv.Atoi(words[1])
+
+					if ok == nil {
+						amount = new_amount
+					}
+				}
+
+				which, ok := strconv.Atoi(words[1])
+
+				if ok == nil {
+					for i := 0; i < amount; i++ {
+						client.instance.SpawnNpc(uint8(which), client.character.GetX(), client.character.GetY())
+					}
+					client.SendMessage(1, "System", "Spawned "+strconv.Itoa(amount)+" "+strconv.Itoa(which))
+				}
+			case "/loot":
 				which, _ := strconv.Atoi(words[1])
-				client.instance.SpawnNpc(uint8(which), client.character.GetX(), client.character.GetY())
-				client.SendMessage(1, "System", "Spawned "+strconv.Itoa(which))
+				id := uint8(which)
+				l := engine.CreateLoot(id, client.character.GetX(), client.character.GetY()+1)
+				client.simulation.AddLoot(l)
+				client.SendMessage(1, "System", "Looted "+strconv.Itoa(which))
 			default:
 				found = false
 			}

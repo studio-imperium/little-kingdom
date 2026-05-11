@@ -73,8 +73,8 @@ function set_character(data) {
     initialized_character = true
   } else {
     character.update(
-      character.object.x,
-      character.object.y,
+      x,
+      y,
       angle,
       health,
       inventory[hand],

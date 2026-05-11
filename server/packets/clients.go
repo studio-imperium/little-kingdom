@@ -92,17 +92,23 @@ func (client *Client) sendToNearby(payload []byte, includeSelf bool) {
 
 func (client *Client) characterAttack(x float32, y float32, targetX float32, targetY float32, angle uint16) {
 	idx := client.instance.GetHand(client.id)
-	item := client.instance.GetSlot(client.id, idx)
+	item_id := client.instance.GetSlot(client.id, idx)
+	item := engine.GetItemData(item_id)
+
 	cooldown := client.character.AttackCooldown
 	data := new(bytes.Buffer)
 	data.WriteByte(uint8(ALLY_ATTACK))
+
+	if item.OnUse != "" {
+		client.instance.UseItem(client.id, item.OnUse)
+		return
+	}
 
 	if cooldown < -0.1 {
 		client.character.AttackCounter = 0
 	}
 	if cooldown <= 0.01 {
 		counter := client.character.AttackCounter
-		item := engine.GetItemData(item)
 
 		if item.Attacks != nil {
 			attack := item.Attacks[int(counter)%len(item.Attacks)]

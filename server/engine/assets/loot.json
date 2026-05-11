@@ -1,19 +1,91 @@
 [
+  [],
   [
     {
-      "loot": 2,
+      "loot": 9,
+      "chance": 0.1,
+      "soulbound": false
+    },
+    {
+      "loot": 10,
+      "chance": 0.1,
+      "soulbound": false
+    },
+    {
+      "loot": 18,
+      "chance": 0.5,
+      "soulbound": false
+    }
+  ],
+  [
+    {
+      "loot": 11,
       "chance": 0.2,
+      "soulbound": false
+    },
+    {
+      "loot": 6,
+      "chance": 0.1,
+      "soulbound": false
+    },
+    {
+      "loot": 7,
+      "chance": 0.1,
+      "soulbound": false
+    },
+    {
+      "loot": 18,
+      "chance": 0.5,
+      "soulbound": false
+    }
+  ],
+  [
+    {
+      "loot": 9,
+      "chance": 0.1,
+      "soulbound": false
+    },
+    {
+      "loot": 10,
+      "chance": 0.1,
+      "soulbound": false
+    },
+    {
+      "loot": 2,
+      "chance": 0.1,
       "soulbound": false
     },
     {
       "loot": 3,
-      "chance": 0.2,
+      "chance": 0.1,
       "soulbound": false
     },
     {
       "loot": 4,
-      "chance": 0.2,
-      "soulbound": true
+      "chance": 0.1,
+      "soulbound": false
+    },
+    {
+      "loot": 5,
+      "chance": 0.1,
+      "soulbound": false
+    },
+    {
+      "loot": 18,
+      "chance": 0.5,
+      "soulbound": false
+    }
+  ],
+  [
+    {
+      "loot": 16,
+      "chance": 0.1,
+      "soulbound": false
+    },
+    {
+      "loot": 18,
+      "chance": 0.5,
+      "soulbound": false
     }
   ]
 ]

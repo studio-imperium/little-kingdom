@@ -316,8 +316,8 @@
   },
   {
     "id": 11,
-    "speed": 2,
-    "range": 2,
+    "speed": 4,
+    "range": 3,
     "damage": 2,
     "hitbox": 0.6,
     "piercing": false,
@@ -338,6 +338,180 @@
             "outline": false,
             "x": -5,
             "y": -2.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "speed": 1,
+    "range": 1,
+    "damage": 1,
+    "hitbox": 0.1,
+    "piercing": false,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1,
+        "children": [
+          {
+            "label": "nature_spiral",
+            "sprite": {
+              "w": 10,
+              "h": 10,
+              "x": 9,
+              "y": 240
+            },
+            "outline": true,
+            "x": -5,
+            "y": -5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "speed": 2,
+    "range": 8,
+    "damage": 3,
+    "hitbox": 1,
+    "piercing": true,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1.2,
+        "children": [
+          {
+            "label": "warlord_sweep",
+            "sprite": {
+              "w": 19,
+              "h": 10,
+              "x": 67,
+              "y": 200
+            },
+            "outline": false,
+            "x": -9.5,
+            "y": -5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "speed": 2,
+    "range": 8,
+    "damage": 2,
+    "hitbox": 0.5,
+    "piercing": true,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1.1,
+        "children": [
+          {
+            "label": "warlord_slash",
+            "sprite": {
+              "w": 12,
+              "h": 10,
+              "x": 56,
+              "y": 200
+            },
+            "outline": false,
+            "x": -6,
+            "y": -5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "speed": 2,
+    "range": 3,
+    "damage": 1,
+    "hitbox": 0.5,
+    "piercing": false,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1,
+        "children": [
+          {
+            "label": "warlord_spiral",
+            "sprite": {
+              "w": 10,
+              "h": 10,
+              "x": 0,
+              "y": 240
+            },
+            "outline": true,
+            "x": -5,
+            "y": -5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "speed": 3,
+    "range": 5,
+    "damage": 2,
+    "hitbox": 0.7,
+    "piercing": true,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1.15,
+        "children": [
+          {
+            "label": "warlord_slash_fast",
+            "sprite": {
+              "w": 12,
+              "h": 10,
+              "x": 56,
+              "y": 200
+            },
+            "outline": false,
+            "x": -6,
+            "y": -5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "speed": 2.5,
+    "range": 7,
+    "damage": 2,
+    "hitbox": 0.6,
+    "piercing": false,
+    "object": [
+      {
+        "type": "container",
+        "label": "projectile",
+        "scale": 1.15,
+        "children": [
+          {
+            "label": "warlord_spiral_enraged",
+            "sprite": {
+              "w": 10,
+              "h": 10,
+              "x": 0,
+              "y": 240
+            },
+            "outline": true,
+            "x": -5,
+            "y": -5
           }
         ]
       }

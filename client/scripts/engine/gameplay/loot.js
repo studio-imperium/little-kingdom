@@ -3,6 +3,7 @@ const loots = {}
 class Loot {
   constructor(id, x, y) {
     this.object = build_loot(id)
+    this.dead = false
     this.object.angle = Math.random() * 360
     this.object.x += x
     this.object.y += y
@@ -16,23 +17,23 @@ class Loot {
   }
 
   kill(id) {
-    this.object.destroy()
-    delete loots[id]
+    this.dead = true
+
+    setTimeout(() => {
+      this.object.destroy()
+      delete loots[id]
+    }, 300)
   }
 }
 
 function build_loot(loot_id) {
   let loot = new PIXI.Container()
-  let sprite = item_data[loot_id].sprite
-  let loot_blueprint = {
-    x: -sprite.w / 2,
-    y: -sprite.h / 2,
-    angle: 0,
-    scale: 1,
-    label: loot_id,
-  }
+  let blueprint = item_data[loot_id].hand
 
-  loot_obj = build_object(loot_blueprint)
+  loot_obj = build_object(blueprint)
+  loot_obj.angle = -blueprint.angle
+  loot_obj.getChildAt(0).x = -5
+  loot_obj.getChildAt(0).y = -5
   loot_layer.attach(loot_obj)
   loot.addChild(loot_obj)
 
