@@ -1,4 +1,4 @@
-const addr = "localhost"
+const addr = "159.203.0.78"
 let CONNECTED = false
 let socket
 let token

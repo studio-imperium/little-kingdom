@@ -1,0 +1,5 @@
+services:
+  auth:
+    image: williamqm/mmobackend:latest
+    ports:
+      - "8082:8082"

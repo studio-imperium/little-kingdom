@@ -1,13 +1,15 @@
 package engine
 
 import (
+	"embed"
 	"encoding/binary"
 	"math"
 	"math/rand/v2"
-	"os"
-	"path/filepath"
 	"sync"
 )
+
+//go:embed assets/maps/*.map
+var mapFiles embed.FS
 
 type Biome uint8
 
@@ -113,8 +115,10 @@ func (engine *Engine) GetBeachpoint() (float32, float32) {
 }
 
 func (engine *Engine) LoadMap(name string) *Map {
-	path := filepath.Join("..", "engine", "assets", "maps", name+".map")
-	f, _ := os.Open(path)
+	f, err := mapFiles.Open("assets/maps/" + name + ".map")
+	if err != nil {
+		panic("LoadMap: " + err.Error())
+	}
 	defer f.Close()
 
 	var cellCount uint16
