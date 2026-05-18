@@ -91,6 +91,7 @@ async function init() {
     loadAsset("projectiles.json"),
     loadAsset("bombs.json"),
   ])
+  reindexItems()
 
   previewApi = await makePreview(document.getElementById("preview-host"), { zoom: 1.5 })
   updateZoomLabel()

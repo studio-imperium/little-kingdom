@@ -45,6 +45,11 @@
         "loot": 18,
         "chance": 0.5,
         "soulbound": false
+      },
+      {
+        "loot": 19,
+        "chance": 0.05,
+        "soulbound": true
       }
     ]
   },
@@ -147,5 +152,9 @@
         "soulbound": false
       }
     ]
+  },
+  {
+    "display": "Desert (Tier 1)",
+    "entries": []
   }
 ]

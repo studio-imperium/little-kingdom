@@ -459,33 +459,19 @@
     "frames": [
       {
         "time": 0,
-        "hand_angle": 45,
-        "hand_scale": 0.8
+        "hand_y": 0
       },
       {
         "time": 0.2,
-        "hand_angle": -45,
-        "hand_scale": 1
+        "hand_y": 1
       },
       {
         "time": 0.3,
-        "hand_angle": -45,
-        "hand_scale": 1.2
-      },
-      {
-        "time": 0.4,
-        "hand_angle": -45,
-        "hand_scale": 1
-      },
-      {
-        "time": 0.7,
-        "hand_angle": -45,
-        "hand_scale": 1
+        "hand_y": -5
       },
       {
         "time": 1,
-        "hand_angle": 45,
-        "hand_scale": 0
+        "hand_y": 0
       }
     ]
   }

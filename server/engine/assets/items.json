@@ -959,5 +959,487 @@
       ]
     },
     "on_use": "potion_heal"
+  },
+  {
+    "id": 19,
+    "display": "Nature Spell",
+    "type": "hand",
+    "stats": {},
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 100,
+      "y": 170
+    },
+    "attacks": [
+      {
+        "animation": 5,
+        "reload": 0.5,
+        "projectiles": [],
+        "bombs": [
+          {
+            "id": 3,
+            "angle": 0
+          }
+        ],
+        "wait": 0
+      },
+      {
+        "animation": 5,
+        "reload": 1,
+        "projectiles": [],
+        "bombs": [
+          {
+            "id": 4,
+            "angle": 0
+          }
+        ]
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 20,
+      "children": [
+        {
+          "label": "nature_spell_hand",
+          "x": 1,
+          "y": -9,
+          "scale": 0.8,
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 100,
+            "y": 170
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 20,
+    "display": "Ancient Spell",
+    "type": "hand",
+    "stats": {},
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 110,
+      "y": 170
+    },
+    "attacks": [
+      {
+        "animation": 5,
+        "reload": 3,
+        "projectiles": [],
+        "bombs": [
+          {
+            "id": 12,
+            "angle": 0
+          },
+          {
+            "id": 10,
+            "angle": 0
+          },
+          {
+            "id": 10,
+            "angle": 0
+          },
+          {
+            "id": 10,
+            "angle": 0
+          },
+          {
+            "id": 10,
+            "angle": 0
+          }
+        ]
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 20,
+      "children": [
+        {
+          "label": "ancient_tablet_hand",
+          "x": 1,
+          "y": -9,
+          "scale": 0.8,
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 110,
+            "y": 170
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 21,
+    "display": "Blowpipe",
+    "type": "hand",
+    "stats": {},
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 120,
+      "y": 170
+    },
+    "attacks": [
+      {
+        "animation": 16,
+        "reload": 0.2,
+        "projectiles": [
+          {
+            "id": 6,
+            "angle": 0
+          }
+        ],
+        "bombs": []
+      }
+    ],
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "x": -4,
+      "y": 0,
+      "angle": -45,
+      "scale": 0.9,
+      "children": [
+        {
+          "label": "bpipe",
+          "x": 3,
+          "y": -6,
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 120,
+            "y": 170
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 22,
+    "display": "Iron Helmet",
+    "description": "Forged from an iron ingot",
+    "type": "head",
+    "stats": {
+      "health": 1.4,
+      "speed": 0.9
+    },
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 14.5,
+      "y": 143.5
+    },
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 22.5,
+      "scale": 0.8,
+      "children": [
+        {
+          "label": "iron_helmet_hand",
+          "x": 2,
+          "y": -10,
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 14.5,
+            "y": 143.5
+          }
+        }
+      ]
+    },
+    "equipped": {
+      "type": "container",
+      "label": "head",
+      "children": [
+        {
+          "label": "iron_helmet_head",
+          "x": -4.5,
+          "y": -4.5,
+          "sprite": {
+            "w": 9,
+            "h": 9,
+            "x": 15,
+            "y": 126
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 23,
+    "display": "Iron Platemail",
+    "description": "Forged from a handful of iron ingots",
+    "type": "body",
+    "stats": {
+      "health": 1.6,
+      "speed": 0.8
+    },
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 15,
+      "y": 154
+    },
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 22.5,
+      "scale": 0.8,
+      "children": [
+        {
+          "label": "iron_platemail_hand",
+          "x": 2,
+          "y": -10,
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 15,
+            "y": 154
+          }
+        }
+      ]
+    },
+    "equipped": {
+      "type": "container",
+      "label": "body",
+      "children": [
+        {
+          "label": "iron_platemail_body",
+          "x": -7.5,
+          "y": -3.5,
+          "angle": 0,
+          "scale": 1,
+          "sprite": {
+            "w": 15,
+            "h": 7,
+            "x": 15,
+            "y": 136
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 24,
+    "display": "Leather Cap",
+    "description": "A fine cap for a fine archer, said to make the wearer more dexterous.",
+    "type": "head",
+    "stats": {
+      "health": 1.3,
+      "reload": 1.1
+    },
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 29.5,
+      "y": 143.5
+    },
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 22.5,
+      "scale": 0.8,
+      "children": [
+        {
+          "label": "leather_cap_hand",
+          "x": 2,
+          "y": -10,
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 29.5,
+            "y": 143.5
+          }
+        }
+      ]
+    },
+    "equipped": {
+      "type": "container",
+      "label": "head",
+      "children": [
+        {
+          "label": "leather_cap_head",
+          "x": -4.5,
+          "y": -4.5,
+          "sprite": {
+            "w": 9,
+            "h": 9,
+            "x": 30,
+            "y": 126
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 25,
+    "display": "Leather Hide",
+    "description": "An armor crafted from a cow hide, said to make the wearer more agile.",
+    "type": "body",
+    "stats": {
+      "health": 1.5,
+      "speed": 1.05,
+      "reload": 1.1
+    },
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 30,
+      "y": 154
+    },
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 22.5,
+      "scale": 0.8,
+      "children": [
+        {
+          "label": "leather_hide_hand",
+          "x": 2,
+          "y": -10,
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 30,
+            "y": 154
+          }
+        }
+      ]
+    },
+    "equipped": {
+      "type": "container",
+      "label": "body",
+      "children": [
+        {
+          "label": "leather_hide_body",
+          "x": -7.5,
+          "y": -3.5,
+          "angle": 0,
+          "scale": 1,
+          "sprite": {
+            "w": 15,
+            "h": 7,
+            "x": 30,
+            "y": 136
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 26,
+    "display": "Leather Hat",
+    "description": "A wizard hat adorned with a plastic jewel said to increase power.",
+    "type": "head",
+    "stats": {
+      "health": 1.2,
+      "damage": 1.1
+    },
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 44.5,
+      "y": 142.5
+    },
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 22.5,
+      "scale": 0.8,
+      "children": [
+        {
+          "label": "leather_hat_hand",
+          "x": 2,
+          "y": -10,
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 44.5,
+            "y": 142.5
+          }
+        }
+      ]
+    },
+    "equipped": {
+      "type": "container",
+      "label": "head",
+      "children": [
+        {
+          "label": "leather_hat_head",
+          "x": -4.5,
+          "y": -4.5,
+          "sprite": {
+            "w": 9,
+            "h": 9,
+            "x": 45,
+            "y": 126
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 27,
+    "display": "Leather Robes",
+    "description": "Robes said to have been imbued with healing properties.",
+    "type": "body",
+    "stats": {
+      "health": 1.4,
+      "damage": 1.1,
+      "regen": 1.2
+    },
+    "sprite": {
+      "w": 10,
+      "h": 10,
+      "x": 45,
+      "y": 154
+    },
+    "hand": {
+      "type": "container",
+      "label": "hand",
+      "angle": 22.5,
+      "scale": 0.8,
+      "children": [
+        {
+          "label": "leather_robes_hand",
+          "x": 2,
+          "y": -10,
+          "sprite": {
+            "w": 10,
+            "h": 10,
+            "x": 45,
+            "y": 154
+          }
+        }
+      ]
+    },
+    "equipped": {
+      "type": "container",
+      "label": "body",
+      "children": [
+        {
+          "label": "leather_robes_body",
+          "x": -7.5,
+          "y": -3.5,
+          "angle": 0,
+          "scale": 1,
+          "sprite": {
+            "w": 15,
+            "h": 7,
+            "x": 45,
+            "y": 136
+          }
+        }
+      ]
+    }
   }
 ]

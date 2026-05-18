@@ -1121,6 +1121,7 @@
     "id": 9,
     "display": "Sand Golem",
     "health": 40,
+    "loot": 7,
     "range": 16,
     "hitbox": 1,
     "modes": [
@@ -2008,9 +2009,9 @@
       {
         "type": "container",
         "label": "hand",
-        "x": -5,
-        "angle": 45,
-        "scale": 0,
+        "x": -4,
+        "angle": -45,
+        "scale": 0.8,
         "children": [
           {
             "label": "blowpiper_hand",
