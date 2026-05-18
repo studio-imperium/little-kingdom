@@ -145,7 +145,7 @@ func (engine *Engine) LoadMap(name string) *Map {
 		binary.Read(f, binary.LittleEndian, &m.cells[i].biome)
 		m.cells[i].Idx = uint16(i)
 
-		if m.cells[i].biome == 23 {
+		if m.cells[i].biome == 10 {
 			beachpoints = append(beachpoints, m.cells[i].Origin)
 		}
 

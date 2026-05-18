@@ -83,9 +83,11 @@ function create_slot(idx) {
   })
   slot.addEventListener("drop", (event) => {
     event.preventDefault()
+    event.stopPropagation()
 
     event.target.classList.remove("hovered")
     change_inventory(idx, dragged)
+    dragged = null
   })
 
   slot.appendChild(sprite)
@@ -210,3 +212,13 @@ function refresh_inventory(_inventory, hand, head, body) {
 
 populate_hotbar()
 populate_inventory()
+
+document.body.addEventListener("dragover", (event) => {
+  if (dragged != null) event.preventDefault()
+})
+document.body.addEventListener("drop", (event) => {
+  if (dragged == null) return
+  event.preventDefault()
+  drop_item(dragged)
+  dragged = null
+})

@@ -25,6 +25,7 @@ const (
 	SET_HEALTH
 	CHARACTER_DEAD
 	LOOT_LOOTED
+	DROP_ITEM
 )
 
 var tokens map[uint32]*engine.Character = make(map[uint32]*engine.Character)
@@ -131,6 +132,10 @@ func HandlePacket(client *Client, r io.Reader) {
 		r.Read(toBytes)
 		r.Read(fromBytes)
 		client.changeInventory(toBytes[0], fromBytes[0])
+	case DROP_ITEM:
+		var slotBytes = make([]byte, 1)
+		r.Read(slotBytes)
+		client.dropItem(slotBytes[0])
 	case CHAT_MESSAGE:
 		var msg_len = make([]byte, 1)
 		r.Read(msg_len)

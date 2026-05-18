@@ -51,6 +51,9 @@ func (client *Client) writePackets() {
 		message, _ := <-client.send
 
 		if message[0] == 11 {
+			for _, recipient := range Clients {
+				recipient.SendMessage(0, "System", client.username + " has died!")
+			}
 			client.conn.Close()
 			client.instance.RemoveCharacter(client.id, true)
 			delete(Clients, client.id)

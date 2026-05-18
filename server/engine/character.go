@@ -33,7 +33,7 @@ type Character struct {
 func (c *Character) GetX() float32      { return c.x }
 func (c *Character) GetY() float32      { return c.y }
 func (c *Character) GetId() uint32      { return c.id }
-func (c *Character) GetHitbox() float32 { return 0 }
+func (c *Character) GetHitbox() float32 { return 0.5 }
 func (c *Character) Damage(amount float32) {
 	c.health -= amount
 
@@ -171,6 +171,52 @@ func (char *Character) RemoveInventory(slot uint8) {
 	char.Apply()
 }
 
+func (engine *Engine) DropItem(id uint32, slot uint8) {
+	engine.mu.Lock()
+	defer engine.mu.Unlock()
+
+	char, ok := engine.Characters[id]
+	if !ok {
+		return
+	}
+
+	const (
+		headSlot    uint8 = 24
+		bodySlot    uint8 = 25
+		defaultHead uint8 = 0
+		defaultBody uint8 = 1
+	)
+
+	var item uint8
+	switch slot {
+	case headSlot:
+		if char.head == defaultHead {
+			return
+		}
+		item = char.head
+		char.head = defaultHead
+	case bodySlot:
+		if char.body == defaultBody {
+			return
+		}
+		item = char.body
+		char.body = defaultBody
+	default:
+		v, has := char.inventory[slot]
+		if !has {
+			return
+		}
+		item = v
+		delete(char.inventory, slot)
+	}
+
+	l := CreateLoot(item, char.x, char.y)
+	if char.Simulation != nil {
+		char.Simulation.AddLoot(l)
+	}
+	char.Apply()
+}
+
 func (engine *Engine) UseItem(id uint32, onUse string) {
 	engine.mu.Lock()
 	defer engine.mu.Unlock()
@@ -298,7 +344,7 @@ func NonZero(a float32) float32 {
 }
 
 func (character *Character) Apply() {
-	var health float32 = 50
+	var health float32 = 25
 	var regen float32 = 1
 	var speed float32 = 1
 	var damage float32 = 1

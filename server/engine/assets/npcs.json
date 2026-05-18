@@ -1121,7 +1121,7 @@
     "id": 9,
     "display": "Sand Golem",
     "health": 40,
-    "loot": 7,
+    "loot": 8,
     "range": 16,
     "hitbox": 1,
     "modes": [
@@ -1407,6 +1407,7 @@
     "id": 11,
     "display": "Sand Worm",
     "health": 20,
+    "loot": 7,
     "range": 32,
     "hitbox": 1,
     "modes": [
@@ -1607,7 +1608,7 @@
     "id": 12,
     "display": "Sand Tribesman",
     "health": 15,
-    "loot": 0,
+    "loot": 3,
     "range": 16,
     "hitbox": 0.7,
     "modes": [
@@ -1706,7 +1707,7 @@
     "id": 13,
     "display": "Sand Warrior",
     "health": 20,
-    "loot": 0,
+    "loot": 7,
     "range": 16,
     "hitbox": 0.7,
     "modes": [
@@ -1825,7 +1826,7 @@
     "id": 14,
     "display": "Sand Brute",
     "health": 25,
-    "loot": 0,
+    "loot": 8,
     "range": 16,
     "hitbox": 0.7,
     "modes": [
@@ -1944,7 +1945,7 @@
     "id": 15,
     "display": "Blowpiper",
     "health": 10,
-    "loot": 0,
+    "loot": 9,
     "range": 6,
     "hitbox": 0.7,
     "modes": [
@@ -2032,7 +2033,7 @@
     "id": 16,
     "display": "Sand Caster",
     "health": 15,
-    "loot": 0,
+    "loot": 7,
     "range": 16,
     "hitbox": 0.7,
     "modes": [
@@ -2134,7 +2135,7 @@
     "id": 17,
     "display": "Sand Cultist",
     "health": 15,
-    "loot": 0,
+    "loot": 7,
     "range": 16,
     "hitbox": 0.7,
     "modes": [
@@ -2246,7 +2247,7 @@
     "id": 18,
     "display": "Dune Wraith",
     "health": 120,
-    "loot": 0,
+    "loot": 10,
     "range": 64,
     "hitbox": 1,
     "modes": [
@@ -2521,7 +2522,7 @@
         "attacks": [
           {
             "animation": 10,
-            "reload": 1,
+            "reload": 0.5,
             "projectiles": [
               {
                 "id": 9,
@@ -2567,7 +2568,7 @@
           },
           {
             "animation": 10,
-            "reload": 1,
+            "reload": 0.7,
             "projectiles": [
               {
                 "id": 10,
@@ -2602,13 +2603,18 @@
                 "angle": 315
               }
             ],
-            "bombs": [],
+            "bombs": [
+              {
+                "id": 10,
+                "angle": 0
+              }
+            ],
             "summons": [],
             "wait": 0
           },
           {
             "animation": 10,
-            "reload": 1,
+            "reload": 0.7,
             "projectiles": [
               {
                 "id": 11,
@@ -2643,7 +2649,12 @@
                 "angle": 315
               }
             ],
-            "bombs": [],
+            "bombs": [
+              {
+                "id": 11,
+                "angle": 0
+              }
+            ],
             "summons": [],
             "wait": 0
           }

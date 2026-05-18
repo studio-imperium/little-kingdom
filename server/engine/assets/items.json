@@ -1124,17 +1124,18 @@
   },
   {
     "id": 22,
-    "display": "Iron Helmet",
-    "description": "Forged from an iron ingot",
+    "display": "Sleel Helmet",
+    "description": "",
     "type": "head",
     "stats": {
-      "health": 1.4,
-      "speed": 0.9
+      "health": 1.5,
+      "speed": 0.9,
+      "regen": 1.1
     },
     "sprite": {
       "w": 10,
       "h": 10,
-      "x": 14.5,
+      "x": 59.5,
       "y": 143.5
     },
     "hand": {
@@ -1144,13 +1145,13 @@
       "scale": 0.8,
       "children": [
         {
-          "label": "iron_helmet_hand",
+          "label": "steel_helmet_hand",
           "x": 2,
           "y": -10,
           "sprite": {
             "w": 10,
             "h": 10,
-            "x": 14.5,
+            "x": 59.5,
             "y": 143.5
           }
         }
@@ -1161,13 +1162,13 @@
       "label": "head",
       "children": [
         {
-          "label": "iron_helmet_head",
+          "label": "steel_helmet_head",
           "x": -4.5,
           "y": -4.5,
           "sprite": {
             "w": 9,
             "h": 9,
-            "x": 15,
+            "x": 60,
             "y": 126
           }
         }
@@ -1176,17 +1177,18 @@
   },
   {
     "id": 23,
-    "display": "Iron Platemail",
-    "description": "Forged from a handful of iron ingots",
+    "display": "Steel Platemail",
+    "description": "",
     "type": "body",
     "stats": {
-      "health": 1.6,
-      "speed": 0.8
+      "health": 1.7,
+      "speed": 0.8,
+      "reload": 1.1
     },
     "sprite": {
       "w": 10,
       "h": 10,
-      "x": 15,
+      "x": 60,
       "y": 154
     },
     "hand": {
@@ -1196,13 +1198,13 @@
       "scale": 0.8,
       "children": [
         {
-          "label": "iron_platemail_hand",
+          "label": "steel_platemail_hand",
           "x": 2,
           "y": -10,
           "sprite": {
             "w": 10,
             "h": 10,
-            "x": 15,
+            "x": 60,
             "y": 154
           }
         }
@@ -1213,7 +1215,7 @@
       "label": "body",
       "children": [
         {
-          "label": "iron_platemail_body",
+          "label": "steel_platemail_body",
           "x": -7.5,
           "y": -3.5,
           "angle": 0,
@@ -1221,7 +1223,7 @@
           "sprite": {
             "w": 15,
             "h": 7,
-            "x": 15,
+            "x": 60,
             "y": 136
           }
         }
@@ -1230,17 +1232,18 @@
   },
   {
     "id": 24,
-    "display": "Leather Cap",
-    "description": "A fine cap for a fine archer, said to make the wearer more dexterous.",
+    "display": "Feathered Cap",
+    "description": "",
     "type": "head",
     "stats": {
-      "health": 1.3,
-      "reload": 1.1
+      "health": 1.4,
+      "speed": 1.05,
+      "reload": 1.2
     },
     "sprite": {
       "w": 10,
       "h": 10,
-      "x": 29.5,
+      "x": 74.5,
       "y": 143.5
     },
     "hand": {
@@ -1250,13 +1253,13 @@
       "scale": 0.8,
       "children": [
         {
-          "label": "leather_cap_hand",
+          "label": "feathered_cap_hand",
           "x": 2,
           "y": -10,
           "sprite": {
             "w": 10,
             "h": 10,
-            "x": 29.5,
+            "x": 74.5,
             "y": 143.5
           }
         }
@@ -1267,13 +1270,13 @@
       "label": "head",
       "children": [
         {
-          "label": "leather_cap_head",
+          "label": "feathered_cap_head",
           "x": -4.5,
           "y": -4.5,
           "sprite": {
             "w": 9,
             "h": 9,
-            "x": 30,
+            "x": 75,
             "y": 126
           }
         }
@@ -1282,18 +1285,18 @@
   },
   {
     "id": 25,
-    "display": "Leather Hide",
-    "description": "An armor crafted from a cow hide, said to make the wearer more agile.",
+    "display": "Feathered Hide",
+    "description": "",
     "type": "body",
     "stats": {
-      "health": 1.5,
+      "health": 1.6,
       "speed": 1.05,
-      "reload": 1.1
+      "reload": 1.2
     },
     "sprite": {
       "w": 10,
       "h": 10,
-      "x": 30,
+      "x": 75,
       "y": 154
     },
     "hand": {
@@ -1303,13 +1306,13 @@
       "scale": 0.8,
       "children": [
         {
-          "label": "leather_hide_hand",
+          "label": "feathered_hide_hand",
           "x": 2,
           "y": -10,
           "sprite": {
             "w": 10,
             "h": 10,
-            "x": 30,
+            "x": 75,
             "y": 154
           }
         }
@@ -1320,7 +1323,7 @@
       "label": "body",
       "children": [
         {
-          "label": "leather_hide_body",
+          "label": "feathered_hide_body",
           "x": -7.5,
           "y": -3.5,
           "angle": 0,
@@ -1328,7 +1331,7 @@
           "sprite": {
             "w": 15,
             "h": 7,
-            "x": 30,
+            "x": 75,
             "y": 136
           }
         }
@@ -1337,17 +1340,18 @@
   },
   {
     "id": 26,
-    "display": "Leather Hat",
-    "description": "A wizard hat adorned with a plastic jewel said to increase power.",
+    "display": "Novice Hat",
+    "description": "",
     "type": "head",
     "stats": {
-      "health": 1.2,
-      "damage": 1.1
+      "health": 1.3,
+      "damage": 1.2,
+      "regen": 1.1
     },
     "sprite": {
       "w": 10,
       "h": 10,
-      "x": 44.5,
+      "x": 89.5,
       "y": 142.5
     },
     "hand": {
@@ -1357,13 +1361,13 @@
       "scale": 0.8,
       "children": [
         {
-          "label": "leather_hat_hand",
+          "label": "novice_hat_hand",
           "x": 2,
           "y": -10,
           "sprite": {
             "w": 10,
             "h": 10,
-            "x": 44.5,
+            "x": 89.5,
             "y": 142.5
           }
         }
@@ -1374,13 +1378,13 @@
       "label": "head",
       "children": [
         {
-          "label": "leather_hat_head",
+          "label": "novice_hat_head",
           "x": -4.5,
           "y": -4.5,
           "sprite": {
             "w": 9,
             "h": 9,
-            "x": 45,
+            "x": 90,
             "y": 126
           }
         }
@@ -1389,18 +1393,18 @@
   },
   {
     "id": 27,
-    "display": "Leather Robes",
-    "description": "Robes said to have been imbued with healing properties.",
+    "display": "Novice Robes",
+    "description": "",
     "type": "body",
     "stats": {
-      "health": 1.4,
-      "damage": 1.1,
-      "regen": 1.2
+      "health": 1.5,
+      "damage": 1.2,
+      "regen": 1.3
     },
     "sprite": {
       "w": 10,
       "h": 10,
-      "x": 45,
+      "x": 90,
       "y": 154
     },
     "hand": {
@@ -1410,13 +1414,13 @@
       "scale": 0.8,
       "children": [
         {
-          "label": "leather_robes_hand",
+          "label": "novice_robes_hand",
           "x": 2,
           "y": -10,
           "sprite": {
             "w": 10,
             "h": 10,
-            "x": 45,
+            "x": 90,
             "y": 154
           }
         }
@@ -1427,7 +1431,7 @@
       "label": "body",
       "children": [
         {
-          "label": "leather_robes_body",
+          "label": "novice_robes_body",
           "x": -7.5,
           "y": -3.5,
           "angle": 0,

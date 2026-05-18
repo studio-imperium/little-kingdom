@@ -49,7 +49,7 @@
       {
         "loot": 19,
         "chance": 0.05,
-        "soulbound": true
+        "soulbound": false
       }
     ]
   },
@@ -155,6 +155,147 @@
   },
   {
     "display": "Desert (Tier 1)",
-    "entries": []
+    "entries": [
+      {
+        "loot": 22,
+        "chance": 0.05,
+        "soulbound": false
+      },
+      {
+        "loot": 23,
+        "chance": 0.05,
+        "soulbound": false
+      },
+      {
+        "loot": 24,
+        "chance": 0.05,
+        "soulbound": false
+      },
+      {
+        "loot": 25,
+        "chance": 0.05,
+        "soulbound": false
+      },
+      {
+        "loot": 26,
+        "chance": 0.05,
+        "soulbound": false
+      },
+      {
+        "loot": 27,
+        "chance": 0.05,
+        "soulbound": false
+      },
+      {
+        "loot": 13,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 14,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 15,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 18,
+        "chance": 0.5,
+        "soulbound": false
+      }
+    ]
+  },
+  {
+    "display": "Desert (Tier 2)",
+    "entries": [
+      {
+        "loot": 22,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 23,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 24,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 25,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 26,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 27,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 13,
+        "chance": 0.15,
+        "soulbound": false
+      },
+      {
+        "loot": 14,
+        "chance": 0.15,
+        "soulbound": false
+      },
+      {
+        "loot": 15,
+        "chance": 0.15,
+        "soulbound": false
+      },
+      {
+        "loot": 18,
+        "chance": 0.8,
+        "soulbound": false
+      }
+    ]
+  },
+  {
+    "display": "Blowpiper",
+    "entries": [
+      {
+        "loot": 21,
+        "chance": 0.1,
+        "soulbound": false
+      }
+    ]
+  },
+  {
+    "display": "Dune Wraith",
+    "entries": [
+      {
+        "loot": 20,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 26,
+        "chance": 0.5,
+        "soulbound": false
+      },
+      {
+        "loot": 27,
+        "chance": 0.5,
+        "soulbound": false
+      },
+      {
+        "loot": 15,
+        "chance": 0.5,
+        "soulbound": false
+      }
+    ]
   }
 ]

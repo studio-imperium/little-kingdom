@@ -17,7 +17,8 @@ const [
   SET_HEALTH,
   CHARACTER_DEAD,
   LOOT_LOOTED,
-] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  DROP_ITEM,
+] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 
 function get_character(id) {
   if (characters[id]) {
@@ -359,6 +360,14 @@ function change_inventory(to, from) {
 
   console.log(to, from)
 
+  socket.send(data)
+}
+
+function drop_item(slot) {
+  const buffer = new ArrayBuffer(2)
+  const data = new DataView(buffer)
+  data.setUint8(0, DROP_ITEM)
+  data.setUint8(1, slot)
   socket.send(data)
 }
 

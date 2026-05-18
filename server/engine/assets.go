@@ -194,23 +194,23 @@ func InitAssets() {
 	}
 
 	// desert
-	biomeSpawns[13] = spawnsByCollection(4)
-	biomeSpawns[14] = spawnsByCollection(4) 
-	biomeSpawns[15] = spawnsByCollection(4) 
+	biomeSpawns[0] = spawnsByCollection(4)
+	biomeSpawns[1] = spawnsByCollection(4) 
+	biomeSpawns[2] = spawnsByCollection(4) 
 	
-	biomeSpawns[16] = spawnsByCollection(4)
-	biomeSpawns[17] = spawnsByCollection(3)
+	biomeSpawns[3] = spawnsByCollection(4)
+	biomeSpawns[4] = spawnsByCollection(3)
 	
-	biomeSpawns[18] = spawnsByCollection(3)
-	biomeSpawns[19] = spawnsByCollection(3)
-	biomeSpawns[20] = spawnsByCollection(3)
+	biomeSpawns[5] = spawnsByCollection(3)
+	biomeSpawns[6] = spawnsByCollection(3)
+	biomeSpawns[7] = spawnsByCollection(3)
 
 	// forest
-	biomeSpawns[21] = spawnsByCollection(2)
-	biomeSpawns[22] = spawnsByCollection(1)
+	biomeSpawns[8] = spawnsByCollection(2)
+	biomeSpawns[9] = spawnsByCollection(1)
 
 	// beach
-	biomeSpawns[23] = spawnsByCollection(0)
+	biomeSpawns[10] = spawnsByCollection(0)
 
 	fmt.Println("Initialized", len(npcData), "NPCs")
 	fmt.Println("Initialized", len(spawnsData), "Spawns")
