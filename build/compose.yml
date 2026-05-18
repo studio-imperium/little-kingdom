@@ -1,5 +1,10 @@
 services:
-  auth:
+  backend:
     image: williamqm/mmobackend:latest
-    ports:
-      - "8082:8082"
+  caddy:
+    image: caddy:latest
+    ports: ["443:443", "80:80"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+volumes: { caddy_data: }
