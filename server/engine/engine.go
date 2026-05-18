@@ -48,7 +48,7 @@ func (engine *Engine) Pack(packet_type uint8) []byte {
 
 func CreateIsland() *Engine {
 	engine := CreateEngine()
-	engine.LoadMap("2500world")
+	engine.LoadMap("myworld")
 
 	return engine
 }

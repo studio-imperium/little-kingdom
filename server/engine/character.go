@@ -33,13 +33,13 @@ type Character struct {
 func (c *Character) GetX() float32      { return c.x }
 func (c *Character) GetY() float32      { return c.y }
 func (c *Character) GetId() uint32      { return c.id }
-func (c *Character) GetHitbox() float32 { return 1 }
+func (c *Character) GetHitbox() float32 { return 0 }
 func (c *Character) Damage(amount float32) {
 	c.health -= amount
 
 	if c.health < 1 {
 		*c.send <- []byte{11}
-	} else {
+	} else if (amount > 0) {
 		data := new(bytes.Buffer)
 		data.WriteByte(byte(5))
 		binary.Write(data, binary.LittleEndian, c.id)
@@ -274,7 +274,7 @@ func (character *Character) Tick(delta_sec float32) {
 	}
 
 	tmp := uint16(character.health)
-	character.health += character.regen * delta_sec / 2
+	character.health += character.regen * delta_sec
 
 	if character.health > character.maxHealth {
 		character.health = character.maxHealth
@@ -298,7 +298,7 @@ func NonZero(a float32) float32 {
 }
 
 func (character *Character) Apply() {
-	var health float32 = 20
+	var health float32 = 50
 	var regen float32 = 1
 	var speed float32 = 1
 	var damage float32 = 1

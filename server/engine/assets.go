@@ -42,6 +42,7 @@ type NpcModeData struct {
 	SingleUse bool         `json:"single_use,omitempty"`
 	Priority  bool         `json:"priority,omitempty"`
 	Movement  string       `json:"movement"`
+	Speed     float32      `json:"speed"`
 	Attacks   []AttackData `json:"attacks,omitempty"`
 }
 
@@ -49,7 +50,6 @@ type NpcData struct {
 	ID     uint8         `json:"id"`
 	Name   string        `json:"display"`
 	Health float32       `json:"health"`
-	Speed  float32       `json:"speed"`
 	Loot   uint16        `json:"loot"`
 	Range  float32       `json:"range"`
 	Hitbox float32       `json:"hitbox"`
@@ -57,14 +57,25 @@ type NpcData struct {
 }
 
 type SpawnData struct {
-	Chance float32      `json:"chance"`
-	Npcs   []SummonData `json:"npcs"`
+	Display string       `json:"display"`
+	Chance  float32      `json:"chance"`
+	Npcs    []SummonData `json:"npcs"`
+}
+
+type SpawnCollection struct {
+	Display string      `json:"display"`
+	Spawns  []SpawnData `json:"spawns"`
 }
 
 type LootData struct {
 	Loot   uint8   `json:"loot"`
 	Chance float32 `json:"chance"`
 	SB     bool    `json:"soulbound"`
+}
+
+type LootTable struct {
+	Display string     `json:"display"`
+	Entries []LootData `json:"entries"`
 }
 
 type Stats struct {
@@ -124,8 +135,8 @@ var tilesJSON []byte
 var jsonAssets embed.FS
 
 var npcData []NpcData
-var spawnsData [][]SpawnData
-var lootData [][]LootData
+var spawnsData []SpawnCollection
+var lootData []LootTable
 var itemData []ItemData
 var projectileData []ProjectileData
 var bombData []BombData
@@ -143,11 +154,14 @@ func JSONAssets() fs.FS {
 func GetNpcData(id uint8) NpcData {
 	return npcData[id]
 }
-func GetSpawnsData(id uint8) []SpawnData {
-	return spawnsData[id]
+func spawnsByCollection(idx int) []SpawnData {
+	if idx < 0 || idx >= len(spawnsData) {
+		return nil
+	}
+	return spawnsData[idx].Spawns
 }
 func GetLootData(id uint16) []LootData {
-	return lootData[id]
+	return lootData[id].Entries
 }
 func GetItemData(id uint8) ItemData {
 	return itemData[id]
@@ -161,7 +175,7 @@ func GetBombData(id uint8) BombData {
 
 func InitAssets() {
 	if err := json.Unmarshal(npcsJSON, &npcData); err != nil {
-		fmt.Println("Error parsing Npc JSON")
+		fmt.Println("Error parsing Npc JSON:", err)
 	}
 	if err := json.Unmarshal(spawnsJSON, &spawnsData); err != nil {
 		fmt.Println("Error parsing Spawns JSON")
@@ -179,12 +193,24 @@ func InitAssets() {
 		fmt.Println("Error parsing Bomb JSON")
 	}
 
+	// desert
+	biomeSpawns[13] = spawnsByCollection(4)
+	biomeSpawns[14] = spawnsByCollection(4) 
+	biomeSpawns[15] = spawnsByCollection(4) 
+	
+	biomeSpawns[16] = spawnsByCollection(4)
+	biomeSpawns[17] = spawnsByCollection(3)
+	
+	biomeSpawns[18] = spawnsByCollection(3)
+	biomeSpawns[19] = spawnsByCollection(3)
+	biomeSpawns[20] = spawnsByCollection(3)
+
 	// forest
-	biomeSpawns[21] = spawnsData[1]
-	biomeSpawns[22] = spawnsData[1]
+	biomeSpawns[21] = spawnsByCollection(2)
+	biomeSpawns[22] = spawnsByCollection(1)
 
 	// beach
-	biomeSpawns[23] = spawnsData[0]
+	biomeSpawns[23] = spawnsByCollection(0)
 
 	fmt.Println("Initialized", len(npcData), "NPCs")
 	fmt.Println("Initialized", len(spawnsData), "Spawns")

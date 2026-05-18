@@ -1,92 +1,313 @@
 [
   {
     "id": 0,
-    "airtime": 1,
+    "display": "Wind Bomb",
     "damage": 1,
+    "airtime": 1,
     "radius": 3,
-    "trail": {
-      "label": "wind_spell_trail",
-      "sprite": {
-        "w": 4,
-        "h": 4,
-        "x": 0,
-        "y": 232
-      },
-      "x": -2,
-      "y": -2
-    },
     "object": [
       {
         "type": "container",
         "label": "bomb",
         "children": [
           {
-            "label": "wind_spell_bomb",
+            "label": "wind_bomb",
+            "x": -2.5,
+            "y": -2.5,
             "sprite": {
               "w": 5,
               "h": 5,
               "x": 0,
               "y": 235
-            },
-            "x": -2.5,
-            "y": -2.5
+            }
           }
         ]
       }
-    ]
-  },
-  {
-    "id": 1,
-    "airtime": 0.5,
-    "damage": 2,
-    "radius": 2,
+    ],
     "trail": {
-      "label": "light_spell_trail",
+      "label": "wind_bomb_trail",
+      "x": -2,
+      "y": -2,
       "sprite": {
         "w": 4,
         "h": 4,
-        "x": 4,
+        "x": 0,
         "y": 232
-      },
-      "x": -2,
-      "y": -2
-    },
+      }
+    }
+  },
+  {
+    "id": 1,
+    "display": "Light Bomb (Tier 1)",
+    "damage": 2,
+    "airtime": 0.5,
+    "radius": 2,
     "object": [
       {
         "type": "container",
         "label": "bomb",
+        "scale": 1.2,
         "children": [
           {
-            "label": "light_spell_bomb",
+            "label": "light_bomb",
+            "x": -2.5,
+            "y": -2.5,
             "sprite": {
               "w": 5,
               "h": 5,
               "x": 4,
               "y": 235
-            },
-            "x": -2.5,
-            "y": -2.5
+            }
           }
         ]
       }
-    ]
-  },
-  {
-    "id": 2,
-    "airtime": 1.5,
-    "damage": 4,
-    "radius": 2,
+    ],
     "trail": {
-      "label": "bomb1_trail",
+      "label": "light_bomb_trail",
+      "x": -2,
+      "y": -2,
       "sprite": {
         "w": 4,
         "h": 4,
-        "x": 10,
-        "y": 250
-      },
+        "x": 4,
+        "y": 232
+      }
+    }
+  },
+  {
+    "id": 2,
+    "display": "Light Bomb (Tier 2)",
+    "damage": 4,
+    "airtime": 0.8,
+    "radius": 2,
+    "object": [
+      {
+        "type": "container",
+        "label": "bomb",
+        "scale": 1.2,
+        "children": [
+          {
+            "label": "light_bomb_2",
+            "x": -4.5,
+            "y": -4.5,
+            "sprite": {
+              "w": 9,
+              "h": 9,
+              "x": 42,
+              "y": 231
+            }
+          }
+        ]
+      }
+    ],
+    "trail": {
+      "label": "light_bomb_2_trail",
       "x": -2,
-      "y": -2
-    },
+      "y": -2,
+      "sprite": {
+        "w": 4,
+        "h": 4,
+        "x": 4,
+        "y": 232
+      }
+    }
+  },
+  {
+    "id": 3,
+    "display": "Nature Bomb (Tier 1)",
+    "damage": 1,
+    "airtime": 1,
+    "radius": 3,
+    "object": [
+      {
+        "type": "container",
+        "label": "bomb",
+        "scale": 1.1,
+        "children": [
+          {
+            "label": "nature_bomb_1",
+            "x": -2.5,
+            "y": -2.5,
+            "sprite": {
+              "w": 5,
+              "h": 5,
+              "x": 8,
+              "y": 235
+            }
+          }
+        ]
+      }
+    ],
+    "trail": {
+      "label": "nature_bomb_1_trail",
+      "x": -2,
+      "y": -2,
+      "sprite": {
+        "w": 4,
+        "h": 4,
+        "x": 8,
+        "y": 232
+      }
+    }
+  },
+  {
+    "id": 4,
+    "display": "Nature Bomb (Tier 2)",
+    "damage": 1,
+    "airtime": 1,
+    "radius": 3,
+    "object": [
+      {
+        "type": "container",
+        "label": "bomb",
+        "scale": 1.1,
+        "children": [
+          {
+            "label": "nature_bomb_2",
+            "x": -4.5,
+            "y": -4.5,
+            "sprite": {
+              "w": 9,
+              "h": 9,
+              "x": 34,
+              "y": 231
+            }
+          }
+        ]
+      }
+    ],
+    "trail": {
+      "label": "nature_bomb_2_trail",
+      "x": -2,
+      "y": -2,
+      "sprite": {
+        "w": 4,
+        "h": 4,
+        "x": 8,
+        "y": 232
+      }
+    }
+  },
+  {
+    "id": 5,
+    "display": "Ice Bomb (Tier 1)",
+    "damage": 3,
+    "airtime": 2,
+    "radius": 3,
+    "object": [
+      {
+        "type": "container",
+        "label": "bomb",
+        "scale": 1.3,
+        "children": [
+          {
+            "label": "ice_bomb_1",
+            "x": -2.5,
+            "y": -2.5,
+            "sprite": {
+              "w": 5,
+              "h": 5,
+              "x": 50,
+              "y": 235
+            }
+          }
+        ]
+      }
+    ],
+    "trail": {
+      "label": "ice_bomb_1_trail",
+      "x": -2,
+      "y": -2,
+      "sprite": {
+        "w": 4,
+        "h": 4,
+        "x": 50,
+        "y": 232
+      }
+    }
+  },
+  {
+    "id": 6,
+    "display": "Ice Bomb (Tier 2)",
+    "damage": 5,
+    "airtime": 2,
+    "radius": 5,
+    "object": [
+      {
+        "type": "container",
+        "label": "bomb",
+        "scale": 1.3,
+        "children": [
+          {
+            "label": "ice_bomb_2",
+            "x": -4.5,
+            "y": -4.5,
+            "sprite": {
+              "w": 9,
+              "h": 9,
+              "x": 54,
+              "y": 231
+            }
+          }
+        ]
+      }
+    ],
+    "trail": {
+      "label": "ice_bomb_2_trail",
+      "x": -2,
+      "y": -2,
+      "sprite": {
+        "w": 4,
+        "h": 4,
+        "x": 50,
+        "y": 232
+      }
+    }
+  },
+  {
+    "id": 7,
+    "display": "Pink Bomb",
+    "damage": 3,
+    "airtime": 1.2,
+    "radius": 4,
+    "object": [
+      {
+        "type": "container",
+        "label": "bomb",
+        "scale": 1.2,
+        "children": [
+          {
+            "label": "pink_bomb",
+            "x": -3,
+            "y": -3,
+            "sprite": {
+              "w": 6,
+              "h": 6,
+              "x": 29,
+              "y": 234
+            }
+          }
+        ]
+      }
+    ],
+    "trail": {
+      "label": "pink_bomb_trail",
+      "x": -2,
+      "y": -2,
+      "sprite": {
+        "w": 4,
+        "h": 4,
+        "x": 29,
+        "y": 231
+      }
+    }
+  },
+  {
+    "id": 8,
+    "display": "Cannon Bomb (P1)",
+    "damage": 4,
+    "airtime": 1.5,
+    "radius": 2,
     "object": [
       {
         "type": "container",
@@ -94,35 +315,36 @@
         "children": [
           {
             "label": "bomb1_bomb",
+            "x": -5,
+            "y": -5,
             "sprite": {
               "w": 10,
               "h": 10,
               "x": 0,
               "y": 249
-            },
-            "x": -5,
-            "y": -5
+            }
           }
         ]
       }
-    ]
-  },
-  {
-    "id": 3,
-    "airtime": 1.5,
-    "damage": 2,
-    "radius": 4,
+    ],
     "trail": {
-      "label": "bomb2_trail",
+      "label": "bomb1_trail",
+      "x": -2,
+      "y": -2,
       "sprite": {
         "w": 4,
         "h": 4,
-        "x": 13,
+        "x": 10,
         "y": 250
-      },
-      "x": -2,
-      "y": -2
-    },
+      }
+    }
+  },
+  {
+    "id": 9,
+    "display": "Cannon Bomb (P2)",
+    "damage": 2,
+    "airtime": 1.5,
+    "radius": 4,
     "object": [
       {
         "type": "container",
@@ -139,77 +361,166 @@
           }
         ]
       }
-    ]
-  },
-  {
-    "id": 4,
-    "airtime": 0.5,
-    "damage": 6,
-    "radius": 1,
+    ],
     "trail": {
-      "label": "waraxe_trail",
-      "sprite": {
-        "w": 0,
-        "h": 0,
-        "x": -999,
-        "y": -999
-      }
-    },
-    "object": [
-      {
-        "type": "container",
-        "label": "bomb",
-        "scale": 0.8,
-        "children": [
-          {
-            "label": "waraxe_bomb",
-            "sprite": {
-              "w": 10,
-              "h": 10,
-              "x": 90,
-              "y": 170
-            },
-            "x": -5,
-            "y": -5
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": 5,
-    "airtime": 1,
-    "damage": 1,
-    "radius": 3,
-    "trail": {
-      "label": "nature_druid_trail",
+      "label": "bomb2_trail",
+      "x": -2,
+      "y": -2,
       "sprite": {
         "w": 4,
         "h": 4,
-        "x": 8,
-        "y": 232
-      },
-      "x": -2,
-      "y": -2
-    },
+        "x": 13,
+        "y": 250
+      }
+    }
+  },
+  {
+    "id": 10,
+    "display": "Dark Magic Bomb (Tier 1)",
+    "damage": 1,
+    "airtime": 1.5,
+    "radius": 1,
     "object": [
       {
         "type": "container",
         "label": "bomb",
         "children": [
           {
-            "label": "nature_druid_bomb",
+            "label": "dark_magic_bomb_1",
+            "x": -2.5,
+            "y": -2.5,
             "sprite": {
               "w": 5,
               "h": 5,
-              "x": 8,
+              "x": 12,
               "y": 235
-            },
-            "x": -2.5,
-            "y": -2.5
+            }
           }
         ]
       }
-    ]
+    ],
+    "trail": {
+      "label": "dark_magic_bomb_1_trail",
+      "x": -2,
+      "y": -2,
+      "sprite": {
+        "w": 4,
+        "h": 4,
+        "x": 12,
+        "y": 232
+      }
+    }
+  },
+  {
+    "id": 11,
+    "display": "Dark Magic Bomb (Tier 2)",
+    "damage": 2,
+    "airtime": 1.5,
+    "radius": 2,
+    "object": [
+      {
+        "type": "container",
+        "label": "bomb",
+        "children": [
+          {
+            "label": "dark_magic_bomb_2",
+            "x": -3,
+            "y": -3,
+            "sprite": {
+              "w": 6,
+              "h": 6,
+              "x": 16,
+              "y": 234
+            }
+          }
+        ]
+      }
+    ],
+    "trail": {
+      "label": "dark_magic_bomb_2_trail",
+      "x": -2,
+      "y": -2,
+      "sprite": {
+        "w": 4,
+        "h": 4,
+        "x": 12,
+        "y": 232
+      }
+    }
+  },
+  {
+    "id": 12,
+    "display": "Dark Magic Bomb (Tier 3)",
+    "damage": 3,
+    "airtime": 1.5,
+    "radius": 3,
+    "object": [
+      {
+        "type": "container",
+        "label": "bomb",
+        "children": [
+          {
+            "label": "dark_magic_bomb_3",
+            "x": -4.5,
+            "y": -4.5,
+            "sprite": {
+              "w": 9,
+              "h": 9,
+              "x": 21,
+              "y": 231
+            }
+          }
+        ]
+      }
+    ],
+    "trail": {
+      "label": "dark_magic_bomb_3_trail",
+      "x": -2,
+      "y": -2,
+      "sprite": {
+        "w": 4,
+        "h": 4,
+        "x": 12,
+        "y": 232
+      }
+    }
+  },
+  {
+    "id": 13,
+    "display": "N/A",
+    "damage": 0,
+    "airtime": 0,
+    "radius": 0,
+    "object": [
+      {
+        "type": "container",
+        "label": "bomb",
+        "children": [
+          {
+            "label": "n/a",
+            "x": 0,
+            "y": 0,
+            "outline": false,
+            "sprite": {
+              "w": 0,
+              "h": 0,
+              "x": 0,
+              "y": 0
+            }
+          }
+        ]
+      }
+    ],
+    "trail": {
+      "label": "n/a_trail",
+      "x": 0,
+      "y": 0,
+      "sprite": {
+        "w": 0,
+        "h": 0,
+        "x": 0,
+        "y": 0
+      }
+    }
   }
 ]

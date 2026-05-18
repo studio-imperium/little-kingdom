@@ -1,91 +1,151 @@
 [
-  [],
-  [
-    {
-      "loot": 9,
-      "chance": 0.1,
-      "soulbound": false
-    },
-    {
-      "loot": 10,
-      "chance": 0.1,
-      "soulbound": false
-    },
-    {
-      "loot": 18,
-      "chance": 0.5,
-      "soulbound": false
-    }
-  ],
-  [
-    {
-      "loot": 11,
-      "chance": 0.2,
-      "soulbound": false
-    },
-    {
-      "loot": 6,
-      "chance": 0.1,
-      "soulbound": false
-    },
-    {
-      "loot": 7,
-      "chance": 0.1,
-      "soulbound": false
-    },
-    {
-      "loot": 18,
-      "chance": 0.5,
-      "soulbound": false
-    }
-  ],
-  [
-    {
-      "loot": 9,
-      "chance": 0.1,
-      "soulbound": false
-    },
-    {
-      "loot": 10,
-      "chance": 0.1,
-      "soulbound": false
-    },
-    {
-      "loot": 2,
-      "chance": 0.1,
-      "soulbound": false
-    },
-    {
-      "loot": 3,
-      "chance": 0.1,
-      "soulbound": false
-    },
-    {
-      "loot": 4,
-      "chance": 0.1,
-      "soulbound": false
-    },
-    {
-      "loot": 5,
-      "chance": 0.1,
-      "soulbound": false
-    },
-    {
-      "loot": 18,
-      "chance": 0.5,
-      "soulbound": false
-    }
-  ],
-  [
-    {
-      "loot": 16,
-      "chance": 0.1,
-      "soulbound": false
-    },
-    {
-      "loot": 18,
-      "chance": 0.5,
-      "soulbound": false
-    }
-  ]
+  {
+    "display": "Empty",
+    "entries": []
+  },
+  {
+    "display": "Beach Loot",
+    "entries": [
+      {
+        "loot": 9,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 10,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 18,
+        "chance": 0.5,
+        "soulbound": false
+      }
+    ]
+  },
+  {
+    "display": "Nature Druid Loot",
+    "entries": [
+      {
+        "loot": 11,
+        "chance": 0.2,
+        "soulbound": false
+      },
+      {
+        "loot": 6,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 7,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 18,
+        "chance": 0.5,
+        "soulbound": false
+      }
+    ]
+  },
+  {
+    "display": "Forest Tier 1",
+    "entries": [
+      {
+        "loot": 9,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 10,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 2,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 3,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 4,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 5,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 18,
+        "chance": 0.5,
+        "soulbound": false
+      }
+    ]
+  },
+  {
+    "display": "Goblin Cannon",
+    "entries": [
+      {
+        "loot": 16,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 18,
+        "chance": 0.5,
+        "soulbound": false
+      }
+    ]
+  },
+  {
+    "display": "Forest Tier 2",
+    "entries": [
+      {
+        "loot": 12,
+        "chance": 0.3,
+        "soulbound": false
+      },
+      {
+        "loot": 9,
+        "chance": 0.1,
+        "soulbound": false
+      },
+      {
+        "loot": 18,
+        "chance": 1,
+        "soulbound": false
+      },
+      {
+        "loot": 2,
+        "chance": 0.25,
+        "soulbound": false
+      },
+      {
+        "loot": 3,
+        "chance": 0.25,
+        "soulbound": false
+      }
+    ]
+  },
+  {
+    "display": "Goblin Warlord",
+    "entries": [
+      {
+        "loot": 12,
+        "chance": 0.4,
+        "soulbound": false
+      },
+      {
+        "loot": 17,
+        "chance": 0.1,
+        "soulbound": false
+      }
+    ]
+  }
 ]

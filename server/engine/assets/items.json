@@ -1,7 +1,7 @@
 [
   {
-    "display": "Default Head",
     "id": 0,
+    "display": "Default Head",
     "type": "head",
     "stats": {},
     "sprite": {
@@ -10,30 +10,30 @@
       "x": 0,
       "y": 0
     },
+    "hand": {},
     "equipped": {
       "type": "container",
       "label": "head",
       "children": [
         {
           "label": "default_head",
+          "x": -4.5,
+          "y": -4.5,
+          "angle": 0,
+          "scale": 1,
           "sprite": {
             "w": 9,
             "h": 9,
             "x": 0,
             "y": 126
-          },
-          "x": -4.5,
-          "y": -4.5,
-          "angle": 0,
-          "scale": 1
+          }
         }
       ]
-    },
-    "hand": {}
+    }
   },
   {
-    "display": "Default Body",
     "id": 1,
+    "display": "Default Body",
     "type": "body",
     "stats": {},
     "sprite": {
@@ -42,34 +42,34 @@
       "x": 0,
       "y": 0
     },
+    "hand": {},
     "equipped": {
       "type": "container",
       "label": "body",
       "children": [
         {
           "label": "default_body",
+          "x": -7.5,
+          "y": -3.5,
+          "angle": 0,
+          "scale": 1,
           "sprite": {
             "w": 15,
             "h": 7,
             "x": 0,
             "y": 136
-          },
-          "x": -7.5,
-          "y": -3.5,
-          "angle": 0,
-          "scale": 1
+          }
         }
       ]
-    },
-    "hand": {}
+    }
   },
   {
-    "display": "Iron Helmet",
     "id": 2,
+    "display": "Iron Helmet",
     "description": "Forged from an iron ingot",
     "type": "head",
     "stats": {
-      "health": 1.1,
+      "health": 1.4,
       "speed": 0.9
     },
     "sprite": {
@@ -77,23 +77,6 @@
       "h": 10,
       "x": 14.5,
       "y": 143.5
-    },
-    "equipped": {
-      "type": "container",
-      "label": "head",
-      "children": [
-        {
-          "label": "iron_helmet_head",
-          "sprite": {
-            "w": 9,
-            "h": 9,
-            "x": 15,
-            "y": 126
-          },
-          "x": -4.5,
-          "y": -4.5
-        }
-      ]
     },
     "hand": {
       "type": "container",
@@ -103,25 +86,42 @@
       "children": [
         {
           "label": "iron_helmet_hand",
+          "x": 2,
+          "y": -10,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 14.5,
             "y": 143.5
-          },
-          "x": 2,
-          "y": -10
+          }
+        }
+      ]
+    },
+    "equipped": {
+      "type": "container",
+      "label": "head",
+      "children": [
+        {
+          "label": "iron_helmet_head",
+          "x": -4.5,
+          "y": -4.5,
+          "sprite": {
+            "w": 9,
+            "h": 9,
+            "x": 15,
+            "y": 126
+          }
         }
       ]
     }
   },
   {
-    "display": "Iron Platemail",
     "id": 3,
+    "display": "Iron Platemail",
     "description": "Forged from a handful of iron ingots",
     "type": "body",
     "stats": {
-      "health": 1.2,
+      "health": 1.6,
       "speed": 0.8
     },
     "sprite": {
@@ -129,25 +129,6 @@
       "h": 10,
       "x": 15,
       "y": 154
-    },
-    "equipped": {
-      "type": "container",
-      "label": "body",
-      "children": [
-        {
-          "label": "iron_platemail_body",
-          "sprite": {
-            "w": 15,
-            "h": 7,
-            "x": 15,
-            "y": 136
-          },
-          "x": -7.5,
-          "y": -3.5,
-          "angle": 0,
-          "scale": 1
-        }
-      ]
     },
     "hand": {
       "type": "container",
@@ -157,24 +138,44 @@
       "children": [
         {
           "label": "iron_platemail_hand",
+          "x": 2,
+          "y": -10,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 15,
             "y": 154
-          },
-          "x": 2,
-          "y": -10
+          }
+        }
+      ]
+    },
+    "equipped": {
+      "type": "container",
+      "label": "body",
+      "children": [
+        {
+          "label": "iron_platemail_body",
+          "x": -7.5,
+          "y": -3.5,
+          "angle": 0,
+          "scale": 1,
+          "sprite": {
+            "w": 15,
+            "h": 7,
+            "x": 15,
+            "y": 136
+          }
         }
       ]
     }
   },
   {
-    "display": "Leather Cap",
     "id": 4,
+    "display": "Leather Cap",
     "description": "A fine cap for a fine archer, said to make the wearer more dexterous.",
     "type": "head",
     "stats": {
+      "health": 1.3,
       "reload": 1.1
     },
     "sprite": {
@@ -182,23 +183,6 @@
       "h": 10,
       "x": 29.5,
       "y": 143.5
-    },
-    "equipped": {
-      "type": "container",
-      "label": "head",
-      "children": [
-        {
-          "label": "leather_cap_head",
-          "sprite": {
-            "w": 9,
-            "h": 9,
-            "x": 30,
-            "y": 126
-          },
-          "x": -4.5,
-          "y": -4.5
-        }
-      ]
     },
     "hand": {
       "type": "container",
@@ -208,24 +192,42 @@
       "children": [
         {
           "label": "leather_cap_hand",
+          "x": 2,
+          "y": -10,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 29.5,
             "y": 143.5
-          },
-          "x": 2,
-          "y": -10
+          }
+        }
+      ]
+    },
+    "equipped": {
+      "type": "container",
+      "label": "head",
+      "children": [
+        {
+          "label": "leather_cap_head",
+          "x": -4.5,
+          "y": -4.5,
+          "sprite": {
+            "w": 9,
+            "h": 9,
+            "x": 30,
+            "y": 126
+          }
         }
       ]
     }
   },
   {
-    "display": "Leather Hide",
     "id": 5,
+    "display": "Leather Hide",
     "description": "An armor crafted from a cow hide, said to make the wearer more agile.",
     "type": "body",
     "stats": {
+      "health": 1.5,
       "speed": 1.05,
       "reload": 1.1
     },
@@ -235,25 +237,6 @@
       "x": 30,
       "y": 154
     },
-    "equipped": {
-      "type": "container",
-      "label": "body",
-      "children": [
-        {
-          "label": "leather_hide_body",
-          "sprite": {
-            "w": 15,
-            "h": 7,
-            "x": 30,
-            "y": 136
-          },
-          "x": -7.5,
-          "y": -3.5,
-          "angle": 0,
-          "scale": 1
-        }
-      ]
-    },
     "hand": {
       "type": "container",
       "label": "hand",
@@ -262,24 +245,44 @@
       "children": [
         {
           "label": "leather_hide_hand",
+          "x": 2,
+          "y": -10,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 30,
             "y": 154
-          },
-          "x": 2,
-          "y": -10
+          }
+        }
+      ]
+    },
+    "equipped": {
+      "type": "container",
+      "label": "body",
+      "children": [
+        {
+          "label": "leather_hide_body",
+          "x": -7.5,
+          "y": -3.5,
+          "angle": 0,
+          "scale": 1,
+          "sprite": {
+            "w": 15,
+            "h": 7,
+            "x": 30,
+            "y": 136
+          }
         }
       ]
     }
   },
   {
-    "display": "Leather Hat",
     "id": 6,
+    "display": "Leather Hat",
     "description": "A wizard hat adorned with a plastic jewel said to increase power.",
     "type": "head",
     "stats": {
+      "health": 1.2,
       "damage": 1.1
     },
     "sprite": {
@@ -287,23 +290,6 @@
       "h": 10,
       "x": 44.5,
       "y": 142.5
-    },
-    "equipped": {
-      "type": "container",
-      "label": "head",
-      "children": [
-        {
-          "label": "leather_hat_head",
-          "sprite": {
-            "w": 9,
-            "h": 9,
-            "x": 45,
-            "y": 126
-          },
-          "x": -4.5,
-          "y": -4.5
-        }
-      ]
     },
     "hand": {
       "type": "container",
@@ -313,51 +299,50 @@
       "children": [
         {
           "label": "leather_hat_hand",
+          "x": 2,
+          "y": -10,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 44.5,
             "y": 142.5
-          },
-          "x": 2,
-          "y": -10
+          }
+        }
+      ]
+    },
+    "equipped": {
+      "type": "container",
+      "label": "head",
+      "children": [
+        {
+          "label": "leather_hat_head",
+          "x": -4.5,
+          "y": -4.5,
+          "sprite": {
+            "w": 9,
+            "h": 9,
+            "x": 45,
+            "y": 126
+          }
         }
       ]
     }
   },
   {
-    "display": "Leather Robes",
     "id": 7,
+    "display": "Leather Robes",
     "description": "Robes said to have been imbued with healing properties.",
     "type": "body",
     "stats": {
-      "regen": 1.2,
-      "damage": 1.1
+      "health": 1.4,
+      "damage": 1.1,
+      "regen": 1.2
     },
     "sprite": {
       "w": 10,
       "h": 10,
       "x": 45,
       "y": 154
-    },
-    "equipped": {
-      "type": "container",
-      "label": "body",
-      "children": [
-        {
-          "label": "leather_robes_body",
-          "sprite": {
-            "w": 15,
-            "h": 7,
-            "x": 45,
-            "y": 136
-          },
-          "x": -7.5,
-          "y": -3.5,
-          "angle": 0,
-          "scale": 1
-        }
-      ]
     },
     "hand": {
       "type": "container",
@@ -367,21 +352,40 @@
       "children": [
         {
           "label": "leather_robes_hand",
+          "x": 2,
+          "y": -10,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 45,
             "y": 154
-          },
-          "x": 2,
-          "y": -10
+          }
+        }
+      ]
+    },
+    "equipped": {
+      "type": "container",
+      "label": "body",
+      "children": [
+        {
+          "label": "leather_robes_body",
+          "x": -7.5,
+          "y": -3.5,
+          "angle": 0,
+          "scale": 1,
+          "sprite": {
+            "w": 15,
+            "h": 7,
+            "x": 45,
+            "y": 136
+          }
         }
       ]
     }
   },
   {
-    "display": "Kendo Stick",
     "id": 8,
+    "display": "Kendo Stick",
     "description": "Whack whack",
     "type": "hand",
     "stats": {},
@@ -397,20 +401,22 @@
         "reload": 0.5,
         "projectiles": [
           {
-            "id": 0,
+            "id": 3,
             "angle": 0
           }
-        ]
+        ],
+        "bombs": []
       },
       {
         "animation": 2,
-        "reload": 0.75,
+        "reload": 0.9,
         "projectiles": [
           {
-            "id": 0,
+            "id": 3,
             "angle": 0
           }
-        ]
+        ],
+        "bombs": []
       }
     ],
     "hand": {
@@ -420,21 +426,21 @@
       "children": [
         {
           "label": "kendo_stick_hand",
+          "x": 3,
+          "y": -6,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 0,
             "y": 170
-          },
-          "x": 5,
-          "y": -6
+          }
         }
       ]
     }
   },
   {
-    "display": "Shortsword",
     "id": 9,
+    "display": "Shortsword",
     "description": "Slash slash",
     "type": "hand",
     "stats": {
@@ -449,38 +455,41 @@
     },
     "attacks": [
       {
+        "animation": 1,
+        "reload": 0.5,
+        "projectiles": [
+          {
+            "id": 0,
+            "angle": 0
+          }
+        ],
+        "bombs": []
+      },
+      {
+        "animation": 2,
+        "reload": 0.5,
+        "projectiles": [
+          {
+            "id": 0,
+            "angle": 0
+          }
+        ],
+        "bombs": []
+      },
+      {
         "animation": 3,
-        "reload": 0.5,
-        "projectiles": [
-          {
-            "id": 1,
-            "angle": 0
-          }
-        ]
-      },
-      {
-        "animation": 4,
-        "reload": 0.5,
-        "projectiles": [
-          {
-            "id": 1,
-            "angle": 0
-          }
-        ]
-      },
-      {
-        "animation": 5,
         "reload": 0.75,
         "projectiles": [
           {
-            "id": 2,
+            "id": 0,
             "angle": 0
           },
           {
-            "id": 3,
+            "id": 1,
             "angle": 0
           }
-        ]
+        ],
+        "bombs": []
       }
     ],
     "hand": {
@@ -490,21 +499,21 @@
       "children": [
         {
           "label": "shortsword_hand",
+          "x": 4,
+          "y": -6,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 10,
             "y": 170
-          },
-          "x": 5,
-          "y": -6
+          }
         }
       ]
     }
   },
   {
-    "display": "Shortbow",
     "id": 10,
+    "display": "Shortbow",
     "description": "Bang bang",
     "type": "hand",
     "stats": {},
@@ -516,14 +525,15 @@
     },
     "attacks": [
       {
-        "animation": 6,
+        "animation": 4,
         "reload": 0.3,
         "projectiles": [
           {
-            "id": 4,
+            "id": 6,
             "angle": 0
           }
-        ]
+        ],
+        "bombs": []
       }
     ],
     "hand": {
@@ -533,21 +543,21 @@
       "children": [
         {
           "label": "shortbow_hand",
+          "x": 0,
+          "y": -9,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 20,
             "y": 170
-          },
-          "x": 0,
-          "y": -9
+          }
         }
       ]
     }
   },
   {
-    "display": "Wind Spell",
     "id": 11,
+    "display": "Wind Spell",
     "description": "Splash splash",
     "type": "hand",
     "stats": {},
@@ -559,8 +569,9 @@
     },
     "attacks": [
       {
-        "animation": 7,
+        "animation": 5,
         "reload": 0.5,
+        "projectiles": [],
         "bombs": [
           {
             "id": 0
@@ -575,22 +586,22 @@
       "children": [
         {
           "label": "wind_spell_hand",
+          "x": 1,
+          "y": -9,
+          "scale": 0.8,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 30,
             "y": 170
-          },
-          "x": 1,
-          "y": -9,
-          "scale": 0.8
+          }
         }
       ]
     }
   },
   {
-    "display": "Hatchet",
     "id": 12,
+    "display": "Hatchet",
     "description": "Bane of the stump",
     "type": "hand",
     "stats": {},
@@ -602,24 +613,26 @@
     },
     "attacks": [
       {
-        "animation": 3,
-        "reload": 0.5,
+        "animation": 1,
+        "reload": 0.3,
         "projectiles": [
           {
-            "id": 5,
+            "id": 3,
             "angle": 0
           }
-        ]
+        ],
+        "bombs": []
       },
       {
-        "animation": 4,
+        "animation": 2,
         "reload": 0.5,
         "projectiles": [
           {
-            "id": 6,
+            "id": 4,
             "angle": 0
           }
-        ]
+        ],
+        "bombs": []
       }
     ],
     "hand": {
@@ -629,21 +642,21 @@
       "children": [
         {
           "label": "hatchet_hand",
+          "x": 5,
+          "y": -6,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 40,
             "y": 170
-          },
-          "x": 5,
-          "y": -6
+          }
         }
       ]
     }
   },
   {
-    "display": "Longsword",
     "id": 13,
+    "display": "Longsword",
     "description": "The longest sword ever",
     "type": "hand",
     "stats": {},
@@ -655,50 +668,41 @@
     },
     "attacks": [
       {
+        "animation": 1,
+        "reload": 0.7,
+        "projectiles": [
+          {
+            "id": 1,
+            "angle": 0
+          }
+        ],
+        "bombs": []
+      },
+      {
+        "animation": 2,
+        "reload": 0.2,
+        "projectiles": [
+          {
+            "id": 1,
+            "angle": 0
+          }
+        ],
+        "bombs": []
+      },
+      {
         "animation": 3,
         "reload": 0.8,
         "projectiles": [
           {
-            "id": 7,
+            "id": 2,
             "angle": 0
           },
           {
-            "id": 8,
+            "id": 1,
             "angle": 0
           }
-        ]
-      },
-      {
-        "animation": 4,
-        "reload": 0.8,
-        "projectiles": [
-          {
-            "id": 7,
-            "angle": 0
-          },
-          {
-            "id": 8,
-            "angle": 0
-          }
-        ]
-      },
-      {
-        "animation": 5,
-        "reload": 1,
-        "projectiles": [
-          {
-            "id": 7,
-            "angle": 0
-          },
-          {
-            "id": 8,
-            "angle": 0
-          },
-          {
-            "id": 9,
-            "angle": 0
-          }
-        ]
+        ],
+        "bombs": []
       }
     ],
     "hand": {
@@ -708,21 +712,21 @@
       "children": [
         {
           "label": "longsword_hand",
+          "x": 4,
+          "y": -6,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 50,
             "y": 170
-          },
-          "x": 5,
-          "y": -6
+          }
         }
       ]
     }
   },
   {
-    "display": "Longbow",
     "id": 14,
+    "display": "Longbow",
     "description": "The longest bow ever.",
     "type": "hand",
     "stats": {},
@@ -734,28 +738,30 @@
     },
     "attacks": [
       {
-        "animation": 6,
+        "animation": 4,
         "reload": 0.3,
         "projectiles": [
           {
-            "id": 10,
+            "id": 7,
             "angle": 0
           }
-        ]
+        ],
+        "bombs": []
       },
       {
-        "animation": 6,
+        "animation": 4,
         "reload": 0.3,
         "projectiles": [
           {
-            "id": 10,
+            "id": 6,
             "angle": 355
           },
           {
-            "id": 10,
+            "id": 6,
             "angle": 5
           }
-        ]
+        ],
+        "bombs": []
       }
     ],
     "hand": {
@@ -765,23 +771,24 @@
       "children": [
         {
           "label": "longbow_hand",
+          "x": 0,
+          "y": -9,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 60,
             "y": 170
-          },
-          "x": 0,
-          "y": -9
+          }
         }
       ]
     }
   },
   {
-    "display": "Light Spell",
     "id": 15,
+    "display": "Light Spell",
     "description": "A blinding spell, forged on the hottest day on record.",
     "type": "hand",
+    "stats": {},
     "sprite": {
       "w": 10,
       "h": 10,
@@ -790,8 +797,9 @@
     },
     "attacks": [
       {
-        "animation": 7,
+        "animation": 5,
         "reload": 0.5,
+        "projectiles": [],
         "bombs": [
           {
             "id": 1
@@ -806,22 +814,22 @@
       "children": [
         {
           "label": "light_spell_hand",
+          "x": 1,
+          "y": -9,
+          "scale": 0.8,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 70,
             "y": 170
-          },
-          "x": 1,
-          "y": -9,
-          "scale": 0.8
+          }
         }
       ]
     }
   },
   {
-    "display": "Bomb",
     "id": 16,
+    "display": "Bomb",
     "description": "Kablow!",
     "type": "hand",
     "stats": {},
@@ -833,14 +841,15 @@
     },
     "attacks": [
       {
-        "animation": 8,
+        "animation": 5,
         "reload": 1,
+        "projectiles": [],
         "bombs": [
           {
-            "id": 2
+            "id": 8
           },
           {
-            "id": 3
+            "id": 9
           }
         ]
       }
@@ -852,22 +861,22 @@
       "children": [
         {
           "label": "bomb_hand",
+          "x": 1,
+          "y": -9,
+          "scale": 0.8,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 80,
             "y": 170
-          },
-          "x": 1,
-          "y": -9,
-          "scale": 0.8
+          }
         }
       ]
     }
   },
   {
-    "display": "Waraxe",
     "id": 17,
+    "display": "Waraxe",
     "description": "",
     "type": "hand",
     "stats": {},
@@ -879,50 +888,23 @@
     },
     "attacks": [
       {
-        "animation": 3,
-        "reload": 0.6,
-        "projectiles": [
-          {
-            "id": 11,
-            "angle": 320
-          },
-          {
-            "id": 11,
-            "angle": 0
-          },
-          {
-            "id": 11,
-            "angle": 40
-          }
-        ]
-      },
-      {
-        "animation": 4,
-        "reload": 0.6,
-        "projectiles": [
-          {
-            "id": 11,
-            "angle": 320
-          },
-          {
-            "id": 11,
-            "angle": 0
-          },
-          {
-            "id": 11,
-            "angle": 40
-          }
-        ]
-      },
-      {
         "animation": 9,
-        "reload": 1,
-        "bombs": [
+        "reload": 0.5,
+        "projectiles": [
+          {
+            "id": 3,
+            "angle": 315
+          },
           {
             "id": 4,
             "angle": 0
+          },
+          {
+            "id": 3,
+            "angle": 45
           }
-        ]
+        ],
+        "bombs": []
       }
     ],
     "hand": {
@@ -932,48 +914,50 @@
       "children": [
         {
           "label": "waraxe_hand",
+          "x": 4,
+          "y": -6,
           "sprite": {
             "w": 10,
             "h": 10,
             "x": 90,
             "y": 170
-          },
-          "x": 5,
-          "y": -6
+          }
         }
       ]
     }
   },
   {
-    "display": "Health Potion",
     "id": 18,
+    "display": "Health Potion",
     "description": "A rejuvinating tincture",
     "type": "hand",
+    "stats": {},
     "sprite": {
       "w": 10,
       "h": 10,
       "x": 0,
       "y": 180
     },
-    "on_use": "potion_heal",
     "attacks": [],
     "hand": {
       "type": "container",
       "label": "hand",
-      "angle": -23,
+      "angle": 20,
       "children": [
         {
           "label": "health_potion_hand",
+          "x": 1,
+          "y": -9,
+          "scale": 0.8,
           "sprite": {
             "w": 10,
             "h": 10,
-            "x": 90,
-            "y": 170
-          },
-          "x": 5,
-          "y": -6
+            "x": 0,
+            "y": 180
+          }
         }
       ]
-    }
+    },
+    "on_use": "potion_heal"
   }
 ]

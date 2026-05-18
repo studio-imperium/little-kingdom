@@ -14,7 +14,7 @@ func sign(n float32) float32 {
 
 func (npc *Npc) Chase(delta time.Duration) {
 	delta_time := float32(delta) / float32(time.Second)
-	speed := float32(npcData[npc.id].Speed)
+	speed := float32(npcData[npc.id].Modes[npc.mode].Speed)
 	target := NearbyPoint(npc.target, float32(Distance(npc, npc.target)))
 
 	dx := sign(target.GetX() - npc.x)
@@ -26,7 +26,7 @@ func (npc *Npc) Chase(delta time.Duration) {
 
 func (npc *Npc) Run(delta time.Duration) {
 	delta_time := float32(delta) / float32(time.Second)
-	speed := float32(npcData[npc.id].Speed)
+	speed := float32(npcData[npc.id].Modes[npc.mode].Speed)
 	target := NearbyPoint(npc.target, float32(Distance(npc, npc.target)))
 
 	dx := sign(npc.x - target.GetX())
@@ -69,7 +69,7 @@ func (npc *Npc) Turret(delta time.Duration) {
 
 func (npc *Npc) Overshoot(delta time.Duration) {
 	delta_time := float32(delta) / float32(time.Second)
-	speed := float32(npcData[npc.id].Speed)
+	speed := float32(npcData[npc.id].Modes[npc.mode].Speed)
 	target := NearbyPoint(npc.target, 1)
 
 	dx := sign(target.GetX() - npc.x)
@@ -81,7 +81,7 @@ func (npc *Npc) Overshoot(delta time.Duration) {
 
 func (npc *Npc) Wander(delta time.Duration) {
 	delta_time := float32(delta) / float32(time.Second)
-	speed := float32(npcData[npc.id].Speed)
+	speed := float32(npcData[npc.id].Modes[npc.mode].Speed)
 	target := npc.target
 
 	if target == nil || Distance(target, npc) < 1 {
@@ -98,7 +98,7 @@ func (npc *Npc) Wander(delta time.Duration) {
 
 func (npc *Npc) Travel(delta time.Duration) {
 	delta_time := float32(delta) / float32(time.Second)
-	speed := float32(npcData[npc.id].Speed)
+	speed := float32(npcData[npc.id].Modes[npc.mode].Speed)
 	target := npc.target
 
 	if target == nil || Distance(target, npc) < 1 {

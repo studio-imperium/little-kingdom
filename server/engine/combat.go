@@ -41,7 +41,8 @@ func withinRange(bomb *Bomb, entity Entity, is_npc bool) bool {
 func (npc *Npc) Projectile(p ProjectileSpawnData) (uint32, []byte) {
 	x := p.X + npc.x
 	y := p.Y + npc.y
-	angle := (p.Angle + uint16(Angle(npc.target, npc)) - 90) % 360
+	raw := int(p.Angle) + int(Angle(npc.target, npc)) - 90
+	angle := uint16(((raw % 360) + 360) % 360)
 	damage := projectileData[p.ID].Damage
 
 	id := rand.Uint32()

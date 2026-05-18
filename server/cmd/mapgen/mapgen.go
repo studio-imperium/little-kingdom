@@ -153,14 +153,14 @@ func AppendBiomes(biomes ...[]atlas.Biome) []atlas.Biome {
 var Island = AppendBiomes(Hot, Hot, Glaciers, Snowy2, Snowy, Sandy, Sandy2, Sandy3, Beach)
 
 func CreateIsland(size int) *atlas.World {
-	world := atlas.NewWorld(size, 1500, 11)
+	world := atlas.NewWorld(size, 4500, 11)
 	world.Infect(Island, 1)
 
 	return world
 }
 
 func main() {
-	world := CreateIsland(1000)
+	world := CreateIsland(2500)
 	path := filepath.Join("./", "world.map")
 	f, _ := os.Create(path)
 
