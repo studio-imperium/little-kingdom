@@ -1,4 +1,5 @@
-const addr = "159.203.0.78"
+const addr = "kingdomcrushers.io"
+// const addr = "localhost"
 let CONNECTED = false
 let socket
 let token
