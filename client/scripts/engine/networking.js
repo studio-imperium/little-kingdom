@@ -6,6 +6,7 @@ let CONNECTED = false
 let socket
 let token
 
+
 const [
   HANDSHAKE,
   CHARACTER_POSITION,
