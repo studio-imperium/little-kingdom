@@ -1,5 +1,7 @@
 const addr = "kingdomcrushers.io"
-// const addr = "localhost"
+const prefixs = ["wss", "https"]
+// const addr = "localhost:8082"
+// const prefixs = ["ws", "http"]
 let CONNECTED = false
 let socket
 let token
@@ -373,7 +375,7 @@ function drop_item(slot) {
 }
 
 function connect() {
-  socket = new WebSocket("ws://" + addr + ":8082/connect")
+  socket = new WebSocket(prefixs[0] + "://" + addr + "/connect")
   socket.binaryType = "arraybuffer"
 
   function open() {

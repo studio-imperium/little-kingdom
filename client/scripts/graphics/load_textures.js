@@ -1,5 +1,5 @@
 let textures
-const DATA_ASSET_BASE = "https://" + addr + ":8082/assets"
+const DATA_ASSET_BASE = prefixs[1] + "://" + addr + "/assets"
 const spritesheet_data = {
   frames: {},
   meta: {
