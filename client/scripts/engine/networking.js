@@ -1,4 +1,4 @@
-const addr = "kingdomcrushers.io"
+const addr = "server.kingdomcrushers.io"
 const prefixs = ["wss", "https"]
 // const addr = "localhost:8082"
 // const prefixs = ["ws", "http"]
