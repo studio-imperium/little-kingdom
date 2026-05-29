@@ -110,7 +110,7 @@ func (client *Client) characterAttack(x float32, y float32, targetX float32, tar
 	if cooldown < -0.1 {
 		client.character.AttackCounter = 0
 	}
-	if cooldown <= 0.01 {
+	if cooldown <= 0.1 {
 		counter := client.character.AttackCounter
 
 		if item.Attacks != nil {
