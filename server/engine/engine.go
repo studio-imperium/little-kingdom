@@ -199,7 +199,7 @@ func (engine *Engine) Run() {
 	for {
 		engine.mu.Lock()
 		for id, npc := range engine.Npcs {
-			if len(npc.nearby) > 0 {
+			if npc.NearbyCount() > 0 {
 				npc.UpdateTarget()
 				npc.Tick(delta)
 				npc.Move(delta)

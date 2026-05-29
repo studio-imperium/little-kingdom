@@ -35,7 +35,11 @@ func (client *Client) SendMessage(id uint32, sender string, msg string) {
 		data.WriteByte(msg[i])
 	}
 
-	client.send <- data.Bytes()
+	// Non-blocking so a chat broadcast can never stall on a backed-up client.
+	select {
+	case client.send <- data.Bytes():
+	default:
+	}
 }
 
 func (client *Client) ProcessMessage(msg string) {
@@ -53,7 +57,7 @@ func (client *Client) ProcessMessage(msg string) {
 			username := words[1]
 
 			// this is inefficient yet elegant, since I dont want to add another map for usernames
-			for _, c := range Clients {
+			for _, c := range snapshotClients() {
 				if username == c.username {
 					client.character.Move(c.character.GetX(), c.character.GetY(), 0)
 					client.character.Apply()
@@ -102,7 +106,7 @@ func (client *Client) ProcessMessage(msg string) {
 			client.SendMessage(0, "System", "Invalid command")
 		}
 	} else {
-		for _, recipient := range Clients {
+		for _, recipient := range snapshotClients() {
 			recipient.SendMessage(client.id, client.username, msg)
 		}
 	}

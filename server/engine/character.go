@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	"math"
 )
 
 type Character struct {
@@ -38,14 +39,14 @@ func (c *Character) Damage(amount float32) {
 	c.health -= amount
 
 	if c.health < 1 {
-		*c.send <- []byte{11}
-	} else if (amount > 0) {
+		trySend(c.send, []byte{11})
+	} else if amount > 0 {
 		data := new(bytes.Buffer)
 		data.WriteByte(byte(5))
 		binary.Write(data, binary.LittleEndian, c.id)
 		packet := data.Bytes()
 
-		*c.send <- packet
+		trySend(c.send, packet)
 	}
 
 	c.SetHealth(c.health)
@@ -60,7 +61,7 @@ func (character *Character) SetHealth(val float32) {
 	binary.Write(data, binary.LittleEndian, uint16(character.maxHealth))
 	packet := data.Bytes()
 
-	*character.send <- packet
+	trySend(character.send, packet)
 }
 
 func (engine *Engine) GetHand(id uint32) uint8 {
@@ -210,7 +211,15 @@ func (engine *Engine) DropItem(id uint32, slot uint8) {
 		delete(char.inventory, slot)
 	}
 
-	l := CreateLoot(item, char.x, char.y)
+	// Drop the item a short distance in the direction the character is facing.
+	// Dropping just past the pickup radius (Distance < 1) avoids instantly
+	// re-looting it. Angle convention matches projectiles: dir = angle - 90.
+	const dropDistance float32 = 2.0
+	rad := (float64(char.angle) - 90) * (math.Pi / 180)
+	dropX := char.x + float32(math.Cos(rad))*dropDistance
+	dropY := char.y + float32(math.Sin(rad))*dropDistance
+
+	l := CreateLoot(item, dropX, dropY)
 	if char.Simulation != nil {
 		char.Simulation.AddLoot(l)
 	}
@@ -375,7 +384,7 @@ func (character *Character) Apply() {
 	character.Reload = reload
 
 	data := character.PackFull(0)
-	*character.send <- data
+	trySend(character.send, data)
 }
 
 func (character *Character) Attack(x float32, y float32, angle uint16) {

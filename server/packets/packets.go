@@ -6,6 +6,7 @@ import (
 	"io"
 	"math"
 	"server/engine"
+	"sync"
 	"time"
 )
 
@@ -28,14 +29,31 @@ const (
 	DROP_ITEM
 )
 
-var tokens map[uint32]*engine.Character = make(map[uint32]*engine.Character)
 var Clients map[uint32]*Client = make(map[uint32]*Client)
+
+// Clients is read/written from many goroutines (each client's read/write
+// pumps, PropogateWorldState, chat broadcasts). A plain map races and Go
+// fatals on "concurrent map iteration and map write", which would take down
+// the world-state broadcaster for everyone. Guard every access with this.
+var clientsMu sync.RWMutex
+
+// snapshotClients returns a point-in-time copy of the connected clients so
+// callers can iterate without holding the lock across (potentially slow) sends.
+func snapshotClients() []*Client {
+	clientsMu.RLock()
+	defer clientsMu.RUnlock()
+	out := make([]*Client, 0, len(Clients))
+	for _, client := range Clients {
+		out = append(out, client)
+	}
+	return out
+}
 
 func PropogateWorldState() {
 	delta := time.Second / 5
 	ticker := time.NewTicker(delta)
 	for {
-		for _, client := range Clients {
+		for _, client := range snapshotClients() {
 			data := client.simulation.Pack(byte(WORLDSTATE))
 			select {
 			case client.send <- data:
@@ -54,13 +72,15 @@ func handshakePacket(client *Client, data []byte) {
 	// we would get the character from the hub server
 	// if they are a guest it would make them a default char
 	// otherwise fetch their real char
-	tokens[token] = engine.DefaultCharacter(client.simulation, &client.send, token)
+	character := engine.DefaultCharacter(client.simulation, &client.send, token)
 	// okay back to action
 
 	client.id = token
-	client.character = tokens[token]
+	client.character = character
+
+	clientsMu.Lock()
 	Clients[token] = client
-	delete(tokens, token)
+	clientsMu.Unlock()
 
 	engine.Worlds[0].AddCharacter(token, client.character)
 	client.instance = engine.Worlds[0]

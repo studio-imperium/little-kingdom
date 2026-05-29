@@ -5,6 +5,7 @@ const equipment_slots = document.getElementById("equipment_slots")
 let head_slot
 let body_slot
 let dragged
+let selected_slot = 0
 
 function populate_hotbar() {
   for (let i = 0; i < 6; i++) {
@@ -195,6 +196,7 @@ function refresh_inventory(_inventory, hand, head, body) {
 
   reset_hotbar()
   reset_inventory()
+  selected_slot = hand
   hotbar.childNodes[hand].className = "slot selected"
 
   set_gear_slot(head_slot, head)
